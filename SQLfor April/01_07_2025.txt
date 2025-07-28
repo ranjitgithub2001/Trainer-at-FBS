@@ -1,0 +1,524 @@
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.41 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use april2025batch;
+Database changed
+mysql> table employee;
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    3 | Yash     |   22 | 35000.00 |       1 |
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |
+|    9 | Tushar   |   22 | 25000.00 |       4 |
+|   10 | Sudip    |   22 | 27000.00 |       4 |
++------+----------+------+----------+---------+
+8 rows in set (0.01 sec)
+
+mysql> select max(salary) from employee;
++-------------+
+| max(salary) |
++-------------+
+|    40000.00 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee where salary=(
+    -> select max(salary) from employee);
++------+---------+------+----------+---------+
+| e_id | e_name  | age  | salary   | dept_id |
++------+---------+------+----------+---------+
+|    8 | Ajinkya |   25 | 40000.00 |       5 |
++------+---------+------+----------+---------+
+1 row in set (0.01 sec)
+
+mysql> select dept_name from department where dept_id in (selct dept_id from employee where salary=(select max(salary) from employee));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'dept_id from employee where salary=(select max(salary) from employee))' at line 1
+mysql> select dept_name from department where dept_id in (select dept_id from employee where salary=(select max(salary) from employee));
++-----------+
+| dept_name |
++-----------+
+| Accounts  |
++-----------+
+1 row in set (0.02 sec)
+
+mysql> table employee;
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    3 | Yash     |   22 | 35000.00 |       1 |
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |
+|    9 | Tushar   |   22 | 25000.00 |       4 |
+|   10 | Sudip    |   22 | 27000.00 |       4 |
++------+----------+------+----------+---------+
+8 rows in set (0.00 sec)
+
+mysql> table department;
++---------+-----------+----------+
+| dept_id | dept_name | dept_loc |
++---------+-----------+----------+
+|       1 | HR        | Mumbai   |
+|       2 | Sales     | Pune     |
+|       4 | Marketing | Mumbai   |
+|       5 | Accounts  | Mumbai   |
++---------+-----------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select e_name,dept_name from employee cross join department;
++----------+-----------+
+| e_name   | dept_name |
++----------+-----------+
+| Yash     | Accounts  |
+| Yash     | Marketing |
+| Yash     | Sales     |
+| Yash     | HR        |
+| Raj      | Accounts  |
+| Raj      | Marketing |
+| Raj      | Sales     |
+| Raj      | HR        |
+| Shraddha | Accounts  |
+| Shraddha | Marketing |
+| Shraddha | Sales     |
+| Shraddha | HR        |
+| Muskaan  | Accounts  |
+| Muskaan  | Marketing |
+| Muskaan  | Sales     |
+| Muskaan  | HR        |
+| Utkasrh  | Accounts  |
+| Utkasrh  | Marketing |
+| Utkasrh  | Sales     |
+| Utkasrh  | HR        |
+| Ajinkya  | Accounts  |
+| Ajinkya  | Marketing |
+| Ajinkya  | Sales     |
+| Ajinkya  | HR        |
+| Tushar   | Accounts  |
+| Tushar   | Marketing |
+| Tushar   | Sales     |
+| Tushar   | HR        |
+| Sudip    | Accounts  |
+| Sudip    | Marketing |
+| Sudip    | Sales     |
+| Sudip    | HR        |
++----------+-----------+
+32 rows in set (0.02 sec)
+
+mysql> select dept_name from department where dept_id in (select dept_id from employee where salary=(select max(salary)^C
+mysql> select * from employee cross join department;
++------+----------+------+----------+---------+---------+-----------+----------+
+| e_id | e_name   | age  | salary   | dept_id | dept_id | dept_name | dept_loc |
++------+----------+------+----------+---------+---------+-----------+----------+
+|    3 | Yash     |   22 | 35000.00 |       1 |       5 | Accounts  | Mumbai   |
+|    3 | Yash     |   22 | 35000.00 |       1 |       4 | Marketing | Mumbai   |
+|    3 | Yash     |   22 | 35000.00 |       1 |       2 | Sales     | Pune     |
+|    3 | Yash     |   22 | 35000.00 |       1 |       1 | HR        | Mumbai   |
+|    4 | Raj      |   23 | 34000.00 |       2 |       5 | Accounts  | Mumbai   |
+|    4 | Raj      |   23 | 34000.00 |       2 |       4 | Marketing | Mumbai   |
+|    4 | Raj      |   23 | 34000.00 |       2 |       2 | Sales     | Pune     |
+|    4 | Raj      |   23 | 34000.00 |       2 |       1 | HR        | Mumbai   |
+|    5 | Shraddha |   21 | 30000.00 |       4 |       5 | Accounts  | Mumbai   |
+|    5 | Shraddha |   21 | 30000.00 |       4 |       4 | Marketing | Mumbai   |
+|    5 | Shraddha |   21 | 30000.00 |       4 |       2 | Sales     | Pune     |
+|    5 | Shraddha |   21 | 30000.00 |       4 |       1 | HR        | Mumbai   |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |       5 | Accounts  | Mumbai   |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |       4 | Marketing | Mumbai   |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |       2 | Sales     | Pune     |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |       1 | HR        | Mumbai   |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |       5 | Accounts  | Mumbai   |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |       4 | Marketing | Mumbai   |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |       2 | Sales     | Pune     |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |       1 | HR        | Mumbai   |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |       5 | Accounts  | Mumbai   |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |       4 | Marketing | Mumbai   |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |       2 | Sales     | Pune     |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |       1 | HR        | Mumbai   |
+|    9 | Tushar   |   22 | 25000.00 |       4 |       5 | Accounts  | Mumbai   |
+|    9 | Tushar   |   22 | 25000.00 |       4 |       4 | Marketing | Mumbai   |
+|    9 | Tushar   |   22 | 25000.00 |       4 |       2 | Sales     | Pune     |
+|    9 | Tushar   |   22 | 25000.00 |       4 |       1 | HR        | Mumbai   |
+|   10 | Sudip    |   22 | 27000.00 |       4 |       5 | Accounts  | Mumbai   |
+|   10 | Sudip    |   22 | 27000.00 |       4 |       4 | Marketing | Mumbai   |
+|   10 | Sudip    |   22 | 27000.00 |       4 |       2 | Sales     | Pune     |
+|   10 | Sudip    |   22 | 27000.00 |       4 |       1 | HR        | Mumbai   |
++------+----------+------+----------+---------+---------+-----------+----------+
+32 rows in set (0.00 sec)
+
+mysql> insert into employees(e_name,age,salary) values(
+    -> "Satyam",23,37000),
+    -> ("Miheer",22,35000);
+ERROR 1146 (42S02): Table 'april2025batch.employees' doesn't exist
+mysql> insert into employee(e_name,age,salary) values(
+    -> "Satyam",23,37000),
+    -> ("Miheer",22,35000);
+Query OK, 2 rows affected (0.08 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> insert into department values(6,"IT","Nagpur"),(7,"Finance","Jalgaon");
+Query OK, 2 rows affected (0.02 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> table employee;
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    3 | Yash     |   22 | 35000.00 |       1 |
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |
+|    9 | Tushar   |   22 | 25000.00 |       4 |
+|   10 | Sudip    |   22 | 27000.00 |       4 |
+|   11 | Satyam   |   23 | 37000.00 |    NULL |
+|   12 | Miheer   |   22 | 35000.00 |    NULL |
++------+----------+------+----------+---------+
+10 rows in set (0.00 sec)
+
+mysql> table department;
++---------+-----------+----------+
+| dept_id | dept_name | dept_loc |
++---------+-----------+----------+
+|       1 | HR        | Mumbai   |
+|       2 | Sales     | Pune     |
+|       4 | Marketing | Mumbai   |
+|       5 | Accounts  | Mumbai   |
+|       6 | IT        | Nagpur   |
+|       7 | Finance   | Jalgaon  |
++---------+-----------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select dept_name from department where dept_id in (select dept_id from employee where salary=(select max(salary) from employee));^C
+mysql>
+mysql> select e_name,dept_name from employee inner join
+    -> department on dept_id=dept_id;
+ERROR 1052 (23000): Column 'dept_id' in on clause is ambiguous
+mysql> select e_name,dept_name from employee inner join
+    -> department on employee.dept_id=department.dept_id;
++----------+-----------+
+| e_name   | dept_name |
++----------+-----------+
+| Yash     | HR        |
+| Raj      | Sales     |
+| Shraddha | Marketing |
+| Muskaan  | Accounts  |
+| Utkasrh  | HR        |
+| Ajinkya  | Accounts  |
+| Tushar   | Marketing |
+| Sudip    | Marketing |
++----------+-----------+
+8 rows in set (0.01 sec)
+
+mysql> select * from employee inner join department
+    -> on employee.dept_id=department.dept_id;
++------+----------+------+----------+---------+---------+-----------+----------+
+| e_id | e_name   | age  | salary   | dept_id | dept_id | dept_name | dept_loc |
++------+----------+------+----------+---------+---------+-----------+----------+
+|    3 | Yash     |   22 | 35000.00 |       1 |       1 | HR        | Mumbai   |
+|    4 | Raj      |   23 | 34000.00 |       2 |       2 | Sales     | Pune     |
+|    5 | Shraddha |   21 | 30000.00 |       4 |       4 | Marketing | Mumbai   |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |       5 | Accounts  | Mumbai   |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |       1 | HR        | Mumbai   |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |       5 | Accounts  | Mumbai   |
+|    9 | Tushar   |   22 | 25000.00 |       4 |       4 | Marketing | Mumbai   |
+|   10 | Sudip    |   22 | 27000.00 |       4 |       4 | Marketing | Mumbai   |
++------+----------+------+----------+---------+---------+-----------+----------+
+8 rows in set (0.00 sec)
+
+mysql> select * from employee inner join department
+    -> on employee.dept_id^C
+mysql> select * from employee e inner join department d on e.dept_id=d.dept_id;
++------+----------+------+----------+---------+---------+-----------+----------+
+| e_id | e_name   | age  | salary   | dept_id | dept_id | dept_name | dept_loc |
++------+----------+------+----------+---------+---------+-----------+----------+
+|    3 | Yash     |   22 | 35000.00 |       1 |       1 | HR        | Mumbai   |
+|    4 | Raj      |   23 | 34000.00 |       2 |       2 | Sales     | Pune     |
+|    5 | Shraddha |   21 | 30000.00 |       4 |       4 | Marketing | Mumbai   |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |       5 | Accounts  | Mumbai   |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |       1 | HR        | Mumbai   |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |       5 | Accounts  | Mumbai   |
+|    9 | Tushar   |   22 | 25000.00 |       4 |       4 | Marketing | Mumbai   |
+|   10 | Sudip    |   22 | 27000.00 |       4 |       4 | Marketing | Mumbai   |
++------+----------+------+----------+---------+---------+-----------+----------+
+8 rows in set (0.00 sec)
+
+mysql> select e.e_name,d.dept_name from employee e
+    -> inner join department d on e.dept_id=d.dept_id
+    -> where d.dept_loc="Pune";
++--------+-----------+
+| e_name | dept_name |
++--------+-----------+
+| Raj    | Sales     |
++--------+-----------+
+1 row in set (0.01 sec)
+
+mysql> select e.e_name,d.dept_name from employee e
+    -> inner join department d on e.dept_id=d.dept_id
+    -> where d.dept_loc="Mumbai";
++----------+-----------+
+| e_name   | dept_name |
++----------+-----------+
+| Yash     | HR        |
+| Utkasrh  | HR        |
+| Shraddha | Marketing |
+| Tushar   | Marketing |
+| Sudip    | Marketing |
+| Muskaan  | Accounts  |
+| Ajinkya  | Accounts  |
++----------+-----------+
+7 rows in set (0.00 sec)
+
+mysql> select 8 from employee inner join department;
++---+
+| 8 |
++---+
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
+| 8 |
++---+
+60 rows in set (0.00 sec)
+
+mysql> select * from employee inner join department;
++------+----------+------+----------+---------+---------+-----------+----------+
+| e_id | e_name   | age  | salary   | dept_id | dept_id | dept_name | dept_loc |
++------+----------+------+----------+---------+---------+-----------+----------+
+|    3 | Yash     |   22 | 35000.00 |       1 |       7 | Finance   | Jalgaon  |
+|    3 | Yash     |   22 | 35000.00 |       1 |       6 | IT        | Nagpur   |
+|    3 | Yash     |   22 | 35000.00 |       1 |       5 | Accounts  | Mumbai   |
+|    3 | Yash     |   22 | 35000.00 |       1 |       4 | Marketing | Mumbai   |
+|    3 | Yash     |   22 | 35000.00 |       1 |       2 | Sales     | Pune     |
+|    3 | Yash     |   22 | 35000.00 |       1 |       1 | HR        | Mumbai   |
+|    4 | Raj      |   23 | 34000.00 |       2 |       7 | Finance   | Jalgaon  |
+|    4 | Raj      |   23 | 34000.00 |       2 |       6 | IT        | Nagpur   |
+|    4 | Raj      |   23 | 34000.00 |       2 |       5 | Accounts  | Mumbai   |
+|    4 | Raj      |   23 | 34000.00 |       2 |       4 | Marketing | Mumbai   |
+|    4 | Raj      |   23 | 34000.00 |       2 |       2 | Sales     | Pune     |
+|    4 | Raj      |   23 | 34000.00 |       2 |       1 | HR        | Mumbai   |
+|    5 | Shraddha |   21 | 30000.00 |       4 |       7 | Finance   | Jalgaon  |
+|    5 | Shraddha |   21 | 30000.00 |       4 |       6 | IT        | Nagpur   |
+|    5 | Shraddha |   21 | 30000.00 |       4 |       5 | Accounts  | Mumbai   |
+|    5 | Shraddha |   21 | 30000.00 |       4 |       4 | Marketing | Mumbai   |
+|    5 | Shraddha |   21 | 30000.00 |       4 |       2 | Sales     | Pune     |
+|    5 | Shraddha |   21 | 30000.00 |       4 |       1 | HR        | Mumbai   |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |       7 | Finance   | Jalgaon  |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |       6 | IT        | Nagpur   |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |       5 | Accounts  | Mumbai   |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |       4 | Marketing | Mumbai   |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |       2 | Sales     | Pune     |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |       1 | HR        | Mumbai   |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |       7 | Finance   | Jalgaon  |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |       6 | IT        | Nagpur   |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |       5 | Accounts  | Mumbai   |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |       4 | Marketing | Mumbai   |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |       2 | Sales     | Pune     |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |       1 | HR        | Mumbai   |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |       7 | Finance   | Jalgaon  |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |       6 | IT        | Nagpur   |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |       5 | Accounts  | Mumbai   |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |       4 | Marketing | Mumbai   |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |       2 | Sales     | Pune     |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |       1 | HR        | Mumbai   |
+|    9 | Tushar   |   22 | 25000.00 |       4 |       7 | Finance   | Jalgaon  |
+|    9 | Tushar   |   22 | 25000.00 |       4 |       6 | IT        | Nagpur   |
+|    9 | Tushar   |   22 | 25000.00 |       4 |       5 | Accounts  | Mumbai   |
+|    9 | Tushar   |   22 | 25000.00 |       4 |       4 | Marketing | Mumbai   |
+|    9 | Tushar   |   22 | 25000.00 |       4 |       2 | Sales     | Pune     |
+|    9 | Tushar   |   22 | 25000.00 |       4 |       1 | HR        | Mumbai   |
+|   10 | Sudip    |   22 | 27000.00 |       4 |       7 | Finance   | Jalgaon  |
+|   10 | Sudip    |   22 | 27000.00 |       4 |       6 | IT        | Nagpur   |
+|   10 | Sudip    |   22 | 27000.00 |       4 |       5 | Accounts  | Mumbai   |
+|   10 | Sudip    |   22 | 27000.00 |       4 |       4 | Marketing | Mumbai   |
+|   10 | Sudip    |   22 | 27000.00 |       4 |       2 | Sales     | Pune     |
+|   10 | Sudip    |   22 | 27000.00 |       4 |       1 | HR        | Mumbai   |
+|   11 | Satyam   |   23 | 37000.00 |    NULL |       7 | Finance   | Jalgaon  |
+|   11 | Satyam   |   23 | 37000.00 |    NULL |       6 | IT        | Nagpur   |
+|   11 | Satyam   |   23 | 37000.00 |    NULL |       5 | Accounts  | Mumbai   |
+|   11 | Satyam   |   23 | 37000.00 |    NULL |       4 | Marketing | Mumbai   |
+|   11 | Satyam   |   23 | 37000.00 |    NULL |       2 | Sales     | Pune     |
+|   11 | Satyam   |   23 | 37000.00 |    NULL |       1 | HR        | Mumbai   |
+|   12 | Miheer   |   22 | 35000.00 |    NULL |       7 | Finance   | Jalgaon  |
+|   12 | Miheer   |   22 | 35000.00 |    NULL |       6 | IT        | Nagpur   |
+|   12 | Miheer   |   22 | 35000.00 |    NULL |       5 | Accounts  | Mumbai   |
+|   12 | Miheer   |   22 | 35000.00 |    NULL |       4 | Marketing | Mumbai   |
+|   12 | Miheer   |   22 | 35000.00 |    NULL |       2 | Sales     | Pune     |
+|   12 | Miheer   |   22 | 35000.00 |    NULL |       1 | HR        | Mumbai   |
++------+----------+------+----------+---------+---------+-----------+----------+
+60 rows in set (0.00 sec)
+
+mysql>  select e_name,dept_name from employee inner join
+    -> select * from employee inner join department;^C
+mysql>  select e_name,dept_name from employee join
+    -> department on department.dept_id=employee.dept_id;
++----------+-----------+
+| e_name   | dept_name |
++----------+-----------+
+| Yash     | HR        |
+| Raj      | Sales     |
+| Shraddha | Marketing |
+| Muskaan  | Accounts  |
+| Utkasrh  | HR        |
+| Ajinkya  | Accounts  |
+| Tushar   | Marketing |
+| Sudip    | Marketing |
++----------+-----------+
+8 rows in set (0.00 sec)
+
+mysql>  select e_name,dept_name from employee join
+    -> department;
++----------+-----------+
+| e_name   | dept_name |
++----------+-----------+
+| Yash     | Finance   |
+| Yash     | IT        |
+| Yash     | Accounts  |
+| Yash     | Marketing |
+| Yash     | Sales     |
+| Yash     | HR        |
+| Raj      | Finance   |
+| Raj      | IT        |
+| Raj      | Accounts  |
+| Raj      | Marketing |
+| Raj      | Sales     |
+| Raj      | HR        |
+| Shraddha | Finance   |
+| Shraddha | IT        |
+| Shraddha | Accounts  |
+| Shraddha | Marketing |
+| Shraddha | Sales     |
+| Shraddha | HR        |
+| Muskaan  | Finance   |
+| Muskaan  | IT        |
+| Muskaan  | Accounts  |
+| Muskaan  | Marketing |
+| Muskaan  | Sales     |
+| Muskaan  | HR        |
+| Utkasrh  | Finance   |
+| Utkasrh  | IT        |
+| Utkasrh  | Accounts  |
+| Utkasrh  | Marketing |
+| Utkasrh  | Sales     |
+| Utkasrh  | HR        |
+| Ajinkya  | Finance   |
+| Ajinkya  | IT        |
+| Ajinkya  | Accounts  |
+| Ajinkya  | Marketing |
+| Ajinkya  | Sales     |
+| Ajinkya  | HR        |
+| Tushar   | Finance   |
+| Tushar   | IT        |
+| Tushar   | Accounts  |
+| Tushar   | Marketing |
+| Tushar   | Sales     |
+| Tushar   | HR        |
+| Sudip    | Finance   |
+| Sudip    | IT        |
+| Sudip    | Accounts  |
+| Sudip    | Marketing |
+| Sudip    | Sales     |
+| Sudip    | HR        |
+| Satyam   | Finance   |
+| Satyam   | IT        |
+| Satyam   | Accounts  |
+| Satyam   | Marketing |
+| Satyam   | Sales     |
+| Satyam   | HR        |
+| Miheer   | Finance   |
+| Miheer   | IT        |
+| Miheer   | Accounts  |
+| Miheer   | Marketing |
+| Miheer   | Sales     |
+| Miheer   | HR        |
++----------+-----------+
+60 rows in set (0.00 sec)
+
+mysql>  select e_name,dept_name from employee e cross join
+    -> department d on e.dept_id=d.dept_id;
++----------+-----------+
+| e_name   | dept_name |
++----------+-----------+
+| Yash     | HR        |
+| Raj      | Sales     |
+| Shraddha | Marketing |
+| Muskaan  | Accounts  |
+| Utkasrh  | HR        |
+| Ajinkya  | Accounts  |
+| Tushar   | Marketing |
+| Sudip    | Marketing |
++----------+-----------+
+8 rows in set (0.00 sec)
+
+mysql>  select e_name,dept_name from employee e cross join
+    -> department d;

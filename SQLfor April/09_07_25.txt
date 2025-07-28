@@ -1,0 +1,104 @@
+CREATE TABLE account (
+    accnum INT PRIMARY KEY,
+    holder_name VARCHAR(100),
+    current_balance DECIMAL(10, 2)
+);
+
+
+INSERT INTO account (accnum, holder_name, current_balance) VALUES
+(401, 'Baburao Ganpatrao Apte', 99999.99),        -- Hera Pheri
+(402, 'Crime Master Gogo', 42000.00),             -- Andaz Apna Apna
+(403, 'Teja Main Hoon', 43000.43),                -- Andaz Apna Apna
+(404, 'Raju', 50000.00),                          -- Hera Pheri
+(405, 'Pappi Bhai', 48000.88),                    -- Tanu Weds Manu
+(406, 'Majnu Bhai', 51000.00),                    -- Welcome
+(407, 'Dr. Baldev Chaddha', 45000.75),            -- Vicky Donor
+(408, 'Kachra', 30000.00),                        -- Lagaan
+(409, 'Aakhri Pasta', 35000.50),                  -- Housefull
+(410, 'Lucky Singh', 39000.90);                   -- Lage Raho Munna Bhai
+
+
+create procedure greetUser2()
+begin
+select "Good Morning" as message;
+select "Good Afternoon" as message2;
+end;
+call greetuser();
+
+
+create procedure getallemp()
+begin
+select * from employee;
+end;
+
+create procedure getempdetails2(
+in id int)
+begin 
+select * from employee where e_id=id;
+end;
+
+create procedure getempcount(out empcount int)
+begin
+select count(e_id) into empcount from employee;
+end;
+
+
+
+
+
+
+
+
+
+create procedure getemp(in a int,in  sal decimal(7,2))
+begin
+select * from employee where 
+age=a and salary=sal;
+end;
+
+call getemp(23,37000);
+
+
+create procedure getemp2(inout var int)
+begin
+select age into var from employee 
+where e_id=var;
+end;
+
+
+set @var=7$
+call getemp2(@var)$
+select @var$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

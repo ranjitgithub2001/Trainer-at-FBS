@@ -1,0 +1,319 @@
+loop
+while
+repeat
+my_loop:LOOP
+statments;
+IF exit_condtion THEN;
+LEAVE my_loop;
+END IF;
+statements;
+END LOOP my_loop;
+
+WHILE condition DO
+statements;
+END WHILE;
+
+
+REPEAT 
+statemnets;
+UNTILL condition;
+END REAPET;
+
+
+CREATE PROCEDURE loopDemo()
+BEGIN
+DECLARE i INT DEFAULT 1;
+my_loop:LOOP
+IF i>5 THEN
+	LEAVE my_loop;
+END IF;
+select concat("value of i",i);
+set i=i+1;
+END LOOP my_loop;
+END$
+
+
+
+PREPARE stmt from 'select * from employee where e_id=?;';
+
+set @ipe_id=2;
+EXECUTE stmt USING @ipe_id;
+
+CREATE PROCEDURE whileDemo()
+BEGIN
+DECLARE i INT DEFAULT 1;
+WHILE i<=5 DO
+select concat("value of i",i);
+set i=i+1;
+END WHILE;
+END$
+
+
+
+CREATE PROCEDURE repeatDemo1()
+BEGIN
+DECLARE i INT DEFAULT 1;
+REPEAT
+select concat("value of i",i);
+set i=i+1;
+UNTIL i>5
+END REPEAT; 
+END$
+
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 8.0.41 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use april2025batch;
+Database changed
+mysql> delimiter $
+mysql> CREATE PROCEDURE loopDemo()
+    -> BEGIN
+    -> DECLARE i INT DEFAULT 1;
+    -> my_loop:LOOP
+    -> IF i>5 THEN;
+    -> LEAVE my_loop;
+    -> END IF;
+    -> select concat("value of i",i);
+    -> set i=i+1;
+    -> END LOOP my_loop;
+    -> END$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ';
+LEAVE my_loop;
+END IF;
+select concat("value of i",i);
+set i=i+1;
+END LOOP my_l' at line 5
+mysql>
+mysql> CREATE PROCEDURE loopDemo()
+    -> BEGIN
+    -> DECLARE i INT DEFAULT 1;
+    -> my_loop:LOOP
+    -> IF i>5 THEN;
+    -> LEAVE my_loop;
+    -> END IF;
+    -> select concat("value of i",i);
+    -> set i=i+1;
+    -> END my_loop;
+    -> END$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ';
+LEAVE my_loop;
+END IF;
+select concat("value of i",i);
+set i=i+1;
+END my_loop;
+' at line 5
+mysql>
+mysql> CREATE PROCEDURE loopDemo()
+    -> BEGIN
+    -> DECLARE i INT DEFAULT 1;
+    -> my_loop:LOOP
+    -> IF i>5 THEN;
+    -> LEAVE my_loop;
+    -> END IF;
+    -> select concat("value of i",i);
+    -> set i=i+1;
+    -> END my_loop;
+    -> END;
+    -> $
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ';
+LEAVE my_loop;
+END IF;
+select concat("value of i",i);
+set i=i+1;
+END my_loop;
+' at line 5
+mysql>
+mysql> CREATE PROCEDURE loopDemo()
+    -> BEGIN
+    -> DECLARE i INT DEFAULT 1;
+    -> my_loop:LOOP
+    -> IF i>5 THEN
+    -> LEAVE my_loop;
+    -> END IF;
+    -> select concat("value of i",i);
+    -> set i=i+1;
+    -> END LOOP my_loop;
+    -> END$
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> call loopDemo()$
++------------------------+
+| concat("value of i",i) |
++------------------------+
+| value of i1            |
++------------------------+
+1 row in set (0.02 sec)
+
++------------------------+
+| concat("value of i",i) |
++------------------------+
+| value of i2            |
++------------------------+
+1 row in set (0.02 sec)
+
++------------------------+
+| concat("value of i",i) |
++------------------------+
+| value of i3            |
++------------------------+
+1 row in set (0.02 sec)
+
++------------------------+
+| concat("value of i",i) |
++------------------------+
+| value of i4            |
++------------------------+
+1 row in set (0.02 sec)
+
++------------------------+
+| concat("value of i",i) |
++------------------------+
+| value of i5            |
++------------------------+
+1 row in set (0.02 sec)
+
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> CREATE PROCEDURE whileDemo()
+    -> BEGIN
+    -> DECLARE i INT DEFAULT 1;
+    -> WHILE i<=5 DO
+    -> select concat("value of i",i);
+    -> set i=i+1;
+    -> END WHILE;
+    -> END$
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> call whileDemo()$
++------------------------+
+| concat("value of i",i) |
++------------------------+
+| value of i1            |
++------------------------+
+1 row in set (0.00 sec)
+
++------------------------+
+| concat("value of i",i) |
++------------------------+
+| value of i2            |
++------------------------+
+1 row in set (0.00 sec)
+
++------------------------+
+| concat("value of i",i) |
++------------------------+
+| value of i3            |
++------------------------+
+1 row in set (0.01 sec)
+
++------------------------+
+| concat("value of i",i) |
++------------------------+
+| value of i4            |
++------------------------+
+1 row in set (0.01 sec)
+
++------------------------+
+| concat("value of i",i) |
++------------------------+
+| value of i5            |
++------------------------+
+1 row in set (0.01 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> CREATE PROCEDURE repeatDemo()
+    -> BEGIN
+    -> DECLARE i INT DEFAULT 1;
+    -> REPEAT
+    -> select concat("value of i",i);
+    -> set i=i+1;
+    -> UNTIL i<=5;
+    -> END REPEAT;
+    -> END$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ';
+END REPEAT;
+END' at line 7
+mysql> CREATE PROCEDURE repeatDemo()
+    -> BEGIN
+    -> DECLARE i INT DEFAULT 1;
+    -> REPEAT
+    -> select concat("value of i",i);
+    -> set i=i+1;
+    -> UNTIL i<=5
+    -> END REPEAT;
+    -> END$
+Query OK, 0 rows affected (0.28 sec)
+
+mysql> call repeatDemo()$
++------------------------+
+| concat("value of i",i) |
++------------------------+
+| value of i1            |
++------------------------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> CREATE PROCEDURE repeatDemo1()
+    -> BEGIN
+    -> DECLARE i INT DEFAULT 1;
+    -> REPEAT
+    -> select concat("value of i",i);
+    -> set i=i+1;
+    -> UNTIL i>5
+    -> END REPEAT;
+    -> END$
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> call repeatDemo1()$
++------------------------+
+| concat("value of i",i) |
++------------------------+
+| value of i1            |
++------------------------+
+1 row in set (0.01 sec)
+
++------------------------+
+| concat("value of i",i) |
++------------------------+
+| value of i2            |
++------------------------+
+1 row in set (0.01 sec)
+
++------------------------+
+| concat("value of i",i) |
++------------------------+
+| value of i3            |
++------------------------+
+1 row in set (0.01 sec)
+
++------------------------+
+| concat("value of i",i) |
++------------------------+
+| value of i4            |
++------------------------+
+1 row in set (0.01 sec)
+
++------------------------+
+| concat("value of i",i) |
++------------------------+
+| value of i5            |
++------------------------+
+1 row in set (0.01 sec)
+
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+
+

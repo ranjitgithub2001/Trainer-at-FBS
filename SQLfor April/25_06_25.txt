@@ -1,0 +1,499 @@
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.41 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use april2025batch
+Database changed
+mysql> table employee;
++------+--------+------+----------+---------+
+| e_id | e_name | age  | salary   | dept_id |
++------+--------+------+----------+---------+
+|    3 | Yash   |   22 | 35000.00 |       1 |
++------+--------+------+----------+---------+
+1 row in set (0.08 sec)
+
+mysql> table department;
++---------+-----------+----------+
+| dept_id | dept_name | dept_loc |
++---------+-----------+----------+
+|       1 | HR        | Mumbai   |
+|       2 | Sales     | Pune     |
+|       4 | Marketing | Mumbai   |
+|       5 | Accounts  | Mumbai   |
++---------+-----------+----------+
+4 rows in set (0.03 sec)
+
+mysql> insert into employee(e_name,age,salary,dept_id)
+    -> values("Raj",23,34000,2),("Shraddha",21,30000,4),("Muskaan",25,37000,5),
+    -> ("Utkasrh",23,35000,1),("Ajinkya",25,40000,5);
+Query OK, 5 rows affected (0.50 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> table employee;
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    3 | Yash     |   22 | 35000.00 |       1 |
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |
++------+----------+------+----------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from employee;
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    3 | Yash     |   22 | 35000.00 |       1 |
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |
++------+----------+------+----------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select e_name,salary from employee;
++----------+----------+
+| e_name   | salary   |
++----------+----------+
+| Yash     | 35000.00 |
+| Raj      | 34000.00 |
+| Shraddha | 30000.00 |
+| Muskaan  | 37000.00 |
+| Utkasrh  | 35000.00 |
+| Ajinkya  | 40000.00 |
++----------+----------+
+6 rows in set (0.00 sec)
+
+mysql> select * from employee where salary>30000;
++------+---------+------+----------+---------+
+| e_id | e_name  | age  | salary   | dept_id |
++------+---------+------+----------+---------+
+|    3 | Yash    |   22 | 35000.00 |       1 |
+|    4 | Raj     |   23 | 34000.00 |       2 |
+|    6 | Muskaan |   25 | 37000.00 |       5 |
+|    7 | Utkasrh |   23 | 35000.00 |       1 |
+|    8 | Ajinkya |   25 | 40000.00 |       5 |
++------+---------+------+----------+---------+
+5 rows in set (0.01 sec)
+
+mysql> select * from employee where salary>=30000;
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    3 | Yash     |   22 | 35000.00 |       1 |
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |
++------+----------+------+----------+---------+
+6 rows in set (0.00 sec)
+
+mysql> table employee;
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    3 | Yash     |   22 | 35000.00 |       1 |
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |
++------+----------+------+----------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from employee where salary>20000 and salary<35000;
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
++------+----------+------+----------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employee where salary between 20000 and 35000;
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    3 | Yash     |   22 | 35000.00 |       1 |
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |
++------+----------+------+----------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee where salary not between 25000 and 35000;
++------+---------+------+----------+---------+
+| e_id | e_name  | age  | salary   | dept_id |
++------+---------+------+----------+---------+
+|    6 | Muskaan |   25 | 37000.00 |       5 |
+|    8 | Ajinkya |   25 | 40000.00 |       5 |
++------+---------+------+----------+---------+
+2 rows in set (0.00 sec)
+
+mysql> table employee;
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    3 | Yash     |   22 | 35000.00 |       1 |
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |
++------+----------+------+----------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from employee
+    -> where dept_id in (2,4,5);
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |
++------+----------+------+----------+---------+
+4 rows in set (0.01 sec)
+
+mysql> table employee;
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    3 | Yash     |   22 | 35000.00 |       1 |
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |
++------+----------+------+----------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from employee
+    -> where dept_id in (1,5) and salary>32000;
++------+---------+------+----------+---------+
+| e_id | e_name  | age  | salary   | dept_id |
++------+---------+------+----------+---------+
+|    3 | Yash    |   22 | 35000.00 |       1 |
+|    7 | Utkasrh |   23 | 35000.00 |       1 |
+|    6 | Muskaan |   25 | 37000.00 |       5 |
+|    8 | Ajinkya |   25 | 40000.00 |       5 |
++------+---------+------+----------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee
+    -> where salary not between 30000 and 35000 and dept_id!=4;
++------+---------+------+----------+---------+
+| e_id | e_name  | age  | salary   | dept_id |
++------+---------+------+----------+---------+
+|    6 | Muskaan |   25 | 37000.00 |       5 |
+|    8 | Ajinkya |   25 | 40000.00 |       5 |
++------+---------+------+----------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employee
+    -> where salary not between 30000 and 35000 and dept_id <> 4;
++------+---------+------+----------+---------+
+| e_id | e_name  | age  | salary   | dept_id |
++------+---------+------+----------+---------+
+|    6 | Muskaan |   25 | 37000.00 |       5 |
+|    8 | Ajinkya |   25 | 40000.00 |       5 |
++------+---------+------+----------+---------+
+2 rows in set (0.00 sec)
+
+mysql> insert into employee(e_name,age,salary)
+    -> values("Tushar",22,25000),("Sudip",22,27000);
+Query OK, 2 rows affected (0.26 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> table employee;
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    3 | Yash     |   22 | 35000.00 |       1 |
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |
+|    9 | Tushar   |   22 | 25000.00 |    NULL |
+|   10 | Sudip    |   22 | 27000.00 |    NULL |
++------+----------+------+----------+---------+
+8 rows in set (0.00 sec)
+
+mysql> select * from employee
+    -> where dept_id=null;
+Empty set (0.01 sec)
+
+mysql> select * from employee
+    -> where dept_id=NULL;
+Empty set (0.00 sec)
+
+mysql> select * from employee
+    -> where dept_id="NULL";
+Empty set, 1 warning (0.01 sec)
+
+mysql> select * from employee
+    -> where dept_id=;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 2
+mysql> select * from employee
+    -> where dept_id is null;
++------+--------+------+----------+---------+
+| e_id | e_name | age  | salary   | dept_id |
++------+--------+------+----------+---------+
+|    9 | Tushar |   22 | 25000.00 |    NULL |
+|   10 | Sudip  |   22 | 27000.00 |    NULL |
++------+--------+------+----------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employee
+    -> where dept_id is not null;
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    3 | Yash     |   22 | 35000.00 |       1 |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |
++------+----------+------+----------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select * from employee
+    ->
+    -> where dept_id is not null and salary not between 25000 and 35000;
++------+---------+------+----------+---------+
+| e_id | e_name  | age  | salary   | dept_id |
++------+---------+------+----------+---------+
+|    6 | Muskaan |   25 | 37000.00 |       5 |
+|    8 | Ajinkya |   25 | 40000.00 |       5 |
++------+---------+------+----------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employee
+    -> where dept_id is not null and salary not between (25000 , 35000);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 2
+mysql> select * from employee
+    -> where dept_id is not null and salary not between 25000 to 35000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to 35000' at line 2
+mysql> table employee;
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    3 | Yash     |   22 | 35000.00 |       1 |
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |
+|    9 | Tushar   |   22 | 25000.00 |    NULL |
+|   10 | Sudip    |   22 | 27000.00 |    NULL |
++------+----------+------+----------+---------+
+8 rows in set (0.00 sec)
+
+mysql> select * from employee
+    -> where e_name ="s";
+Empty set (0.01 sec)
+
+mysql> select * from employee
+    -> where e_name is "s";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"s"' at line 2
+mysql> select * from employee
+    -> where e_name like "s%";
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|   10 | Sudip    |   22 | 27000.00 |    NULL |
++------+----------+------+----------+---------+
+2 rows in set (0.01 sec)
+
+mysql> table employee;
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    3 | Yash     |   22 | 35000.00 |       1 |
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |
+|    9 | Tushar   |   22 | 25000.00 |    NULL |
+|   10 | Sudip    |   22 | 27000.00 |    NULL |
++------+----------+------+----------+---------+
+8 rows in set (0.00 sec)
+
+mysql> select * from employee
+    -> where e_name like "%a";
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |
++------+----------+------+----------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employee
+    -> where e_name like "__i%";
++------+---------+------+----------+---------+
+| e_id | e_name  | age  | salary   | dept_id |
++------+---------+------+----------+---------+
+|    8 | Ajinkya |   25 | 40000.00 |       5 |
++------+---------+------+----------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee
+    -> where e_name like "%n___";
++------+---------+------+----------+---------+
+| e_id | e_name  | age  | salary   | dept_id |
++------+---------+------+----------+---------+
+|    8 | Ajinkya |   25 | 40000.00 |       5 |
++------+---------+------+----------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee
+    -> where e_name like "%a%";
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    3 | Yash     |   22 | 35000.00 |       1 |
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |
+|    9 | Tushar   |   22 | 25000.00 |    NULL |
++------+----------+------+----------+---------+
+7 rows in set (0.00 sec)
+
+mysql> select length("Firstbit Solutions");
++------------------------------+
+| length("Firstbit Solutions") |
++------------------------------+
+|                           18 |
++------------------------------+
+1 row in set (0.02 sec)
+
+mysql> select upper("Firstbit Solutions");
++-----------------------------+
+| upper("Firstbit Solutions") |
++-----------------------------+
+| FIRSTBIT SOLUTIONS          |
++-----------------------------+
+1 row in set (0.01 sec)
+
+mysql> select lower("Firstbit Solutions");
++-----------------------------+
+| lower("Firstbit Solutions") |
++-----------------------------+
+| firstbit solutions          |
++-----------------------------+
+1 row in set (0.01 sec)
+
+mysql> select lcase("Firstbit Solutions");
++-----------------------------+
+| lcase("Firstbit Solutions") |
++-----------------------------+
+| firstbit solutions          |
++-----------------------------+
+1 row in set (0.00 sec)
+
+mysql> select replace("Learning SQL","SQL","MySQL");
++---------------------------------------+
+| replace("Learning SQL","SQL","MySQL") |
++---------------------------------------+
+| Learning MySQL                        |
++---------------------------------------+
+1 row in set (0.01 sec)
+
+mysql> select trim("    Learning SQL    ");
++------------------------------+
+| trim("    Learning SQL    ") |
++------------------------------+
+| Learning SQL                 |
++------------------------------+
+1 row in set (0.01 sec)
+
+mysql> select trim("    Learning SQL    ") as "Res";
++--------------+
+| Res          |
++--------------+
+| Learning SQL |
++--------------+
+1 row in set (0.01 sec)
+
+mysql> select rtrim("Learning SQL    ") as "Res";
++--------------+
+| Res          |
++--------------+
+| Learning SQL |
++--------------+
+1 row in set (0.01 sec)
+
+mysql> select ltrim("     Learning SQL") as "Res";
++--------------+
+| Res          |
++--------------+
+| Learning SQL |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select ltrim("     Learning SQL    ") as "Res";
++------------------+
+| Res              |
++------------------+
+| Learning SQL     |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select substring("Learning SQL",1,5) as "Res";
++-------+
+| Res   |
++-------+
+| Learn |
++-------+
+1 row in set (0.00 sec)
+
+mysql> select substr\("Learning SQL",1,5) as "Res";
+ERROR:
+Unknown command '\('.
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '\("Learning SQL",1,5) as "Res"' at line 1
+mysql> select substr("Learning SQL",1,5) as "Res";
++-------+
+| Res   |
++-------+
+| Learn |
++-------+
+1 row in set (0.00 sec)
+
+mysql> select left("Learning SQL",5) as "Res";
++-------+
+| Res   |
++-------+
+| Learn |
++-------+
+1 row in set (0.01 sec)
+
+mysql> select right("Learning SQL",3) as "Res";
++------+
+| Res  |
++------+
+| SQL  |
++------+
+1 row in set (0.00 sec)
+
+mysql> select lcase("Firstbit Solutions");

@@ -1,0 +1,195 @@
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.41 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use april2025batch;
+Database changed
+mysql> table employee;
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    3 | Yash     |   22 | 35000.00 |       1 |
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |
+|    9 | Tushar   |   22 | 25000.00 |    NULL |
+|   10 | Sudip    |   22 | 27000.00 |    NULL |
++------+----------+------+----------+---------+
+8 rows in set (0.04 sec)
+
+mysql> update employee
+    -> set dept_id=4 where e_id in (9,10);
+Query OK, 2 rows affected (0.04 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> table employee;
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    3 | Yash     |   22 | 35000.00 |       1 |
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |
+|    9 | Tushar   |   22 | 25000.00 |       4 |
+|   10 | Sudip    |   22 | 27000.00 |       4 |
++------+----------+------+----------+---------+
+8 rows in set (0.00 sec)
+
+mysql> select dept_id,sum(salary) from employee
+    -> group by dept_id;
++---------+-------------+
+| dept_id | sum(salary) |
++---------+-------------+
+|       1 |    70000.00 |
+|       2 |    34000.00 |
+|       4 |    82000.00 |
+|       5 |    77000.00 |
++---------+-------------+
+4 rows in set (0.01 sec)
+
+mysql> select dept_id,count(e_id)
+    -> from employee
+    -> group by dept_id;
++---------+-------------+
+| dept_id | count(e_id) |
++---------+-------------+
+|       1 |           2 |
+|       2 |           1 |
+|       4 |           3 |
+|       5 |           2 |
++---------+-------------+
+4 rows in set (0.01 sec)
+
+mysql> select dept_id,count(e_id)
+    -> ^C
+mysql> select dept_id,count(e_id) as "Total Employee"
+    -> from employee
+    -> group by dept_id;
++---------+----------------+
+| dept_id | Total Employee |
++---------+----------------+
+|       1 |              2 |
+|       2 |              1 |
+|       4 |              3 |
+|       5 |              2 |
++---------+----------------+
+4 rows in set (0.01 sec)
+
+mysql> select dept_id,avg(salary) as "Avg Salary"
+    -> from employee
+    -> group by dept_id;
++---------+--------------+
+| dept_id | Avg Salary   |
++---------+--------------+
+|       1 | 35000.000000 |
+|       2 | 34000.000000 |
+|       4 | 27333.333333 |
+|       5 | 38500.000000 |
++---------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> select dept_id,round(avg(salary)) as "Avg Salary"
+    -> from employee
+    -> group by dept_id;
++---------+------------+
+| dept_id | Avg Salary |
++---------+------------+
+|       1 |      35000 |
+|       2 |      34000 |
+|       4 |      27333 |
+|       5 |      38500 |
++---------+------------+
+4 rows in set (0.01 sec)
+
+mysql> select dept_id avg(salary) as "Avg Salary"
+    -> from employee
+    -> group by dept_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(salary) as "Avg Salary"
+from employee
+group by dept_id' at line 1
+mysql> table employee;
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    3 | Yash     |   22 | 35000.00 |       1 |
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |
+|    9 | Tushar   |   22 | 25000.00 |       4 |
+|   10 | Sudip    |   22 | 27000.00 |       4 |
++------+----------+------+----------+---------+
+8 rows in set (0.00 sec)
+
+mysql> select age,count(e_id) as "No. Of Employee"
+    -> from employee
+    -> group by age;
++------+-----------------+
+| age  | No. Of Employee |
++------+-----------------+
+|   22 |               3 |
+|   23 |               2 |
+|   21 |               1 |
+|   25 |               2 |
++------+-----------------+
+4 rows in set (0.01 sec)
+
+mysql> select age,count(e_id) as "No. Of Employee"
+    -> from employee
+    -> group by age order by age;
++------+-----------------+
+| age  | No. Of Employee |
++------+-----------------+
+|   21 |               1 |
+|   22 |               3 |
+|   23 |               2 |
+|   25 |               2 |
++------+-----------------+
+4 rows in set (0.00 sec)
+
+mysql> select age,count(e_id) as "No. Of Employee"
+    -> from employee
+    -> group by age order by count(e_id);
++------+-----------------+
+| age  | No. Of Employee |
++------+-----------------+
+|   21 |               1 |
+|   23 |               2 |
+|   25 |               2 |
+|   22 |               3 |
++------+-----------------+
+4 rows in set (0.00 sec)
+
+mysql> select age,count(e_id) as "No. Of Employee"
+    -> from employee
+    -> group by age order by count(e_id),age desc;
++------+-----------------+
+| age  | No. Of Employee |
++------+-----------------+
+|   21 |               1 |
+|   25 |               2 |
+|   23 |               2 |
+|   22 |               3 |
++------+-----------------+
+4 rows in set (0.00 sec)
+
+mysql> select age,count(e_id) as "No. Of Employee"
+    -> ,e_name
+    -> from employee
+    -> group by age;
+ERROR 1055 (42000): Expression #3 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'april2025batch.employee.e_name' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql>

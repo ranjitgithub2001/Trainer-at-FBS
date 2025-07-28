@@ -1,0 +1,216 @@
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.41 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use april2025batch;
+Database changed
+mysql> table employee;
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    3 | Yash     |   22 | 35000.00 |       1 |
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |
+|    9 | Tushar   |   22 | 25000.00 |       4 |
+|   10 | Sudip    |   22 | 27000.00 |       4 |
++------+----------+------+----------+---------+
+8 rows in set (0.14 sec)
+
+mysql> table department;
++---------+-----------+----------+
+| dept_id | dept_name | dept_loc |
++---------+-----------+----------+
+|       1 | HR        | Mumbai   |
+|       2 | Sales     | Pune     |
+|       4 | Marketing | Mumbai   |
+|       5 | Accounts  | Mumbai   |
++---------+-----------+----------+
+4 rows in set (0.02 sec)
+
+mysql> select dept_id,avg(salary) from employee
+    -> group by dept_id
+    -> where avg(salary)>20000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where avg(salary)>20000' at line 3
+mysql> select dept_id,avg(salary) from employee
+    -> group by dept_id
+    -> having avg(salary)>20000;
++---------+--------------+
+| dept_id | avg(salary)  |
++---------+--------------+
+|       1 | 35000.000000 |
+|       2 | 34000.000000 |
+|       4 | 27333.333333 |
+|       5 | 38500.000000 |
++---------+--------------+
+4 rows in set (0.01 sec)
+
+mysql> select dept_id,count(e_id) from employee
+    -> group by dept_id
+    -> having count(e_id)>=2;
++---------+-------------+
+| dept_id | count(e_id) |
++---------+-------------+
+|       1 |           2 |
+|       4 |           3 |
+|       5 |           2 |
++---------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select dept_id,avg(salary) from employee
+    -> where dept_id!=1
+    -> group by dept_id
+    -> having avg(salary)>20000;
++---------+--------------+
+| dept_id | avg(salary)  |
++---------+--------------+
+|       2 | 34000.000000 |
+|       4 | 27333.333333 |
+|       5 | 38500.000000 |
++---------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> select dept_id,avg(salary) from employee
+    -> where dept_id!=1
+    -> group by dept_id
+    -> having avg(salary)>30000;
++---------+--------------+
+| dept_id | avg(salary)  |
++---------+--------------+
+|       2 | 34000.000000 |
+|       5 | 38500.000000 |
++---------+--------------+
+2 rows in set (0.01 sec)
+
+mysql> table employee;
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    3 | Yash     |   22 | 35000.00 |       1 |
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |
+|    8 | Ajinkya  |   25 | 40000.00 |       5 |
+|    9 | Tushar   |   22 | 25000.00 |       4 |
+|   10 | Sudip    |   22 | 27000.00 |       4 |
++------+----------+------+----------+---------+
+8 rows in set (0.00 sec)
+
+mysql> table department;
++---------+-----------+----------+
+| dept_id | dept_name | dept_loc |
++---------+-----------+----------+
+|       1 | HR        | Mumbai   |
+|       2 | Sales     | Pune     |
+|       4 | Marketing | Mumbai   |
+|       5 | Accounts  | Mumbai   |
++---------+-----------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee where dept_name="HR";
+ERROR 1054 (42S22): Unknown column 'dept_name' in 'where clause'
+mysql> select dept_id from department where dept_name='Marketing';
++---------+
+| dept_id |
++---------+
+|       4 |
++---------+
+1 row in set (0.01 sec)
+
+mysql> select * from employee where dept_id=4;
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    9 | Tushar   |   22 | 25000.00 |       4 |
+|   10 | Sudip    |   22 | 27000.00 |       4 |
++------+----------+------+----------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employee where dept_id=(select dept_id from department where dept_name='Marketing');
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    9 | Tushar   |   22 | 25000.00 |       4 |
+|   10 | Sudip    |   22 | 27000.00 |       4 |
++------+----------+------+----------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select e_name from employee where dept_id=(
+    -> select dept_id from department where dept_loc="Pune");
++--------+
+| e_name |
++--------+
+| Raj    |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select dept_name from deprtment where dept_id=(
+    -> select dept_id from employee where e_name="Shraddha");
+ERROR 1146 (42S02): Table 'april2025batch.deprtment' doesn't exist
+mysql> select dept_name from department where dept_id=(
+    -> select dept_id from employee where e_name="Shraddha");
++-----------+
+| dept_name |
++-----------+
+| Marketing |
++-----------+
+1 row in set (0.01 sec)
+
+mysql> table department;
++---------+-----------+----------+
+| dept_id | dept_name | dept_loc |
++---------+-----------+----------+
+|       1 | HR        | Mumbai   |
+|       2 | Sales     | Pune     |
+|       4 | Marketing | Mumbai   |
+|       5 | Accounts  | Mumbai   |
++---------+-----------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select e_name from employee where dept_id=(
+    -> select dept_id from department where dept_loc="Mumbai");
+ERROR 1242 (21000): Subquery returns more than 1 row
+mysql> select e_name from employee where dept_id in (
+    -> select dept_id from department where dept_loc="Mumbai");
++----------+
+| e_name   |
++----------+
+| Yash     |
+| Utkasrh  |
+| Shraddha |
+| Tushar   |
+| Sudip    |
+| Muskaan  |
+| Ajinkya  |
++----------+
+7 rows in set (0.01 sec)
+
+mysql> select * from employee where salary>avg(salary);
+ERROR 1111 (HY000): Invalid use of group function
+mysql> select * from employee where salary>(select avg(salary) from employee);
++------+---------+------+----------+---------+
+| e_id | e_name  | age  | salary   | dept_id |
++------+---------+------+----------+---------+
+|    3 | Yash    |   22 | 35000.00 |       1 |
+|    4 | Raj     |   23 | 34000.00 |       2 |
+|    6 | Muskaan |   25 | 37000.00 |       5 |
+|    7 | Utkasrh |   23 | 35000.00 |       1 |
+|    8 | Ajinkya |   25 | 40000.00 |       5 |
++------+---------+------+----------+---------+
+5 rows in set (0.00 sec)
+
+mysql>

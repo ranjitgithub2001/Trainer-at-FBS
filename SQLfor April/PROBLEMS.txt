@@ -1,0 +1,45 @@
+HR System – Automated Promotion Eligibility
+
+Create checkPromotionEligibility() procedure that:
+
+Scans all employees
+
+If employee's last promotion was > 2 years ago and rating > 4.5, insert into a promotion_queue table.
+
+
+Tax Computation – Dynamic Slabs
+
+Write a function getIncomeTax(salary DECIMAL) that:
+
+Returns tax using real-life tax slabs
+
+E.g. 5% on 0–2.5L, 10% on 2.5–5L, 20% on 5–10L, etc.
+
+
+Delivery App – ETA Calculator
+
+Create a function calculateETA(distance_km, delivery_mode) that:
+
+Uses average speed based on mode (bike, truck, drone) and returns estimated delivery time.
+
+
+| Delivery Mode | Average Speed (km/h) |
+| -------	-------    | -----------------------     - |
+| Bike                   | 	          30                   |
+| Truck                 |             35                   |
+| Drone                 |             55                   |
+
+
+
+🧾 Problem Statement: Auto-Tax Deduction on Employee Salary (Trigger + Function)
+📘 Scenario:
+You are working as a backend developer for an HRMS (Human Resource Management System) of a mid-sized company. The finance department wants every new employee’s record to automatically include a calculated income tax amount based on their salary, during insertion.
+
+They've provided you the following tax rules:
+
+If salary is less than or equal to ₹50,000, tax is 5%
+
+If salary is above ₹50,000, tax is 10%
+
+🎯 Your Task:
+Implement an automated tax calculation system using a stored function and a trigger as follows:

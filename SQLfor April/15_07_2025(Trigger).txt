@@ -1,0 +1,1024 @@
+create trigger triggerName
+before/after insert/update/delete on tableName
+for each row
+begin
+//trigger logic here
+end;
+$
+
+//trigger for making log of salary updation
+create trigger empsal_audit
+before update on employee
+for each row
+begin
+	if old.salary!=new.salary then
+	insert into salary_audit(e_id,old_salary,new_salary,changed_at)
+	values(old.e_id,old.salary,new.salary,now());
+	end if;
+end;
+
+
+task 1:
+set default department based on age
+if age<22
+intern dept=1
+
+task 2
+log all deletions
+whenever a record is deleted, move it to backup table
+
+task 3: 
+auto assign joining year
+set joining year=current year if left null on insert
+
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.41 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use april2025batch;
+Database changed
+mysql> show tables;
++--------------------------+
+| Tables_in_april2025batch |
++--------------------------+
+| department               |
+| emp                      |
+| empdept                  |
+| employee                 |
+| mumbaiemp                |
+| salary_audit             |
+| spemp2                   |
+| totalsal                 |
++--------------------------+
+8 rows in set (0.05 sec)
+
+mysql> desc salary_audit;
++------------+---------------+------+-----+---------+----------------+
+| Field      | Type          | Null | Key | Default | Extra          |
++------------+---------------+------+-----+---------+----------------+
+| audit_id   | int           | NO   | PRI | NULL    | auto_increment |
+| e_id       | int           | YES  |     | NULL    |                |
+| old_salary | decimal(10,2) | YES  |     | NULL    |                |
+| new_salary | decimal(10,2) | YES  |     | NULL    |                |
+| changed_at | datetime      | YES  |     | NULL    |                |
++------------+---------------+------+-----+---------+----------------+
+5 rows in set (0.07 sec)
+
+mysql> table employee;
++------+----------+------+----------+---------+--------------+
+| e_id | e_name   | age  | salary   | dept_id | joining_year |
++------+----------+------+----------+---------+--------------+
+|    3 | Yash     |   22 | 37000.00 |       1 |         2023 |
+|    4 | Raj      |   23 | 34000.00 |       2 |         2020 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |         2018 |
+|    7 | Utkasrh  |   23 | 37000.00 |       1 |         2022 |
+|    9 | Tushar   |   22 | 25000.00 |       4 |         2019 |
+|   10 | Sudip    |   22 | 30000.00 |       4 |         2017 |
+|   11 | Satyam   |   23 | 37000.00 |    NULL |         2021 |
+|   12 | Miheer   |   22 | 35000.00 |    NULL |         2016 |
++------+----------+------+----------+---------+--------------+
+8 rows in set (0.01 sec)
+
+mysql> delimiter $
+mysql> create trigger empsal_audit
+    -> before update on employee
+    -> for each row
+    -> begin
+    -> if old.salary!=new.salary then
+    -> insert into salary_audit(e_id,old_salary,new_salary,changed_at)
+    -> values(old.e_id,old.salary,new.salary,now());
+    -> end if;
+    -> end;
+    -> $
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> update employee
+    -> set salary=40000 where e_id=4;
+    -> $
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> table salary_audit$
++----------+------+------------+------------+---------------------+
+| audit_id | e_id | old_salary | new_salary | changed_at          |
++----------+------+------------+------------+---------------------+
+|        1 |    4 |   34000.00 |   40000.00 | 2025-07-15 19:40:58 |
++----------+------+------------+------------+---------------------+
+1 row in set (0.00 sec)
+
+mysql> show procedure status where db=database();
+    -> $
++----------------+----------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+| Db             | Name           | Type      | Definer        | Modified            | Created             | Security_type | Comment | character_set_client | collation_connection | Database Collation |
++----------------+----------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+| april2025batch | getallemp      | PROCEDURE | root@localhost | 2025-07-09 19:10:49 | 2025-07-09 19:10:49 | DEFINER       |         | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
+| april2025batch | getemp         | PROCEDURE | root@localhost | 2025-07-09 19:40:46 | 2025-07-09 19:40:46 | DEFINER       |         | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
+| april2025batch | getemp2        | PROCEDURE | root@localhost | 2025-07-09 19:46:53 | 2025-07-09 19:46:53 | DEFINER       |         | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
+| april2025batch | getempcount    | PROCEDURE | root@localhost | 2025-07-09 19:24:43 | 2025-07-09 19:24:43 | DEFINER       |         | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
+| april2025batch | getempdetails  | PROCEDURE | root@localhost | 2025-07-09 19:17:10 | 2025-07-09 19:17:10 | DEFINER       |         | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
+| april2025batch | getempdetails2 | PROCEDURE | root@localhost | 2025-07-09 19:18:36 | 2025-07-09 19:18:36 | DEFINER       |         | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
+| april2025batch | greetuser      | PROCEDURE | root@localhost | 2025-07-09 19:00:33 | 2025-07-09 19:00:33 | DEFINER       |         | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
+| april2025batch | greetUser1     | PROCEDURE | root@localhost | 2025-07-09 19:07:25 | 2025-07-09 19:07:25 | DEFINER       |         | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
+| april2025batch | greetUser2     | PROCEDURE | root@localhost | 2025-07-09 19:08:29 | 2025-07-09 19:08:29 | DEFINER       |         | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
++----------------+----------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+9 rows in set (0.02 sec)
+
+mysql> show function status$
++----------------+----------------------------------+----------+---------------------+---------------------+---------------------+---------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------+----------------------+--------------------+
+| Db             | Name                             | Type     | Definer             | Modified            | Created             | Security_type | Comment                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | character_set_client | collation_connection | Database Collation |
++----------------+----------------------------------+----------+---------------------+---------------------+---------------------+---------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------+----------------------+--------------------+
+| april2025batch | getNewSalary                     | FUNCTION | root@localhost      | 2025-07-14 19:48:13 | 2025-07-14 19:48:13 | DEFINER       |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
+| assignment1    | checkIncrement                   | FUNCTION | root@localhost      | 2023-10-17 19:48:31 | 2023-10-17 19:48:31 | DEFINER       |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
+| assignment1    | getSal                           | FUNCTION | root@localhost      | 2023-10-17 19:22:00 | 2023-10-17 19:22:00 | DEFINER       |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
+| sys            | extract_schema_from_file_name    | FUNCTION | mysql.sys@localhost | 2025-02-10 21:28:46 | 2025-02-10 21:28:46 | INVOKER       |
+Description
+-----------
+
+Takes a raw file path, and attempts to extract the schema name from it.
+
+Useful for when interacting with Performance Schema data
+concerning IO statistics, for example.
+
+Currently relies on the fact that a table data file will be within a
+specified database directory (will not work with partitions or tables
+that specify an individual DATA_DIRECTORY).
+
+Parameters
+-----------
+
+path (VARCHAR(512)):
+  The full file path to a data file to extract the schema name from.
+
+Returns
+-----------
+
+VARCHAR(64)
+
+Example
+-----------
+
+mysql> SELECT sys.extract_schema_from_file_name('/var/lib/mysql/employees/employee.ibd');
++----------------------------------------------------------------------------+
+| sys.extract_schema_from_file_name('/var/lib/mysql/employees/employee.ibd') |
++----------------------------------------------------------------------------+
+| employees                                                                  |
++----------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+ | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| sys            | extract_table_from_file_name     | FUNCTION | mysql.sys@localhost | 2025-02-10 21:28:46 | 2025-02-10 21:28:46 | INVOKER       |
+Description
+-----------
+
+Takes a raw file path, and extracts the table name from it.
+
+Useful for when interacting with Performance Schema data
+concerning IO statistics, for example.
+
+Parameters
+-----------
+
+path (VARCHAR(512)):
+  The full file path to a data file to extract the table name from.
+
+Returns
+-----------
+
+VARCHAR(64)
+
+Example
+-----------
+
+mysql> SELECT sys.extract_table_from_file_name('/var/lib/mysql/employees/employee.ibd');
++---------------------------------------------------------------------------+
+| sys.extract_table_from_file_name('/var/lib/mysql/employees/employee.ibd') |
++---------------------------------------------------------------------------+
+| employee                                                                  |
++---------------------------------------------------------------------------+
+1 row in set (0.02 sec)
+                                                                                                                                                                        | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| sys            | format_bytes                     | FUNCTION | mysql.sys@localhost | 2025-02-10 21:28:46 | 2025-02-10 21:28:46 | INVOKER       |
+Description
+-----------
+
+Takes a raw bytes value, and converts it to a human readable format.
+
+Parameters
+-----------
+
+bytes (TEXT):
+  A raw bytes value.
+
+Returns
+-----------
+
+TEXT
+
+Example
+-----------
+
+mysql> SELECT sys.format_bytes(2348723492723746) AS size;
++----------+
+| size     |
++----------+
+| 2.09 PiB |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT sys.format_bytes(2348723492723) AS size;
++----------+
+| size     |
++----------+
+| 2.14 TiB |
++----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT sys.format_bytes(23487234) AS size;
++-----------+
+| size      |
++-----------+
+| 22.40 MiB |
++-----------+
+1 row in set (0.00 sec)
+                                                                                                                                                                                                                                                                                                                                                                                                | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| sys            | format_path                      | FUNCTION | mysql.sys@localhost | 2025-02-10 21:28:46 | 2025-02-10 21:28:46 | INVOKER       |
+Description
+-----------
+
+Takes a raw path value, and strips out the datadir or tmpdir
+replacing with @@datadir and @@tmpdir respectively.
+
+Also normalizes the paths across operating systems, so backslashes
+on Windows are converted to forward slashes
+
+Parameters
+-----------
+
+path (VARCHAR(512)):
+  The raw file path value to format.
+
+Returns
+-----------
+
+VARCHAR(512) CHARSET UTF8MB4
+
+Example
+-----------
+
+mysql> select @@datadir;
++-----------------------------------------------+
+| @@datadir                                     |
++-----------------------------------------------+
+| /Users/mark/sandboxes/SmallTree/AMaster/data/ |
++-----------------------------------------------+
+1 row in set (0.06 sec)
+
+mysql> select format_path('/Users/mark/sandboxes/SmallTree/AMaster/data/mysql/proc.MYD') AS path;
++--------------------------+
+| path                     |
++--------------------------+
+| @@datadir/mysql/proc.MYD |
++--------------------------+
+1 row in set (0.03 sec)
+                                                   | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| sys            | format_statement                 | FUNCTION | mysql.sys@localhost | 2025-02-10 21:28:46 | 2025-02-10 21:28:46 | INVOKER       |
+Description
+-----------
+
+Formats a normalized statement, truncating it if it is > 64 characters long by default.
+
+To configure the length to truncate the statement to by default, update the `statement_truncate_len`
+variable with `sys_config` table to a different value. Alternatively, to change it just for just
+your particular session, use `SET @sys.statement_truncate_len := <some new value>`.
+
+Useful for printing statement related data from Performance Schema from
+the command line.
+
+Parameters
+-----------
+
+statement (LONGTEXT):
+  The statement to format.
+
+Returns
+-----------
+
+LONGTEXT
+
+Example
+-----------
+
+mysql> SELECT sys.format_statement(digest_text)
+    ->   FROM performance_schema.events_statements_summary_by_digest
+    ->  ORDER by sum_timer_wait DESC limit 5;
++-------------------------------------------------------------------+
+| sys.format_statement(digest_text)                                 |
++-------------------------------------------------------------------+
+| CREATE SQL SECURITY INVOKER VI ... KE ? AND `variable_value` > ?  |
+| CREATE SQL SECURITY INVOKER VI ... ait` IS NOT NULL , `esc` . ... |
+| CREATE SQL SECURITY INVOKER VI ... ait` IS NOT NULL , `sys` . ... |
+| CREATE SQL SECURITY INVOKER VI ...  , `compressed_size` ) ) DESC  |
+| CREATE SQL SECURITY INVOKER VI ... LIKE ? ORDER BY `timer_start`  |
++-------------------------------------------------------------------+
+5 rows in set (0.00 sec)
+ | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| sys            | format_time                      | FUNCTION | mysql.sys@localhost | 2025-02-10 21:28:46 | 2025-02-10 21:28:46 | INVOKER       |
+Description
+-----------
+
+Takes a raw picoseconds value, and converts it to a human readable form.
+
+Picoseconds are the precision that all latency values are printed in
+within Performance Schema, however are not user friendly when wanting
+to scan output from the command line.
+
+Parameters
+-----------
+
+picoseconds (TEXT):
+  The raw picoseconds value to convert.
+
+Returns
+-----------
+
+TEXT CHARSET UTF8MB4
+
+Example
+-----------
+
+mysql> select format_time(342342342342345);
++------------------------------+
+| format_time(342342342342345) |
++------------------------------+
+| 00:05:42                     |
++------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select format_time(342342342);
++------------------------+
+| format_time(342342342) |
++------------------------+
+| 342.34 us              |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> select format_time(34234);
++--------------------+
+| format_time(34234) |
++--------------------+
+| 34.23 ns           |
++--------------------+
+1 row in set (0.00 sec)
+ | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| sys            | list_add                         | FUNCTION | mysql.sys@localhost | 2025-02-10 21:28:46 | 2025-02-10 21:28:46 | INVOKER       |
+Description
+-----------
+
+Takes a list, and a value to add to the list, and returns the resulting list.
+
+Useful for altering certain session variables, like sql_mode or optimizer_switch for instance.
+
+Parameters
+-----------
+
+in_list (TEXT):
+  The comma separated list to add a value to
+
+in_add_value (TEXT):
+  The value to add to the input list
+
+Returns
+-----------
+
+TEXT
+
+Example
+--------
+
+mysql> select @@sql_mode;
++-----------------------------------------------------------------------------------+
+| @@sql_mode                                                                        |
++-----------------------------------------------------------------------------------+
+| ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION |
++-----------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> set sql_mode = sys.list_add(@@sql_mode, 'ANSI_QUOTES');
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> select @@sql_mode;
++-----------------------------------------------------------------------------------------------+
+| @@sql_mode                                                                                    |
++-----------------------------------------------------------------------------------------------+
+| ANSI_QUOTES,ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION |
++-----------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+ | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| sys            | list_drop                        | FUNCTION | mysql.sys@localhost | 2025-02-10 21:28:46 | 2025-02-10 21:28:46 | INVOKER       |
+Description
+-----------
+
+Takes a list, and a value to attempt to remove from the list, and returns the resulting list.
+
+Useful for altering certain session variables, like sql_mode or optimizer_switch for instance.
+
+Parameters
+-----------
+
+in_list (TEXT):
+  The comma separated list to drop a value from
+
+in_drop_value (TEXT):
+  The value to drop from the input list
+
+Returns
+-----------
+
+TEXT
+
+Example
+--------
+
+mysql> select @@sql_mode;
++-----------------------------------------------------------------------------------------------+
+| @@sql_mode                                                                                    |
++-----------------------------------------------------------------------------------------------+
+| ANSI_QUOTES,ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION |
++-----------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> set sql_mode = sys.list_drop(@@sql_mode, 'ONLY_FULL_GROUP_BY');
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> select @@sql_mode;
++----------------------------------------------------------------------------+
+| @@sql_mode                                                                 |
++----------------------------------------------------------------------------+
+| ANSI_QUOTES,STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION |
++----------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+ | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| sys            | ps_is_account_enabled            | FUNCTION | mysql.sys@localhost | 2025-02-10 21:28:46 | 2025-02-10 21:28:46 | INVOKER       |
+Description
+-----------
+
+Determines whether instrumentation of an account is enabled
+within Performance Schema.
+
+Parameters
+-----------
+
+in_host VARCHAR(255):
+  The hostname of the account to check.
+in_user VARCHAR(32):
+  The username of the account to check.
+
+Returns
+-----------
+
+ENUM('YES', 'NO', 'PARTIAL')
+
+Example
+-----------
+
+mysql> SELECT sys.ps_is_account_enabled('localhost', 'root');
++------------------------------------------------+
+| sys.ps_is_account_enabled('localhost', 'root') |
++------------------------------------------------+
+| YES                                            |
++------------------------------------------------+
+1 row in set (0.01 sec)
+                                                                                                                                                                                                                                                                                                                                                            | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| sys            | ps_is_consumer_enabled           | FUNCTION | mysql.sys@localhost | 2025-02-10 21:28:46 | 2025-02-10 21:28:46 | INVOKER       |
+Description
+-----------
+
+Determines whether a consumer is enabled (taking the consumer hierarchy into consideration)
+within the Performance Schema.
+
+An exception with errno 3047 is thrown if an unknown consumer name is passed to the function.
+A consumer name of NULL returns NULL.
+
+Parameters
+-----------
+
+in_consumer VARCHAR(64):
+  The name of the consumer to check.
+
+Returns
+-----------
+
+ENUM('YES', 'NO')
+
+Example
+-----------
+
+mysql> SELECT sys.ps_is_consumer_enabled('events_stages_history');
++-----------------------------------------------------+
+| sys.ps_is_consumer_enabled('events_stages_history') |
++-----------------------------------------------------+
+| NO                                                  |
++-----------------------------------------------------+
+1 row in set (0.00 sec)
+                                                                                                                                                                                                                              | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| sys            | ps_is_instrument_default_enabled | FUNCTION | mysql.sys@localhost | 2025-02-10 21:28:46 | 2025-02-10 21:28:46 | INVOKER       |
+Description
+-----------
+
+Returns whether an instrument is enabled by default in this version of MySQL.
+
+Parameters
+-----------
+
+in_instrument VARCHAR(128):
+  The instrument to check.
+
+Returns
+-----------
+
+ENUM('YES', 'NO')
+
+Example
+-----------
+
+mysql> SELECT sys.ps_is_instrument_default_enabled('statement/sql/select');
++--------------------------------------------------------------+
+| sys.ps_is_instrument_default_enabled('statement/sql/select') |
++--------------------------------------------------------------+
+| YES                                                          |
++--------------------------------------------------------------+
+1 row in set (0.00 sec)
+                                                                                                                                                                                                                                                                                                                                                                 | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| sys            | ps_is_instrument_default_timed   | FUNCTION | mysql.sys@localhost | 2025-02-10 21:28:46 | 2025-02-10 21:28:46 | INVOKER       |
+Description
+-----------
+
+Returns whether an instrument is timed by default in this version of MySQL.
+
+Parameters
+-----------
+
+in_instrument VARCHAR(128):
+  The instrument to check.
+
+Returns
+-----------
+
+ENUM('YES', 'NO')
+
+Example
+-----------
+
+mysql> SELECT sys.ps_is_instrument_default_timed('statement/sql/select');
++------------------------------------------------------------+
+| sys.ps_is_instrument_default_timed('statement/sql/select') |
++------------------------------------------------------------+
+| YES                                                        |
++------------------------------------------------------------+
+1 row in set (0.00 sec)
+                                                                                                                                                                                                                                                                                                                                                                               | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| sys            | ps_is_thread_instrumented        | FUNCTION | mysql.sys@localhost | 2025-02-10 21:28:46 | 2025-02-10 21:28:46 | INVOKER       |
+Description
+-----------
+
+Checks whether the provided connection id is instrumented within Performance Schema.
+
+Parameters
+-----------
+
+in_connection_id (BIGINT UNSIGNED):
+  The id of the connection to check.
+
+Returns
+-----------
+
+ENUM('YES', 'NO', 'UNKNOWN')
+
+Example
+-----------
+
+mysql> SELECT sys.ps_is_thread_instrumented(CONNECTION_ID());
++------------------------------------------------+
+| sys.ps_is_thread_instrumented(CONNECTION_ID()) |
++------------------------------------------------+
+| YES                                            |
++------------------------------------------------+
+                                                                                                                                                                                                                                                                                                                                                                                                                                          | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| sys            | ps_thread_account                | FUNCTION | mysql.sys@localhost | 2025-02-10 21:28:46 | 2025-02-10 21:28:46 | INVOKER       |
+Description
+-----------
+
+Return the user@host account for the given Performance Schema thread id.
+
+Parameters
+-----------
+
+in_thread_id (BIGINT UNSIGNED):
+  The id of the thread to return the account for.
+
+Example
+-----------
+
+mysql> select thread_id, processlist_user, processlist_host from performance_schema.threads where type = 'foreground';
++-----------+------------------+------------------+
+| thread_id | processlist_user | processlist_host |
++-----------+------------------+------------------+
+|        23 | NULL             | NULL             |
+|        30 | root             | localhost        |
+|        31 | msandbox         | localhost        |
+|        32 | msandbox         | localhost        |
++-----------+------------------+------------------+
+4 rows in set (0.00 sec)
+
+mysql> select sys.ps_thread_account(31);
++---------------------------+
+| sys.ps_thread_account(31) |
++---------------------------+
+| msandbox@localhost        |
++---------------------------+
+1 row in set (0.00 sec)
+                     | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| sys            | ps_thread_id                     | FUNCTION | mysql.sys@localhost | 2025-02-10 21:28:46 | 2025-02-10 21:28:46 | INVOKER       |
+Description
+-----------
+
+Return the Performance Schema THREAD_ID for the specified connection ID.
+
+Parameters
+-----------
+
+in_connection_id (BIGINT UNSIGNED):
+  The id of the connection to return the thread id for. If NULL, the current
+  connection thread id is returned.
+
+Example
+-----------
+
+mysql> SELECT sys.ps_thread_id(79);
++----------------------+
+| sys.ps_thread_id(79) |
++----------------------+
+|                   98 |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT sys.ps_thread_id(CONNECTION_ID());
++-----------------------------------+
+| sys.ps_thread_id(CONNECTION_ID()) |
++-----------------------------------+
+|                                98 |
++-----------------------------------+
+1 row in set (0.00 sec)
+                                                                                                                                                                                                                                                                                         | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| sys            | ps_thread_stack                  | FUNCTION | mysql.sys@localhost | 2025-02-10 21:28:46 | 2025-02-10 21:28:46 | INVOKER       |
+Description
+-----------
+
+Outputs a JSON formatted stack of all statements, stages and events
+within Performance Schema for the specified thread.
+
+Parameters
+-----------
+
+thd_id (BIGINT UNSIGNED):
+  The id of the thread to trace. This should match the thread_id
+  column from the performance_schema.threads table.
+in_verbose (BOOLEAN):
+  Include file:lineno information in the events.
+
+Example
+-----------
+
+(line separation added for output)
+
+mysql> SELECT sys.ps_thread_stack(37, FALSE) AS thread_stack\G
+*************************** 1. row ***************************
+thread_stack: {"rankdir": "LR","nodesep": "0.10","stack_created": "2014-02-19 13:39:03",
+"mysql_version": "5.7.3-m13","mysql_user": "root@localhost","events":
+[{"nesting_event_id": "0", "event_id": "10", "timer_wait": 256.35, "event_info":
+"sql/select", "wait_info": "select @@version_comment limit 1\nerrors: 0\nwarnings: 0\nlock time:
+...
+                                                                                                                 | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| sys            | ps_thread_trx_info               | FUNCTION | mysql.sys@localhost | 2025-02-10 21:28:46 | 2025-02-10 21:28:46 | INVOKER       |
+Description
+-----------
+
+Returns a JSON object with info on the given threads current transaction,
+and the statements it has already executed, derived from the
+performance_schema.events_transactions_current and
+performance_schema.events_statements_history tables (so the consumers
+for these also have to be enabled within Performance Schema to get full
+data in the object).
+
+When the output exceeds the default truncation length (65535), a JSON error
+object is returned, such as:
+
+{ "error": "Trx info truncated: Row 6 was cut by GROUP_CONCAT()" }
+
+Similar error objects are returned for other warnings/and exceptions raised
+when calling the function.
+
+The max length of the output of this function can be controlled with the
+ps_thread_trx_info.max_length variable set via sys_config, or the
+@sys.ps_thread_trx_info.max_length user variable, as appropriate.
+
+Parameters
+-----------
+
+in_thread_id (BIGINT UNSIGNED):
+  The id of the thread to return the transaction info for.
+
+Example
+-----------
+
+SELECT sys.ps_thread_trx_info(48)\G
+*************************** 1. row ***************************
+sys.ps_thread_trx_info(48): [
+  {
+    "time": "790.70 us",
+    "state": "COMMITTED",
+    "mode": "READ WRITE",
+    "autocommitted": "NO",
+    "gtid": "AUTOMATIC",
+    "isolation": "REPEATABLE READ",
+    "statements_executed": [
+      {
+        "sql_text": "INSERT INTO info VALUES (1, 'foo')",
+        "time": "471.02 us",
+        "schema": "trx",
+        "rows_examined": 0,
+        "rows_affected": 1,
+        "rows_sent": 0,
+        "tmp_tables": 0,
+        "tmp_disk_tables": 0,
+        "sort_rows": 0,
+        "sort_merge_passes": 0
+      },
+      {
+        "sql_text": "COMMIT",
+        "time": "254.42 us",
+        "schema": "trx",
+        "rows_examined": 0,
+        "rows_affected": 0,
+        "rows_sent": 0,
+        "tmp_tables": 0,
+        "tmp_disk_tables": 0,
+        "sort_rows": 0,
+        "sort_merge_passes": 0
+      }
+    ]
+  },
+  {
+    "time": "426.20 us",
+    "state": "COMMITTED",
+    "mode": "READ WRITE",
+    "autocommitted": "NO",
+    "gtid": "AUTOMATIC",
+    "isolation": "REPEATABLE READ",
+    "statements_executed": [
+      {
+        "sql_text": "INSERT INTO info VALUES (2, 'bar')",
+        "time": "107.33 us",
+        "schema": "trx",
+        "rows_examined": 0,
+        "rows_affected": 1,
+        "rows_sent": 0,
+        "tmp_tables": 0,
+        "tmp_disk_tables": 0,
+        "sort_rows": 0,
+        "sort_merge_passes": 0
+      },
+      {
+        "sql_text": "COMMIT",
+        "time": "213.23 us",
+        "schema": "trx",
+        "rows_examined": 0,
+        "rows_affected": 0,
+        "rows_sent": 0,
+        "tmp_tables": 0,
+        "tmp_disk_tables": 0,
+        "sort_rows": 0,
+        "sort_merge_passes": 0
+      }
+    ]
+  }
+]
+1 row in set (0.03 sec)
+ | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| sys            | quote_identifier                 | FUNCTION | mysql.sys@localhost | 2025-02-10 21:28:46 | 2025-02-10 21:28:46 | INVOKER       |
+Description
+-----------
+
+Takes an unquoted identifier (schema name, table name, etc.) and
+returns the identifier quoted with backticks.
+
+Parameters
+-----------
+
+in_identifier (TEXT):
+  The identifier to quote.
+
+Returns
+-----------
+
+TEXT CHARSET UTF8MB4
+
+Example
+-----------
+
+mysql> SELECT sys.quote_identifier('my_identifier') AS Identifier;
++-----------------+
+| Identifier      |
++-----------------+
+| `my_identifier` |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT sys.quote_identifier('my`idenfier') AS Identifier;
++----------------+
+| Identifier     |
++----------------+
+| `my``idenfier` |
++----------------+
+1 row in set (0.00 sec)
+                                                                                                                                                                                                                                                                                                                                                                                     | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| sys            | sys_get_config                   | FUNCTION | mysql.sys@localhost | 2025-02-10 21:28:46 | 2025-02-10 21:28:46 | INVOKER       |
+Description
+-----------
+
+Returns the value for the requested variable using the following logic:
+
+   1. If the option exists in sys.sys_config return the value from there.
+   2. Else fall back on the provided default value.
+
+Notes for using sys_get_config():
+
+   * If the default value argument to sys_get_config() is NULL and case 2. is reached, NULL is returned.
+     It is then expected that the caller is able to handle NULL for the given configuration option.
+   * The convention is to name the user variables @sys.<name of variable>. It is <name of variable> that
+     is stored in the sys_config table and is what is expected as the argument to sys_get_config().
+   * If you want to check whether the configuration option has already been set and if not assign with
+     the return value of sys_get_config() you can use IFNULL(...) (see example below). However this should
+     not be done inside a loop (e.g. for each row in a result set) as for repeated calls where assignment
+     is only needed in the first iteration using IFNULL(...) is expected to be significantly slower than
+     using an IF (...) THEN ... END IF; block (see example below).
+
+Parameters
+-----------
+
+in_variable_name (VARCHAR(128)):
+  The name of the config option to return the value for.
+
+in_default_value (VARCHAR(128)):
+  The default value to return if the variable does not exist in sys.sys_config.
+
+Returns
+-----------
+
+VARCHAR(128)
+
+Example
+-----------
+
+-- Get the configuration value from sys.sys_config falling back on 128 if the option is not present in the table.
+mysql> SELECT sys.sys_get_config('statement_truncate_len', 128) AS Value;
++-------+
+| Value |
++-------+
+| 64    |
++-------+
+1 row in set (0.00 sec)
+
+-- Check whether the option is already set, if not assign - IFNULL(...) one liner example.
+mysql> SET @sys.statement_truncate_len = IFNULL(@sys.statement_truncate_len, sys.sys_get_config('statement_truncate_len', 64));
+Query OK, 0 rows affected (0.00 sec)
+
+-- Check whether the option is already set, if not assign - IF ... THEN ... END IF example.
+IF (@sys.statement_truncate_len IS NULL) THEN
+    SET @sys.statement_truncate_len = sys.sys_get_config('statement_truncate_len', 64);
+END IF;
+ | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| sys            | version_major                    | FUNCTION | mysql.sys@localhost | 2025-02-10 21:28:46 | 2025-02-10 21:28:46 | INVOKER       |
+Description
+-----------
+
+Returns the major version of MySQL Server.
+
+Returns
+-----------
+
+TINYINT UNSIGNED
+
+Example
+-----------
+
+mysql> SELECT VERSION(), sys.version_major();
++--------------------------------------+---------------------+
+| VERSION()                            | sys.version_major() |
++--------------------------------------+---------------------+
+| 5.7.9-enterprise-commercial-advanced | 5                   |
++--------------------------------------+---------------------+
+1 row in set (0.00 sec)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| sys            | version_minor                    | FUNCTION | mysql.sys@localhost | 2025-02-10 21:28:46 | 2025-02-10 21:28:46 | INVOKER       |
+Description
+-----------
+
+Returns the minor (release series) version of MySQL Server.
+
+Returns
+-----------
+
+TINYINT UNSIGNED
+
+Example
+-----------
+
+mysql> SELECT VERSION(), sys.server_minor();
++--------------------------------------+---------------------+
+| VERSION()                            | sys.version_minor() |
++--------------------------------------+---------------------+
+| 5.7.9-enterprise-commercial-advanced | 7                   |
++--------------------------------------+---------------------+
+1 row in set (0.00 sec)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
+| sys            | version_patch                    | FUNCTION | mysql.sys@localhost | 2025-02-10 21:28:46 | 2025-02-10 21:28:46 | INVOKER       |
+Description
+-----------
+
+Returns the patch release version of MySQL Server.
+
+Returns
+-----------
+
+TINYINT UNSIGNED
+
+Example
+-----------
+
+mysql> SELECT VERSION(), sys.version_patch();
++--------------------------------------+---------------------+
+| VERSION()                            | sys.version_patch() |
++--------------------------------------+---------------------+
+| 5.7.9-enterprise-commercial-advanced | 9                   |
++--------------------------------------+---------------------+
+1 row in set (0.00 sec)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      | utf8mb4              | utf8mb4_0900_ai_ci   | utf8mb4_0900_ai_ci |
++----------------+----------------------------------+----------+---------------------+---------------------+---------------------+---------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------------------+----------------------+--------------------+
+25 rows in set (0.01 sec)
+
+mysql> show function status where db=database()$
++----------------+--------------+----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+| Db             | Name         | Type     | Definer        | Modified            | Created             | Security_type | Comment | character_set_client | collation_connection | Database Collation |
++----------------+--------------+----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+| april2025batch | getNewSalary | FUNCTION | root@localhost | 2025-07-14 19:48:13 | 2025-07-14 19:48:13 | DEFINER       |         | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
++----------------+--------------+----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+1 row in set (0.00 sec)
+
+mysql> show procedure status where db=database()$
++----------------+----------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+| Db             | Name           | Type      | Definer        | Modified            | Created             | Security_type | Comment | character_set_client | collation_connection | Database Collation |
++----------------+----------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+| april2025batch | getallemp      | PROCEDURE | root@localhost | 2025-07-09 19:10:49 | 2025-07-09 19:10:49 | DEFINER       |         | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
+| april2025batch | getemp         | PROCEDURE | root@localhost | 2025-07-09 19:40:46 | 2025-07-09 19:40:46 | DEFINER       |         | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
+| april2025batch | getemp2        | PROCEDURE | root@localhost | 2025-07-09 19:46:53 | 2025-07-09 19:46:53 | DEFINER       |         | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
+| april2025batch | getempcount    | PROCEDURE | root@localhost | 2025-07-09 19:24:43 | 2025-07-09 19:24:43 | DEFINER       |         | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
+| april2025batch | getempdetails  | PROCEDURE | root@localhost | 2025-07-09 19:17:10 | 2025-07-09 19:17:10 | DEFINER       |         | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
+| april2025batch | getempdetails2 | PROCEDURE | root@localhost | 2025-07-09 19:18:36 | 2025-07-09 19:18:36 | DEFINER       |         | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
+| april2025batch | greetuser      | PROCEDURE | root@localhost | 2025-07-09 19:00:33 | 2025-07-09 19:00:33 | DEFINER       |         | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
+| april2025batch | greetUser1     | PROCEDURE | root@localhost | 2025-07-09 19:07:25 | 2025-07-09 19:07:25 | DEFINER       |         | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
+| april2025batch | greetUser2     | PROCEDURE | root@localhost | 2025-07-09 19:08:29 | 2025-07-09 19:08:29 | DEFINER       |         | cp850                | cp850_general_ci     | utf8mb4_0900_ai_ci |
++----------------+----------------+-----------+----------------+---------------------+---------------------+---------------+---------+----------------------+----------------------+--------------------+
+9 rows in set (0.00 sec)
+
+mysql> drop procedure if exist greetuser2$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'exist greetuser2' at line 1
+mysql> drop procedure if exist greetUser2$
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'exist greetUser2' at line 1
+mysql> drop procedure if exists greetUser2$
+Query OK, 0 rows affected (0.04 sec)
+
+mysql>
+
+
+
+
+
+
+
+
+
+
+
+
+

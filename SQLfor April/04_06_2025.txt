@@ -1,0 +1,210 @@
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.41 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use april2025batch;
+Database changed
+mysql> select concat("Firstbit",Solutions);
+ERROR 1054 (42S22): Unknown column 'Solutions' in 'field list'
+mysql> select concat("Firstbit","Solutions");
++--------------------------------+
+| concat("Firstbit","Solutions") |
++--------------------------------+
+| FirstbitSolutions              |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select concat("4","07","2025");
++-------------------------+
+| concat("4","07","2025") |
++-------------------------+
+| 4072025                 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> select concat("4"," ","07"," ","2025");
++---------------------------------+
+| concat("4"," ","07"," ","2025") |
++---------------------------------+
+| 4 07 2025                       |
++---------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select concat("4","-","07","-","2025");
++---------------------------------+
+| concat("4","-","07","-","2025") |
++---------------------------------+
+| 4-07-2025                       |
++---------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select concat_ws("-","4","07","2025");
++--------------------------------+
+| concat_ws("-","4","07","2025") |
++--------------------------------+
+| 4-07-2025                      |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select concat_ws("/","4","07","2025");
++--------------------------------+
+| concat_ws("/","4","07","2025") |
++--------------------------------+
+| 4/07/2025                      |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select currentdate();
+ERROR 1305 (42000): FUNCTION april2025batch.currentdate does not exist
+mysql> select currdate();
+ERROR 1305 (42000): FUNCTION april2025batch.currdate does not exist
+mysql> select curr_entdate();
+ERROR 1305 (42000): FUNCTION april2025batch.curr_entdate does not exist
+mysql> select current_date();
++----------------+
+| current_date() |
++----------------+
+| 2025-07-04     |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select current_time();
++----------------+
+| current_time() |
++----------------+
+| 19:37:59       |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select current_datetime();
+ERROR 1305 (42000): FUNCTION april2025batch.current_datetime does not exist
+mysql> select current_timestamp();
++---------------------+
+| current_timestamp() |
++---------------------+
+| 2025-07-04 19:38:32 |
++---------------------+
+1 row in set (0.01 sec)
+
+mysql> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2025-07-04 19:39:11 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_add("2025-07-4",interval 10 day);
++---------------------------------------+
+| date_add("2025-07-4",interval 10 day) |
++---------------------------------------+
+| 2025-07-14                            |
++---------------------------------------+
+1 row in set (0.01 sec)
+
+mysql> select date_add("2025-07-4",interval 1 month);
++----------------------------------------+
+| date_add("2025-07-4",interval 1 month) |
++----------------------------------------+
+| 2025-08-04                             |
++----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_add("2025-07-4",interval 1 year);
++---------------------------------------+
+| date_add("2025-07-4",interval 1 year) |
++---------------------------------------+
+| 2026-07-04                            |
++---------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_add("2025-07-4",interval 100 year);
++-----------------------------------------+
+| date_add("2025-07-4",interval 100 year) |
++-----------------------------------------+
+| 2125-07-04                              |
++-----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_sub("2025-07-4",interval 9132 day);
++-----------------------------------------+
+| date_sub("2025-07-4",interval 9132 day) |
++-----------------------------------------+
+| 2000-07-03                              |
++-----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_add("2025-07-4",interval 9131 day);
++-----------------------------------------+
+| date_add("2025-07-4",interval 9131 day) |
++-----------------------------------------+
+| 2050-07-04                              |
++-----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_format(curdate(),"%d-%m-%y");
++-----------------------------------+
+| date_format(curdate(),"%d-%m-%y") |
++-----------------------------------+
+| 04-07-25                          |
++-----------------------------------+
+1 row in set (0.01 sec)
+
+mysql> select date_format(curdate(),"%d-%m-%Y");
++-----------------------------------+
+| date_format(curdate(),"%d-%m-%Y") |
++-----------------------------------+
+| 04-07-2025                        |
++-----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_format(curdate(),"%d-%M-%Y");
++-----------------------------------+
+| date_format(curdate(),"%d-%M-%Y") |
++-----------------------------------+
+| 04-July-2025                      |
++-----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_format(curdate(),"%D-%M-%Y");
++-----------------------------------+
+| date_format(curdate(),"%D-%M-%Y") |
++-----------------------------------+
+| 4th-July-2025                     |
++-----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_format(curdate(),"%D-%M-%Y %e");
++--------------------------------------+
+| date_format(curdate(),"%D-%M-%Y %e") |
++--------------------------------------+
+| 4th-July-2025 4                      |
++--------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_format(curdate(),"%D-%M-%Y %w");
++--------------------------------------+
+| date_format(curdate(),"%D-%M-%Y %w") |
++--------------------------------------+
+| 4th-July-2025 5                      |
++--------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_format(curdate(),"%D-%M-%Y %W");
++--------------------------------------+
+| date_format(curdate(),"%D-%M-%Y %W") |
++--------------------------------------+
+| 4th-July-2025 Friday                 |
++--------------------------------------+
+1 row in set (0.00 sec)
+
+mysql>

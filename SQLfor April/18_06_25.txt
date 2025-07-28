@@ -1,0 +1,243 @@
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.41 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database april2025batch;
+Query OK, 1 row affected (0.12 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| april2025batch     |
+| assignment1        |
+| assignment2        |
+| banksystem         |
+| blog               |
+| bookproject        |
+| employee           |
+| febmarchmerged     |
+| fun1               |
+| hospital           |
+| information_schema |
+| janfebsql          |
+| jdbcpract          |
+| june               |
+| mergedsql          |
+| mysql              |
+| performance_schema |
+| pratiksir          |
+| ranjit             |
+| sys                |
+| test1              |
+| test_set_b         |
+| test_setc          |
++--------------------+
+23 rows in set (0.12 sec)
+
+mysql> use april2025batch;
+Database changed
+mysql> show tables;
+Empty set (0.04 sec)
+
+mysql> create table employee;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> create table employee(
+    -> e_id int,e_name varchar(25),salary decimal(7,2),email_id varchar(20));
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> show tables;
++--------------------------+
+| Tables_in_april2025batch |
++--------------------------+
+| employee                 |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> desc employee;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| e_id     | int          | YES  |     | NULL    |       |
+| e_name   | varchar(25)  | YES  |     | NULL    |       |
+| salary   | decimal(7,2) | YES  |     | NULL    |       |
+| email_id | varchar(20)  | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> alter table employee
+    -> add constraint email_id not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'not null' at line 2
+mysql> alter table employee
+    -> modify column email_id varchar(20) not null;
+Query OK, 0 rows affected (0.47 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| e_id     | int          | YES  |     | NULL    |       |
+| e_name   | varchar(25)  | YES  |     | NULL    |       |
+| salary   | decimal(7,2) | YES  |     | NULL    |       |
+| email_id | varchar(20)  | NO   |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> add primary key(e_id);
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| e_id     | int          | NO   | PRI | NULL    |       |
+| e_name   | varchar(25)  | YES  |     | NULL    |       |
+| salary   | decimal(7,2) | YES  |     | NULL    |       |
+| email_id | varchar(20)  | NO   |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> add column age int check(age>=18) after e_name;
+Query OK, 0 rows affected (0.36 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| e_id     | int          | NO   | PRI | NULL    |       |
+| e_name   | varchar(25)  | YES  |     | NULL    |       |
+| age      | int          | YES  |     | NULL    |       |
+| salary   | decimal(7,2) | YES  |     | NULL    |       |
+| email_id | varchar(20)  | NO   |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> show create table employee;
++----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                                                                                            |
++----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| employee | CREATE TABLE `employee` (
+  `e_id` int NOT NULL,
+  `e_name` varchar(25) DEFAULT NULL,
+  `age` int DEFAULT NULL,
+  `salary` decimal(7,2) DEFAULT NULL,
+  `email_id` varchar(20) NOT NULL,
+  PRIMARY KEY (`e_id`),
+  CONSTRAINT `employee_chk_1` CHECK ((`age` >= 18))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> alter table employee
+    -> add primary key(email_id);
+ERROR 1068 (42000): Multiple primary key defined
+mysql> desc employee;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| e_id     | int          | NO   | PRI | NULL    |       |
+| e_name   | varchar(25)  | YES  |     | NULL    |       |
+| age      | int          | YES  |     | NULL    |       |
+| salary   | decimal(7,2) | YES  |     | NULL    |       |
+| email_id | varchar(20)  | NO   |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> add column nickname varchar(10) unique before age;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'before age' at line 2
+mysql> alter table employee
+    -> add column nickname varchar(10) unique after e_name;
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| e_id     | int          | NO   | PRI | NULL    |       |
+| e_name   | varchar(25)  | YES  |     | NULL    |       |
+| nickname | varchar(10)  | YES  | UNI | NULL    |       |
+| age      | int          | YES  |     | NULL    |       |
+| salary   | decimal(7,2) | YES  |     | NULL    |       |
+| email_id | varchar(20)  | NO   |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> add column joining_date date;
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| e_id         | int          | NO   | PRI | NULL    |       |
+| e_name       | varchar(25)  | YES  |     | NULL    |       |
+| nickname     | varchar(10)  | YES  | UNI | NULL    |       |
+| age          | int          | YES  |     | NULL    |       |
+| salary       | decimal(7,2) | YES  |     | NULL    |       |
+| email_id     | varchar(20)  | NO   |     | NULL    |       |
+| joining_date | date         | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> modify column e_name varchar(50);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table employee
+    -> modify column salary decimal(7,2) default 10000;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++--------------+--------------+------+-----+----------+-------+
+| Field        | Type         | Null | Key | Default  | Extra |
++--------------+--------------+------+-----+----------+-------+
+| e_id         | int          | NO   | PRI | NULL     |       |
+| e_name       | varchar(50)  | YES  |     | NULL     |       |
+| nickname     | varchar(10)  | YES  | UNI | NULL     |       |
+| age          | int          | YES  |     | NULL     |       |
+| salary       | decimal(7,2) | YES  |     | 10000.00 |       |
+| email_id     | varchar(20)  | NO   |     | NULL     |       |
+| joining_date | date         | YES  |     | NULL     |       |
++--------------+--------------+------+-----+----------+-------+
+7 rows in set (0.00 sec)
+
+mysql> show create table employee;
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| employee | CREATE TABLE `employee` (
+  `e_id` int NOT NULL,
+  `e_name` varchar(50) DEFAULT NULL,
+  `nickname` varchar(10) DEFAULT NULL,
+  `age` int DEFAULT NULL,
+  `salary` decimal(7,2) DEFAULT '10000.00',
+  `email_id` varchar(20) NOT NULL,
+  `joining_date` date DEFAULT NULL,
+  PRIMARY KEY (`e_id`),
+  UNIQUE KEY `nickname` (`nickname`),
+  CONSTRAINT `employee_chk_1` CHECK ((`age` >= 18))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql>

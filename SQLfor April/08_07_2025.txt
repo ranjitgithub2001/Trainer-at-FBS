@@ -1,0 +1,172 @@
+select col1,col2,....,
+case 
+when condition then output
+when condition then output
+when condition then output
+else
+end as "alias" 
+from tablename;
+
+>35k high
+>30k medium
+>25k low
+
+select e_name,salary,
+case
+when salary>=35000 then "high"
+when salary>=30000 then "medium"
+when salary>=25000 then "low"
+else "very low"
+end as "Salary Category"
+from employee;
+
+
+select 
+case
+when salary>=35000 then "high"
+when salary>=30000 then "medium"
+when salary>=25000 then "low"
+else "very low"
+end as "Salary Category"
+,count(e_id) from employee
+group by Salary Category;
+
+
+update tablename
+set columnname=
+case 
+when 
+
+
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.41 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use april2025batch;
+Database changed
+mysql> table employee;
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    3 | Yash     |   22 | 37000.00 |       1 |
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    7 | Utkasrh  |   23 | 37000.00 |       1 |
+|    9 | Tushar   |   22 | 25000.00 |       4 |
+|   10 | Sudip    |   22 | 30000.00 |       4 |
+|   11 | Satyam   |   23 | 37000.00 |    NULL |
+|   12 | Miheer   |   22 | 35000.00 |    NULL |
++------+----------+------+----------+---------+
+8 rows in set (0.13 sec)
+
+mysql> select e_name,salary,
+    -> case
+    -> when salary>=35000 then "high"
+    -> when salary>=30000 then "medium"
+    -> when salary>=25000 then "low"
+    -> end as "Salary Category"
+    -> from employee;
++----------+----------+-----------------+
+| e_name   | salary   | Salary Category |
++----------+----------+-----------------+
+| Yash     | 37000.00 | high            |
+| Raj      | 34000.00 | medium          |
+| Shraddha | 30000.00 | medium          |
+| Utkasrh  | 37000.00 | high            |
+| Tushar   | 25000.00 | low             |
+| Sudip    | 30000.00 | medium          |
+| Satyam   | 37000.00 | high            |
+| Miheer   | 35000.00 | high            |
++----------+----------+-----------------+
+8 rows in set (0.01 sec)
+
+mysql> select
+    -> case
+    -> when salary>=35000 then "high"
+    -> when salary>=30000 then "medium"
+    -> when salary>=25000 then "low"
+    -> else "very low"
+    -> end as "Salary Category"
+    -> ,count(e_id) from employee
+    -> group by
+    -> case
+    -> when salary>=35000 then "high"
+    -> when salary>=30000 then "medium"
+    -> when salary>=25000 then "low"
+    -> else "very low"
+    -> end as "Salary Category";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'as "Salary Category"' at line 15
+mysql> select
+    -> case
+    -> when salary>=35000 then "high"
+    -> when salary>=30000 then "medium"
+    -> when salary>=25000 then "low"
+    -> else "very low"
+    -> end as "Salary Category"
+    -> ,count(e_id) from employee
+    -> group by
+    -> case
+    -> when salary>=35000 then "high"
+    -> when salary>=30000 then "medium"
+    -> when salary>=25000 then "low"
+    -> else "very low"
+    -> end;
++-----------------+-------------+
+| Salary Category | count(e_id) |
++-----------------+-------------+
+| high            |           4 |
+| medium          |           3 |
+| low             |           1 |
++-----------------+-------------+
+3 rows in set (0.02 sec)
+
+mysql> select
+    -> case
+    -> when salary>=35000 then "high"
+    -> when salary>=30000 then "medium"
+    -> when salary>=25000 then "low"
+    -> else "very low"
+    -> end as "Salary Category"
+    -> ,count(e_id) from employee
+    -> group by Salary Category;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Category' at line 9
+mysql> select
+    -> case
+    -> when salary>=35000 then "high"
+    -> when salary>=30000 then "medium"
+    -> when salary>=25000 then "low"
+    -> else "very low"
+    -> end as "Salary Category"
+    -> ,count(e_id) from employee
+    -> group by "Salary Category";
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'april2025batch.employee.salary' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> table employee;
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    3 | Yash     |   22 | 37000.00 |       1 |
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    7 | Utkasrh  |   23 | 37000.00 |       1 |
+|    9 | Tushar   |   22 | 25000.00 |       4 |
+|   10 | Sudip    |   22 | 30000.00 |       4 |
+|   11 | Satyam   |   23 | 37000.00 |    NULL |
+|   12 | Miheer   |   22 | 35000.00 |    NULL |
++------+----------+------+----------+---------+
+8 rows in set (0.00 sec)
+
+mysql>
+
+
+
+
+

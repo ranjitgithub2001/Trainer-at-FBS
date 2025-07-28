@@ -1,0 +1,238 @@
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 8.0.41 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use april2025batch;
+Database changed
+mysql> table employee;
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    3 | Yash     |   22 | 35000.00 |       1 |
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    6 | Muskaan  |   25 | 37000.00 |       5 |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |
+|    9 | Tushar   |   22 | 25000.00 |       4 |
+|   10 | Sudip    |   22 | 30000.00 |       4 |
+|   11 | Satyam   |   23 | 37000.00 |    NULL |
+|   12 | Miheer   |   22 | 35000.00 |    NULL |
++------+----------+------+----------+---------+
+9 rows in set (0.00 sec)
+
+mysql> delete from employee where e_id=6;
+Query OK, 1 row affected (0.54 sec)
+
+mysql> table employee;
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    3 | Yash     |   22 | 35000.00 |       1 |
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |
+|    9 | Tushar   |   22 | 25000.00 |       4 |
+|   10 | Sudip    |   22 | 30000.00 |       4 |
+|   11 | Satyam   |   23 | 37000.00 |    NULL |
+|   12 | Miheer   |   22 | 35000.00 |    NULL |
++------+----------+------+----------+---------+
+8 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> table employee;
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    3 | Yash     |   22 | 35000.00 |       1 |
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |
+|    9 | Tushar   |   22 | 25000.00 |       4 |
+|   10 | Sudip    |   22 | 30000.00 |       4 |
+|   11 | Satyam   |   23 | 37000.00 |    NULL |
+|   12 | Miheer   |   22 | 35000.00 |    NULL |
++------+----------+------+----------+---------+
+8 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> table employee;
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    3 | Yash     |   22 | 35000.00 |       1 |
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |
+|    9 | Tushar   |   22 | 25000.00 |       4 |
+|   10 | Sudip    |   22 | 30000.00 |       4 |
+|   11 | Satyam   |   23 | 37000.00 |    NULL |
+|   12 | Miheer   |   22 | 35000.00 |    NULL |
++------+----------+------+----------+---------+
+8 rows in set (0.00 sec)
+
+mysql> begin;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from employee where e_id=5;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> table employee;
++------+---------+------+----------+---------+
+| e_id | e_name  | age  | salary   | dept_id |
++------+---------+------+----------+---------+
+|    3 | Yash    |   22 | 35000.00 |       1 |
+|    4 | Raj     |   23 | 34000.00 |       2 |
+|    7 | Utkasrh |   23 | 35000.00 |       1 |
+|    9 | Tushar  |   22 | 25000.00 |       4 |
+|   10 | Sudip   |   22 | 30000.00 |       4 |
+|   11 | Satyam  |   23 | 37000.00 |    NULL |
+|   12 | Miheer  |   22 | 35000.00 |    NULL |
++------+---------+------+----------+---------+
+7 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> table employee;
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    3 | Yash     |   22 | 35000.00 |       1 |
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |
+|    9 | Tushar   |   22 | 25000.00 |       4 |
+|   10 | Sudip    |   22 | 30000.00 |       4 |
+|   11 | Satyam   |   23 | 37000.00 |    NULL |
+|   12 | Miheer   |   22 | 35000.00 |    NULL |
++------+----------+------+----------+---------+
+8 rows in set (0.00 sec)
+
+mysql> begin;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from employee where e_id=5;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> update employee set salary=35000 where e_id=10;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> rollback;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> table employee;
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    3 | Yash     |   22 | 35000.00 |       1 |
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |
+|    9 | Tushar   |   22 | 25000.00 |       4 |
+|   10 | Sudip    |   22 | 30000.00 |       4 |
+|   11 | Satyam   |   23 | 37000.00 |    NULL |
+|   12 | Miheer   |   22 | 35000.00 |    NULL |
++------+----------+------+----------+---------+
+8 rows in set (0.00 sec)
+
+mysql> begin;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from employee where e_id=5;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> update employee set salary=35000 where e_id=10;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set salary=40000 where e_id=4;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> table employee;
++------+---------+------+----------+---------+
+| e_id | e_name  | age  | salary   | dept_id |
++------+---------+------+----------+---------+
+|    3 | Yash    |   22 | 35000.00 |       1 |
+|    4 | Raj     |   23 | 40000.00 |       2 |
+|    7 | Utkasrh |   23 | 35000.00 |       1 |
+|    9 | Tushar  |   22 | 25000.00 |       4 |
+|   10 | Sudip   |   22 | 35000.00 |       4 |
+|   11 | Satyam  |   23 | 37000.00 |    NULL |
+|   12 | Miheer  |   22 | 35000.00 |    NULL |
++------+---------+------+----------+---------+
+7 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> table employee;
++------+----------+------+----------+---------+
+| e_id | e_name   | age  | salary   | dept_id |
++------+----------+------+----------+---------+
+|    3 | Yash     |   22 | 35000.00 |       1 |
+|    4 | Raj      |   23 | 34000.00 |       2 |
+|    5 | Shraddha |   21 | 30000.00 |       4 |
+|    7 | Utkasrh  |   23 | 35000.00 |       1 |
+|    9 | Tushar   |   22 | 25000.00 |       4 |
+|   10 | Sudip    |   22 | 30000.00 |       4 |
+|   11 | Satyam   |   23 | 37000.00 |    NULL |
+|   12 | Miheer   |   22 | 35000.00 |    NULL |
++------+----------+------+----------+---------+
+8 rows in set (0.00 sec)
+
+mysql> begin;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from employee where e_id=5;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint sp1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> update employee set salary=35000 where e_id=10;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> savepoint sp2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> update employee set salary=40000 where e_id=4;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> savepoint sp3;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> rollback to sp1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> table employee;
++------+---------+------+----------+---------+
+| e_id | e_name  | age  | salary   | dept_id |
++------+---------+------+----------+---------+
+|    3 | Yash    |   22 | 35000.00 |       1 |
+|    4 | Raj     |   23 | 34000.00 |       2 |
+|    7 | Utkasrh |   23 | 35000.00 |       1 |
+|    9 | Tushar  |   22 | 25000.00 |       4 |
+|   10 | Sudip   |   22 | 30000.00 |       4 |
+|   11 | Satyam  |   23 | 37000.00 |    NULL |
+|   12 | Miheer  |   22 | 35000.00 |    NULL |
++------+---------+------+----------+---------+
+7 rows in set (0.00 sec)
+
+mysql>
