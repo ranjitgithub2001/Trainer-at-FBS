@@ -1,0 +1,228 @@
+mysql> use may2025batch;
+Database changed
+mysql> desc employee;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| e_id            | int          | NO   | PRI | NULL    |       |
+| dept_id         | int          | YES  |     | NULL    |       |
+| date_of_birth   | int          | NO   |     | NULL    |       |
+| e_name          | varchar(25)  | YES  |     | NULL    |       |
+| age             | int          | YES  |     | NULL    |       |
+| salary          | decimal(7,2) | YES  |     | NULL    |       |
+| email           | varchar(30)  | YES  |     | NULL    |       |
+| date_of_joining | date         | YES  |     | NULL    |       |
+| salary_date     | date         | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+9 rows in set (0.01 sec)
+
+mysql> alter table employee
+    -> drop column dept_id;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| e_id            | int          | NO   | PRI | NULL    |       |
+| date_of_birth   | int          | NO   |     | NULL    |       |
+| e_name          | varchar(25)  | YES  |     | NULL    |       |
+| age             | int          | YES  |     | NULL    |       |
+| salary          | decimal(7,2) | YES  |     | NULL    |       |
+| email           | varchar(30)  | YES  |     | NULL    |       |
+| date_of_joining | date         | YES  |     | NULL    |       |
+| salary_date     | date         | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> drop constraint employee_chk_2;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show create table employee;
++----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
++----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| employee | CREATE TABLE `employee` (
+  `e_id` int NOT NULL,
+  `date_of_birth` int NOT NULL,
+  `e_name` varchar(25) DEFAULT NULL,
+  `age` int DEFAULT NULL,
+  `salary` decimal(7,2) DEFAULT NULL,
+  `email` varchar(30) DEFAULT NULL,
+  `date_of_joining` date DEFAULT NULL,
+  `salary_date` date DEFAULT NULL,
+  PRIMARY KEY (`e_id`),
+  CONSTRAINT `employee_chk_1` CHECK ((`age` >= 18)),
+  CONSTRAINT `employee_chk_3` CHECK ((`salary` < 100000))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> alter table employee
+    -> drop constraint employee_chk_3;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show create table employee;
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                       |
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| employee | CREATE TABLE `employee` (
+  `e_id` int NOT NULL,
+  `date_of_birth` int NOT NULL,
+  `e_name` varchar(25) DEFAULT NULL,
+  `age` int DEFAULT NULL,
+  `salary` decimal(7,2) DEFAULT NULL,
+  `email` varchar(30) DEFAULT NULL,
+  `date_of_joining` date DEFAULT NULL,
+  `salary_date` date DEFAULT NULL,
+  PRIMARY KEY (`e_id`),
+  CONSTRAINT `employee_chk_1` CHECK ((`age` >= 18))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> alter table employee
+    -> drop primary key;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| e_id            | int          | NO   |     | NULL    |       |
+| date_of_birth   | int          | NO   |     | NULL    |       |
+| e_name          | varchar(25)  | YES  |     | NULL    |       |
+| age             | int          | YES  |     | NULL    |       |
+| salary          | decimal(7,2) | YES  |     | NULL    |       |
+| email           | varchar(30)  | YES  |     | NULL    |       |
+| date_of_joining | date         | YES  |     | NULL    |       |
+| salary_date     | date         | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> drop table employee;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc employee;
+ERROR 1146 (42S02): Table 'may2025batch.employee' doesn't exist
+mysql> create table employee(
+    -> e_id int primary key,
+    -> e_name varchar(25),
+    -> salary decimal(7,2),
+    -> age int check (age>=18),
+    -> date_of_joining date not null,
+    -> email_id varchar(25) unique);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql>
+mysql> table employee;
+Empty set (0.00 sec)
+
+mysql> desc employee;
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| e_id            | int          | NO   | PRI | NULL    |       |
+| e_name          | varchar(25)  | YES  |     | NULL    |       |
+| salary          | decimal(7,2) | YES  |     | NULL    |       |
+| age             | int          | YES  |     | NULL    |       |
+| date_of_joining | date         | NO   |     | NULL    |       |
+| email_id        | varchar(25)  | YES  | UNI | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> insert into employee values (1,"Rohan",27000,21,"2021-08-27","rohan@google.com");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> table employee;
++------+--------+----------+------+-----------------+------------------+
+| e_id | e_name | salary   | age  | date_of_joining | email_id         |
++------+--------+----------+------+-----------------+------------------+
+|    1 | Rohan  | 27000.00 |   21 | 2021-08-27      | rohan@google.com |
++------+--------+----------+------+-----------------+------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into employee values (2,"Sneha",28000,21,"2021-03-21","sneha@google.com"),
+    -> (3,"Sakshi",30000,21,"2022-10-23","sakshi@google.com");
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> insert into employee values (2,"Sneha",28000,21,"2021-03-21","sneha@google.com"),
+    -> (3,"Sakshi",30000,21,"2022-10-23","sakshi@google.com");
+ERROR 1062 (23000): Duplicate entry '2' for key 'employee.PRIMARY'
+mysql> alter table employee
+    -> add constraint salary default 20000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'default 20000' at line 2
+mysql> alter table employee
+    -> add constraint salary default "20000";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'default "20000"' at line 2
+mysql> alter table employee
+    -> add constraint salary default (20000);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'default (20000)' at line 2
+mysql> alter table employee
+    -> add constraint salary decimal default 20000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'decimal default 20000' at line 2
+mysql> alter table employee
+    -> add constraint salary decimal(7,2\) default 20000;
+ERROR:
+Unknown command '\)'.
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'decimal(7,2\) default 20000' at line 2
+mysql> alter table employee
+    -> add constraint default(salary=20000);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'default(salary=20000)' at line 2
+mysql> alter table employee
+    -> modify salary decimal(7,2) default 20000;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++-----------------+--------------+------+-----+----------+-------+
+| Field           | Type         | Null | Key | Default  | Extra |
++-----------------+--------------+------+-----+----------+-------+
+| e_id            | int          | NO   | PRI | NULL     |       |
+| e_name          | varchar(25)  | YES  |     | NULL     |       |
+| salary          | decimal(7,2) | YES  |     | 20000.00 |       |
+| age             | int          | YES  |     | NULL     |       |
+| date_of_joining | date         | NO   |     | NULL     |       |
+| email_id        | varchar(25)  | YES  | UNI | NULL     |       |
++-----------------+--------------+------+-----+----------+-------+
+6 rows in set (0.00 sec)
+
+mysql> insert into employee values (4,"Om",21,"2021-04-27","om@google.com");
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into employee(e_id,e_name,age,date_of_joining,email_id) values (4,"Om",21,"2021-04-27","om@google.com");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> table employee;
++------+--------+----------+------+-----------------+-------------------+
+| e_id | e_name | salary   | age  | date_of_joining | email_id          |
++------+--------+----------+------+-----------------+-------------------+
+|    1 | Rohan  | 27000.00 |   21 | 2021-08-27      | rohan@google.com  |
+|    2 | Sneha  | 28000.00 |   21 | 2021-03-21      | sneha@google.com  |
+|    3 | Sakshi | 30000.00 |   21 | 2022-10-23      | sakshi@google.com |
+|    4 | Om     | 20000.00 |   21 | 2021-04-27      | om@google.com     |
++------+--------+----------+------+-----------------+-------------------+
+4 rows in set (0.00 sec)
+
+mysql>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
