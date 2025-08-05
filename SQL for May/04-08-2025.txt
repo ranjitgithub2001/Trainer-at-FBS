@@ -1,0 +1,257 @@
+mysql> use may2025batch;
+Database changed
+mysql> table employee;
++--------+-----------------+------------+----------+------+-------------------+
+| emp_id | date_of_joining | e_name     | salary   | age  | email_id          |
++--------+-----------------+------------+----------+------+-------------------+
+|      1 | 2021-08-27      | Rohan      | 25300.00 |   23 | rohan@google.com  |
+|      2 | 2021-03-21      | Sneha      | 36300.00 |   21 | sneha@google.com  |
+|      3 | 2022-10-23      | Sakshi     |   363.00 |   23 | sakshi@google.com |
+|      4 | 2021-04-27      | Om Bhosale | 22000.00 |   23 | om@google.com     |
++--------+-----------------+------------+----------+------+-------------------+
+4 rows in set (0.03 sec)
+
+mysql> delete from employee
+    -> where emp_id=4;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> table employee;
++--------+-----------------+--------+----------+------+-------------------+
+| emp_id | date_of_joining | e_name | salary   | age  | email_id          |
++--------+-----------------+--------+----------+------+-------------------+
+|      1 | 2021-08-27      | Rohan  | 25300.00 |   23 | rohan@google.com  |
+|      2 | 2021-03-21      | Sneha  | 36300.00 |   21 | sneha@google.com  |
+|      3 | 2022-10-23      | Sakshi |   363.00 |   23 | sakshi@google.com |
++--------+-----------------+--------+----------+------+-------------------+
+3 rows in set (0.00 sec)
+
+mysql>
+mysql> alter table employee
+    -> modify column emp_id int auto_increment;
+Query OK, 3 rows affected (0.08 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> table employee;
++--------+-----------------+--------+----------+------+-------------------+
+| emp_id | date_of_joining | e_name | salary   | age  | email_id          |
++--------+-----------------+--------+----------+------+-------------------+
+|      1 | 2021-08-27      | Rohan  | 25300.00 |   23 | rohan@google.com  |
+|      2 | 2021-03-21      | Sneha  | 36300.00 |   21 | sneha@google.com  |
+|      3 | 2022-10-23      | Sakshi |   363.00 |   23 | sakshi@google.com |
++--------+-----------------+--------+----------+------+-------------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into employee(date_of_joining, e_name,salary,age,email_id) values
+    -> ("2022-04-02","Avishkar",30000,22,"avishkar@company.com");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> table employee;
++--------+-----------------+----------+----------+------+----------------------+
+| emp_id | date_of_joining | e_name   | salary   | age  | email_id             |
++--------+-----------------+----------+----------+------+----------------------+
+|      1 | 2021-08-27      | Rohan    | 25300.00 |   23 | rohan@google.com     |
+|      2 | 2021-03-21      | Sneha    | 36300.00 |   21 | sneha@google.com     |
+|      3 | 2022-10-23      | Sakshi   |   363.00 |   23 | sakshi@google.com    |
+|      4 | 2022-04-02      | Avishkar | 30000.00 |   22 | avishkar@company.com |
++--------+-----------------+----------+----------+------+----------------------+
+4 rows in set (0.00 sec)
+
+mysql> delete from employee
+    -> where emp_id=3;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> table employee;
++--------+-----------------+----------+----------+------+----------------------+
+| emp_id | date_of_joining | e_name   | salary   | age  | email_id             |
++--------+-----------------+----------+----------+------+----------------------+
+|      1 | 2021-08-27      | Rohan    | 25300.00 |   23 | rohan@google.com     |
+|      2 | 2021-03-21      | Sneha    | 36300.00 |   21 | sneha@google.com     |
+|      4 | 2022-04-02      | Avishkar | 30000.00 |   22 | avishkar@company.com |
++--------+-----------------+----------+----------+------+----------------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into employee(date_of_joining, e_name,salary,age,email_id) values
+    -> ("2022-04-03","Nikhil",35000,22,"nikhil@company.com");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> table employee;
++--------+-----------------+----------+----------+------+----------------------+
+| emp_id | date_of_joining | e_name   | salary   | age  | email_id             |
++--------+-----------------+----------+----------+------+----------------------+
+|      1 | 2021-08-27      | Rohan    | 25300.00 |   23 | rohan@google.com     |
+|      2 | 2021-03-21      | Sneha    | 36300.00 |   21 | sneha@google.com     |
+|      4 | 2022-04-02      | Avishkar | 30000.00 |   22 | avishkar@company.com |
+|      5 | 2022-04-03      | Nikhil   | 35000.00 |   22 | nikhil@company.com   |
++--------+-----------------+----------+----------+------+----------------------+
+4 rows in set (0.00 sec)
+
+mysql> truncate table employee;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> table employee;
+Empty set (0.00 sec)
+
+mysql> insert into employee(date_of_joining, e_name,salary,age,email_id) values
+    -> ("2022-04-03","Nikhil",35000,22,"nikhil@company.com");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> table employee;
++--------+-----------------+--------+----------+------+--------------------+
+| emp_id | date_of_joining | e_name | salary   | age  | email_id           |
++--------+-----------------+--------+----------+------+--------------------+
+|      1 | 2022-04-03      | Nikhil | 35000.00 |   22 | nikhil@company.com |
++--------+-----------------+--------+----------+------+--------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into employee(date_of_joining, e_name,salary,age,email_id) values
+    -> ("2022-04-02","Avishkar",30000,22,"avishkar@company.com"),
+    -> ("2023-05-06","Sakshi",34000,22,"sakshi@company.com"),
+    -> ("2022-03-26","Sneha",25000,21,"sneha@company.com");
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> table employee;
++--------+-----------------+----------+----------+------+----------------------+
+| emp_id | date_of_joining | e_name   | salary   | age  | email_id             |
++--------+-----------------+----------+----------+------+----------------------+
+|      1 | 2022-04-03      | Nikhil   | 35000.00 |   22 | nikhil@company.com   |
+|      2 | 2022-04-02      | Avishkar | 30000.00 |   22 | avishkar@company.com |
+|      3 | 2023-05-06      | Sakshi   | 34000.00 |   22 | sakshi@company.com   |
+|      4 | 2022-03-26      | Sneha    | 25000.00 |   21 | sneha@company.com    |
++--------+-----------------+----------+----------+------+----------------------+
+4 rows in set (0.00 sec)
+
+mysql>
+mysql> select e_name from employee where age=22;
++----------+
+| e_name   |
++----------+
+| Nikhil   |
+| Avishkar |
+| Sakshi   |
++----------+
+3 rows in set (0.00 sec)
+
+mysql>
+mysql> select e_name from employee where age!=21;
++----------+
+| e_name   |
++----------+
+| Nikhil   |
+| Avishkar |
+| Sakshi   |
++----------+
+3 rows in set (0.00 sec)
+
+mysql> select e_name from employee where age <> 21;
++----------+
+| e_name   |
++----------+
+| Nikhil   |
+| Avishkar |
+| Sakshi   |
++----------+
+3 rows in set (0.00 sec)
+
+mysql> create table department(
+    -> dept_id int primary key auto_increment,
+    -> dept_name VARCHAR(25),
+    -> dept_loc varchar(25));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into employee (dept_name,dept_loc) values
+    -> ("HR","Pune"),("IT","Mumbai"),("Marketing","Nagpur");
+ERROR 1054 (42S22): Unknown column 'dept_name' in 'field list'
+mysql> insert into department (dept_name,dept_loc) values
+    -> ("HR","Pune"),("IT","Mumbai"),("Marketing","Nagpur");
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> table department;
++---------+-----------+----------+
+| dept_id | dept_name | dept_loc |
++---------+-----------+----------+
+|       1 | HR        | Pune     |
+|       2 | IT        | Mumbai   |
+|       3 | Marketing | Nagpur   |
++---------+-----------+----------+
+3 rows in set (0.00 sec)
+
+mysql> table employee;
++--------+-----------------+----------+----------+------+----------------------+
+| emp_id | date_of_joining | e_name   | salary   | age  | email_id             |
++--------+-----------------+----------+----------+------+----------------------+
+|      1 | 2022-04-03      | Nikhil   | 35000.00 |   22 | nikhil@company.com   |
+|      2 | 2022-04-02      | Avishkar | 30000.00 |   22 | avishkar@company.com |
+|      3 | 2023-05-06      | Sakshi   | 34000.00 |   22 | sakshi@company.com   |
+|      4 | 2022-03-26      | Sneha    | 25000.00 |   21 | sneha@company.com    |
++--------+-----------------+----------+----------+------+----------------------+
+4 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> add column dept_id int;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++-----------------+--------------+------+-----+----------+----------------+
+| Field           | Type         | Null | Key | Default  | Extra          |
++-----------------+--------------+------+-----+----------+----------------+
+| emp_id          | int          | NO   | PRI | NULL     | auto_increment |
+| date_of_joining | date         | YES  |     | NULL     |                |
+| e_name          | varchar(25)  | YES  |     | NULL     |                |
+| salary          | decimal(7,2) | YES  |     | 20000.00 |                |
+| age             | int          | YES  |     | NULL     |                |
+| email_id        | varchar(25)  | YES  | UNI | NULL     |                |
+| dept_id         | int          | YES  |     | NULL     |                |
++-----------------+--------------+------+-----+----------+----------------+
+7 rows in set (0.02 sec)
+
+mysql> alter table employee
+    -> add foreign key(dept_id)
+    -> REFERENCES department(dept_id);
+Query OK, 4 rows affected (0.07 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++-----------------+--------------+------+-----+----------+----------------+
+| Field           | Type         | Null | Key | Default  | Extra          |
++-----------------+--------------+------+-----+----------+----------------+
+| emp_id          | int          | NO   | PRI | NULL     | auto_increment |
+| date_of_joining | date         | YES  |     | NULL     |                |
+| e_name          | varchar(25)  | YES  |     | NULL     |                |
+| salary          | decimal(7,2) | YES  |     | 20000.00 |                |
+| age             | int          | YES  |     | NULL     |                |
+| email_id        | varchar(25)  | YES  | UNI | NULL     |                |
+| dept_id         | int          | YES  | MUL | NULL     |                |
++-----------------+--------------+------+-----+----------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> insert into employee(date_of_joining, e_name,salary,age,email_id,dept_id) values
+    -> ("2020-01-02","Janhavi",27000,23,"janhavi@company.com",4);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`may2025batch`.`employee`, CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`dept_id`) REFERENCES `department` (`dept_id`))
+mysql> insert into employee(date_of_joining, e_name,salary,age,email_id,dept_id) values
+    -> ("2020-01-02","Janhavi",27000,23,"janhavi@company.com",3);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> table department;
++---------+-----------+----------+
+| dept_id | dept_name | dept_loc |
++---------+-----------+----------+
+|       1 | HR        | Pune     |
+|       2 | IT        | Mumbai   |
+|       3 | Marketing | Nagpur   |
++---------+-----------+----------+
+3 rows in set (0.00 sec)
+
+mysql> delete from department
+    -> where dept_id=3;
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`may2025batch`.`employee`, CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`dept_id`) REFERENCES `department` (`dept_id`))
+mysql>
+mysql>
+
+
+
+
+
+
