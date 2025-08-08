@@ -1,0 +1,567 @@
+ Last login: Fri Aug  8 09:00:31 on console
+ranjitkale@Ranjits-MacBook-Air ~ % mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.4.6 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use may2025batch;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> table employee;
++--------+----------+----------+------+---------+--------------+
+| emp_id | e_name   | salary   | age  | dept_id | joining_date |
++--------+----------+----------+------+---------+--------------+
+|      1 | Sneha    | 32000.00 |   23 |       1 | 2023-05-15   |
+|      2 | Sakshi   | 38000.00 |   24 |       2 | 2022-11-20   |
+|      3 | Rohan    | 40000.00 |   25 |       3 | 2021-07-10   |
+|      4 | Prashant | 35000.00 |   22 |       4 | 2020-09-05   |
+|      5 | Janhavi  | 28000.00 |   20 |       1 | 2024-01-25   |
+|      6 | Shubham  | 39000.00 |   21 |       3 | 2023-08-18   |
++--------+----------+----------+------+---------+--------------+
+6 rows in set (0.01 sec)
+
+mysql> select length("firstbit solutions");
++------------------------------+
+| length("firstbit solutions") |
++------------------------------+
+|                           18 |
++------------------------------+
+1 row in set (0.01 sec)
+
+mysql> select length("firstbit solutions") as "Length of String";
++------------------+
+| Length of String |
++------------------+
+|               18 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select trim("    firstBit solutions   ");
++-----------------------------------+
+| trim("    firstBit solutions   ") |
++-----------------------------------+
+| firstBit solutions                |
++-----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select trim("    firstBit solutions   ") as "result";
++--------------------+
+| result             |
++--------------------+
+| firstBit solutions |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select ltrim("    firstBit solutions") as "result";
++--------------------+
+| result             |
++--------------------+
+| firstBit solutions |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select rtrim("    firstBit solutions      ") as "result";
++------------------------+
+| result                 |
++------------------------+
+|     firstBit solutions |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> select concat("firstbit","solutions");
++--------------------------------+
+| concat("firstbit","solutions") |
++--------------------------------+
+| firstbitsolutions              |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select concat("firstbit"," ","solutions");
++------------------------------------+
+| concat("firstbit"," ","solutions") |
++------------------------------------+
+| firstbit solutions                 |
++------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select concat_ws(" ","firstbit","solutions");
++---------------------------------------+
+| concat_ws(" ","firstbit","solutions") |
++---------------------------------------+
+| firstbit solutions                    |
++---------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select concat_ws(" ","firstbit","solutions","IT","Training","Institute");
++-------------------------------------------------------------------+
+| concat_ws(" ","firstbit","solutions","IT","Training","Institute") |
++-------------------------------------------------------------------+
+| firstbit solutions IT Training Institute                          |
++-------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select concat_ws("-","firstbit","solutions","IT","Training","Institute");
++-------------------------------------------------------------------+
+| concat_ws("-","firstbit","solutions","IT","Training","Institute") |
++-------------------------------------------------------------------+
+| firstbit-solutions-IT-Training-Institute                          |
++-------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select substr("firstbit solutions","sol");
++------------------------------------+
+| substr("firstbit solutions","sol") |
++------------------------------------+
+|                                    |
++------------------------------------+
+1 row in set, 2 warnings (0.00 sec)
+
+mysql> select substr("sol","firstbit soltutions");
++-------------------------------------+
+| substr("sol","firstbit soltutions") |
++-------------------------------------+
+|                                     |
++-------------------------------------+
+1 row in set, 2 warnings (0.00 sec)
+
+mysql> select substring("sol","firstbit soltutions");
++----------------------------------------+
+| substring("sol","firstbit soltutions") |
++----------------------------------------+
+|                                        |
++----------------------------------------+
+1 row in set, 2 warnings (0.00 sec)
+
+mysql> select substring("firstbit soltutions","first");
++------------------------------------------+
+| substring("firstbit soltutions","first") |
++------------------------------------------+
+|                                          |
++------------------------------------------+
+1 row in set, 2 warnings (0.00 sec)
+
+mysql> select instr("firstbit soltutions","first");
++--------------------------------------+
+| instr("firstbit soltutions","first") |
++--------------------------------------+
+|                                    1 |
++--------------------------------------+
+1 row in set (0.01 sec)
+
+mysql> select instr("firstbit soltutions","sol");
++------------------------------------+
+| instr("firstbit soltutions","sol") |
++------------------------------------+
+|                                 10 |
++------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select substring("firstbit soltutions",1,5);
++--------------------------------------+
+| substring("firstbit soltutions",1,5) |
++--------------------------------------+
+| first                                |
++--------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select substring("firstbit soltutions",5,12);
++---------------------------------------+
+| substring("firstbit soltutions",5,12) |
++---------------------------------------+
+| tbit soltuti                          |
++---------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select replace("Learning SQL","SQL","MySQL");
++---------------------------------------+
+| replace("Learning SQL","SQL","MySQL") |
++---------------------------------------+
+| Learning MySQL                        |
++---------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select substr("firstbit solutions",1,5)
+    -> ;
++----------------------------------+
+| substr("firstbit solutions",1,5) |
++----------------------------------+
+| first                            |
++----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select substr("firstbit solutions",-5);
++---------------------------------+
+| substr("firstbit solutions",-5) |
++---------------------------------+
+| tions                           |
++---------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select right("firstbit solutions",5);
++-------------------------------+
+| right("firstbit solutions",5) |
++-------------------------------+
+| tions                         |
++-------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select left("firstbit solutions",5);
++------------------------------+
+| left("firstbit solutions",5) |
++------------------------------+
+| first                        |
++------------------------------+
+1 row in set (0.01 sec)
+
+mysql> table employee;
++--------+----------+----------+------+---------+--------------+
+| emp_id | e_name   | salary   | age  | dept_id | joining_date |
++--------+----------+----------+------+---------+--------------+
+|      1 | Sneha    | 32000.00 |   23 |       1 | 2023-05-15   |
+|      2 | Sakshi   | 38000.00 |   24 |       2 | 2022-11-20   |
+|      3 | Rohan    | 40000.00 |   25 |       3 | 2021-07-10   |
+|      4 | Prashant | 35000.00 |   22 |       4 | 2020-09-05   |
+|      5 | Janhavi  | 28000.00 |   20 |       1 | 2024-01-25   |
+|      6 | Shubham  | 39000.00 |   21 |       3 | 2023-08-18   |
++--------+----------+----------+------+---------+--------------+
+6 rows in set (0.02 sec)
+
+mysql> select e_name,length(e_name)
+    -> from employee;
++----------+----------------+
+| e_name   | length(e_name) |
++----------+----------------+
+| Sneha    |              5 |
+| Sakshi   |              6 |
+| Rohan    |              5 |
+| Prashant |              8 |
+| Janhavi  |              7 |
+| Shubham  |              7 |
++----------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> select left(e_name) from employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') from employee' at line 1
+mysql> select left(e_name,3) from employee;
++----------------+
+| left(e_name,3) |
++----------------+
+| Sne            |
+| Sak            |
+| Roh            |
+| Pra            |
+| Jan            |
+| Shu            |
++----------------+
+6 rows in set (0.01 sec)
+
+mysql> select concat_ws("-",left(e_name,1),right(e_name,1)) from employee;
++-----------------------------------------------+
+| concat_ws("-",left(e_name,1),right(e_name,1)) |
++-----------------------------------------------+
+| S-a                                           |
+| S-i                                           |
+| R-n                                           |
+| P-t                                           |
+| J-i                                           |
+| S-m                                           |
++-----------------------------------------------+
+6 rows in set (0.00 sec)
+
+mysql> select reverse(e_name) from employee;
++-----------------+
+| reverse(e_name) |
++-----------------+
+| ahenS           |
+| ihskaS          |
+| nahoR           |
+| tnahsarP        |
+| ivahnaJ         |
+| mahbuhS         |
++-----------------+
+6 rows in set (0.00 sec)
+
+mysql> table employee;
++--------+----------+----------+------+---------+--------------+
+| emp_id | e_name   | salary   | age  | dept_id | joining_date |
++--------+----------+----------+------+---------+--------------+
+|      1 | Sneha    | 32000.00 |   23 |       1 | 2023-05-15   |
+|      2 | Sakshi   | 38000.00 |   24 |       2 | 2022-11-20   |
+|      3 | Rohan    | 40000.00 |   25 |       3 | 2021-07-10   |
+|      4 | Prashant | 35000.00 |   22 |       4 | 2020-09-05   |
+|      5 | Janhavi  | 28000.00 |   20 |       1 | 2024-01-25   |
+|      6 | Shubham  | 39000.00 |   21 |       3 | 2023-08-18   |
++--------+----------+----------+------+---------+--------------+
+6 rows in set (0.00 sec)
+
+mysql> select e_name,salary,salary*0.15 from employee;
++----------+----------+-------------+
+| e_name   | salary   | salary*0.15 |
++----------+----------+-------------+
+| Sneha    | 32000.00 |   4800.0000 |
+| Sakshi   | 38000.00 |   5700.0000 |
+| Rohan    | 40000.00 |   6000.0000 |
+| Prashant | 35000.00 |   5250.0000 |
+| Janhavi  | 28000.00 |   4200.0000 |
+| Shubham  | 39000.00 |   5850.0000 |
++----------+----------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> select e_name,salary,salary*0.15 from employee where e_name="Sneha";
++--------+----------+-------------+
+| e_name | salary   | salary*0.15 |
++--------+----------+-------------+
+| Sneha  | 32000.00 |   4800.0000 |
++--------+----------+-------------+
+1 row in set (0.01 sec)
+
+mysql> update employee
+    -> set salary=salary+700 where e_name=
+    -> "Sneha";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> table employee;
++--------+----------+----------+------+---------+--------------+
+| emp_id | e_name   | salary   | age  | dept_id | joining_date |
++--------+----------+----------+------+---------+--------------+
+|      1 | Sneha    | 32700.00 |   23 |       1 | 2023-05-15   |
+|      2 | Sakshi   | 38000.00 |   24 |       2 | 2022-11-20   |
+|      3 | Rohan    | 40000.00 |   25 |       3 | 2021-07-10   |
+|      4 | Prashant | 35000.00 |   22 |       4 | 2020-09-05   |
+|      5 | Janhavi  | 28000.00 |   20 |       1 | 2024-01-25   |
+|      6 | Shubham  | 39000.00 |   21 |       3 | 2023-08-18   |
++--------+----------+----------+------+---------+--------------+
+6 rows in set (0.00 sec)
+
+mysql> select e_name,salary,salary*0.15 from employee where e_name="Sneha";
++--------+----------+-------------+
+| e_name | salary   | salary*0.15 |
++--------+----------+-------------+
+| Sneha  | 32700.00 |   4905.0000 |
++--------+----------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select round(3452.54);
++----------------+
+| round(3452.54) |
++----------------+
+|           3453 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select round(3452.44);
++----------------+
+| round(3452.44) |
++----------------+
+|           3452 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select floor(3452.74);
++----------------+
+| floor(3452.74) |
++----------------+
+|           3452 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select ceil(3452.34);
++---------------+
+| ceil(3452.34) |
++---------------+
+|          3453 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select sqaure(5);
+ERROR 1305 (42000): FUNCTION may2025batch.sqaure does not exist
+mysql> select square(5);
+ERROR 1305 (42000): FUNCTION may2025batch.square does not exist
+mysql> select sqr(5);
+ERROR 1305 (42000): FUNCTION may2025batch.sqr does not exist
+mysql> select sqrt(64);
++----------+
+| sqrt(64) |
++----------+
+|        8 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select mod(8);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> select mod(8,2);
++----------+
+| mod(8,2) |
++----------+
+|        0 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select mod(8,3);
++----------+
+| mod(8,3) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select pow(2,3);
++----------+
+| pow(2,3) |
++----------+
+|        8 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select power(2,3);
++------------+
+| power(2,3) |
++------------+
+|          8 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select pwr(2,3);
+ERROR 1305 (42000): FUNCTION may2025batch.pwr does not exist
+mysql> select day("2023-08-08");
++-------------------+
+| day("2023-08-08") |
++-------------------+
+|                 8 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> select month("2023-08-08");
++---------------------+
+| month("2023-08-08") |
++---------------------+
+|                   8 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2025-08-08 18:15:36 |
++---------------------+
+1 row in set (0.01 sec)
+
+mysql> select currentdate();
+ERROR 1305 (42000): FUNCTION may2025batch.currentdate does not exist
+mysql> select currdate();
+ERROR 1305 (42000): FUNCTION may2025batch.currdate does not exist
+mysql> select curdate();
++------------+
+| curdate()  |
++------------+
+| 2025-08-08 |
++------------+
+1 row in set (0.01 sec)
+
+mysql> select year(curdate());
++-----------------+
+| year(curdate()) |
++-----------------+
+|            2025 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> select currenttime();
+ERROR 1305 (42000): FUNCTION may2025batch.currenttime does not exist
+mysql> select curtime();
++-----------+
+| curtime() |
++-----------+
+| 18:17:14  |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select e_name,year(joining_date);
+ERROR 1054 (42S22): Unknown column 'e_name' in 'field list'
+mysql> select e_name,year(joining_date) from employee;
++----------+--------------------+
+| e_name   | year(joining_date) |
++----------+--------------------+
+| Sneha    |               2023 |
+| Sakshi   |               2022 |
+| Rohan    |               2021 |
+| Prashant |               2020 |
+| Janhavi  |               2024 |
+| Shubham  |               2023 |
++----------+--------------------+
+6 rows in set (0.00 sec)
+
+mysql> select year(joining_date) as "Joining Year",count(e_id)
+    -> from employee
+    -> group by Joining Year;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Year' at line 3
+mysql> select year(joining_date) as "Joining Year",count(e_id)
+    -> from employee
+    -> group by year(joining_date);
+ERROR 1054 (42S22): Unknown column 'e_id' in 'field list'
+mysql> select year(joining_date) as "Joining Year",count(emp_id)
+    -> from employee
+    -> group by year(joining_date);
++--------------+---------------+
+| Joining Year | count(emp_id) |
++--------------+---------------+
+|         2023 |             2 |
+|         2022 |             1 |
+|         2021 |             1 |
+|         2020 |             1 |
+|         2024 |             1 |
++--------------+---------------+
+5 rows in set (0.01 sec)
+
+mysql> select datediff("2000-11-25",curdate());
++----------------------------------+
+| datediff("2000-11-25",curdate()) |
++----------------------------------+
+|                            -9022 |
++----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_add(curdate(), interval 10 days);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'days)' at line 1
+mysql> 
+mysql> select date_add(curdate(), interval 5 days);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'days)' at line 1
+mysql> select date_add(curdate(), interval 5 day);
++-------------------------------------+
+| date_add(curdate(), interval 5 day) |
++-------------------------------------+
+| 2025-08-13                          |
++-------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_add(curdate(), interval 5 month);
++---------------------------------------+
+| date_add(curdate(), interval 5 month) |
++---------------------------------------+
+| 2026-01-08                            |
++---------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_sub(curdate(), interval 5 month);
++---------------------------------------+
+| date_sub(curdate(), interval 5 month) |
++---------------------------------------+
+| 2025-03-08                            |
++---------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> selec
+
