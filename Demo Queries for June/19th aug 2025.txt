@@ -1,0 +1,538 @@
+Enter password: *******
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.40 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use mayjune25
+Database changed
+mysql> desc employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| phno    | int         | YES  |     | NULL    |       |
+| eid     | int         | NO   | PRI | NULL    |       |
+| name    | varchar(20) | NO   |     | NULL    |       |
+| address | varchar(20) | YES  |     | NULL    |       |
+| income  | int         | YES  |     | NULL    |       |
+| j_date  | date        | YES  |     | NULL    |       |
+| gender  | char(1)     | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| mailid  | varchar(20) | YES  | UNI | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+9 rows in set (0.01 sec)
+
+mysql> alter table employee
+    -> modify column phno int unique;
+Query OK, 0 rows affected (0.16 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| phno    | int         | YES  | UNI | NULL    |       |
+| eid     | int         | NO   | PRI | NULL    |       |
+| name    | varchar(20) | NO   |     | NULL    |       |
+| address | varchar(20) | YES  |     | NULL    |       |
+| income  | int         | YES  |     | NULL    |       |
+| j_date  | date        | YES  |     | NULL    |       |
+| gender  | char(1)     | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| mailid  | varchar(20) | YES  | UNI | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> modify column mailid varchar(20);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| phno    | int         | YES  | UNI | NULL    |       |
+| eid     | int         | NO   | PRI | NULL    |       |
+| name    | varchar(20) | NO   |     | NULL    |       |
+| address | varchar(20) | YES  |     | NULL    |       |
+| income  | int         | YES  |     | NULL    |       |
+| j_date  | date        | YES  |     | NULL    |       |
+| gender  | char(1)     | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| mailid  | varchar(20) | YES  | UNI | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> modify column address varchar(20) default "pune";
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| phno    | int         | YES  | UNI | NULL    |       |
+| eid     | int         | NO   | PRI | NULL    |       |
+| name    | varchar(20) | NO   |     | NULL    |       |
+| address | varchar(20) | YES  |     | pune    |       |
+| income  | int         | YES  |     | NULL    |       |
+| j_date  | date        | YES  |     | NULL    |       |
+| gender  | char(1)     | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| mailid  | varchar(20) | YES  | UNI | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+mysql> insert into employee (eid, name) values (106, "Hansraj");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from employee;
++------+-----+---------+---------+--------+--------+--------+------+------------+
+| phno | eid | name    | address | income | j_date | gender | age  | mailid     |
++------+-----+---------+---------+--------+--------+--------+------+------------+
+| NULL | 101 | pranav  | NULL    |  23000 | NULL   | NULL   | NULL | NULL       |
+| NULL | 102 | Aditya  | NULL    |   NULL | NULL   | NULL   | NULL | a@gail.com |
+| NULL | 103 | Aari    | NULL    |   NULL | NULL   | NULL   | NULL | NULL       |
+| NULL | 106 | Hansraj | pune    |   NULL | NULL   | NULL   | NULL | NULL       |
++------+-----+---------+---------+--------+--------+--------+------+------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into employee (eid, name,address) values (105, "Sanket","Manchar");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from employee;
++------+-----+---------+---------+--------+--------+--------+------+------------+
+| phno | eid | name    | address | income | j_date | gender | age  | mailid     |
++------+-----+---------+---------+--------+--------+--------+------+------------+
+| NULL | 101 | pranav  | NULL    |  23000 | NULL   | NULL   | NULL | NULL       |
+| NULL | 102 | Aditya  | NULL    |   NULL | NULL   | NULL   | NULL | a@gail.com |
+| NULL | 103 | Aari    | NULL    |   NULL | NULL   | NULL   | NULL | NULL       |
+| NULL | 105 | Sanket  | Manchar |   NULL | NULL   | NULL   | NULL | NULL       |
+| NULL | 106 | Hansraj | pune    |   NULL | NULL   | NULL   | NULL | NULL       |
++------+-----+---------+---------+--------+--------+--------+------+------------+
+5 rows in set (0.00 sec)
+
+mysql> insert into employee (eid, name) values (107, "Atul");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from employee;
++------+-----+---------+---------+--------+--------+--------+------+------------+
+| phno | eid | name    | address | income | j_date | gender | age  | mailid     |
++------+-----+---------+---------+--------+--------+--------+------+------------+
+| NULL | 101 | pranav  | NULL    |  23000 | NULL   | NULL   | NULL | NULL       |
+| NULL | 102 | Aditya  | NULL    |   NULL | NULL   | NULL   | NULL | a@gail.com |
+| NULL | 103 | Aari    | NULL    |   NULL | NULL   | NULL   | NULL | NULL       |
+| NULL | 105 | Sanket  | Manchar |   NULL | NULL   | NULL   | NULL | NULL       |
+| NULL | 106 | Hansraj | pune    |   NULL | NULL   | NULL   | NULL | NULL       |
+| NULL | 107 | Atul    | pune    |   NULL | NULL   | NULL   | NULL | NULL       |
++------+-----+---------+---------+--------+--------+--------+------+------------+
+6 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> modify column age int check (age >=18);
+Query OK, 6 rows affected (0.17 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> insert into employee (eid, name,age) values (108, "Gaurav",12);
+ERROR 3819 (HY000): Check constraint 'employee_chk_1' is violated.
+mysql> insert into employee (eid, name,age) values (108, "Gaurav",23);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> desc employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| phno    | int         | YES  | UNI | NULL    |       |
+| eid     | int         | NO   | PRI | NULL    |       |
+| name    | varchar(20) | NO   |     | NULL    |       |
+| address | varchar(20) | YES  |     | pune    |       |
+| income  | int         | YES  |     | NULL    |       |
+| j_date  | date        | YES  |     | NULL    |       |
+| gender  | char(1)     | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| mailid  | varchar(20) | YES  | UNI | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+9 rows in set (0.00 sec)
+
+mysql> show create table employee;
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| employee | CREATE TABLE `employee` (
+  `phno` int DEFAULT NULL,
+  `eid` int NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `address` varchar(20) DEFAULT 'pune',
+  `income` int DEFAULT NULL,
+  `j_date` date DEFAULT NULL,
+  `gender` char(1) DEFAULT NULL,
+  `age` int DEFAULT NULL,
+  `mailid` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`eid`),
+  UNIQUE KEY `mailid` (`mailid`),
+  UNIQUE KEY `phno` (`phno`),
+  CONSTRAINT `employee_chk_1` CHECK ((`age` >= 18))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee;
++------+-----+---------+---------+--------+--------+--------+------+------------+
+| phno | eid | name    | address | income | j_date | gender | age  | mailid     |
++------+-----+---------+---------+--------+--------+--------+------+------------+
+| NULL | 101 | pranav  | NULL    |  23000 | NULL   | NULL   | NULL | NULL       |
+| NULL | 102 | Aditya  | NULL    |   NULL | NULL   | NULL   | NULL | a@gail.com |
+| NULL | 103 | Aari    | NULL    |   NULL | NULL   | NULL   | NULL | NULL       |
+| NULL | 105 | Sanket  | Manchar |   NULL | NULL   | NULL   | NULL | NULL       |
+| NULL | 106 | Hansraj | pune    |   NULL | NULL   | NULL   | NULL | NULL       |
+| NULL | 107 | Atul    | pune    |   NULL | NULL   | NULL   | NULL | NULL       |
+| NULL | 108 | Gaurav  | pune    |   NULL | NULL   | NULL   |   23 | NULL       |
++------+-----+---------+---------+--------+--------+--------+------+------------+
+7 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> modify column income int check (income>=25000);
+ERROR 3819 (HY000): Check constraint 'employee_chk_2' is violated.
+mysql> alter table employee
+    -> modify column income int check (income>=20000);
+Query OK, 7 rows affected (0.30 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> alter table employee
+    -> modify column gender char(1) check
+    -> (gender == 'M' or gender =='f' || gender=='o' );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '== 'M' or gender =='f' || gender=='o' )' at line 3
+mysql> modify column gender char(1) check
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'modify column gender char(1) check' at line 1
+mysql> alter table employee
+    -> modify column gender char(1) check
+    -> (gender = 'M' or gender ='f' || gender='o' );
+Query OK, 7 rows affected, 1 warning (0.25 sec)
+Records: 7  Duplicates: 0  Warnings: 1
+
+mysql> select * from employee;
++------+-----+---------+---------+--------+--------+--------+------+------------+
+| phno | eid | name    | address | income | j_date | gender | age  | mailid     |
++------+-----+---------+---------+--------+--------+--------+------+------------+
+| NULL | 101 | pranav  | NULL    |  23000 | NULL   | NULL   | NULL | NULL       |
+| NULL | 102 | Aditya  | NULL    |   NULL | NULL   | NULL   | NULL | a@gail.com |
+| NULL | 103 | Aari    | NULL    |   NULL | NULL   | NULL   | NULL | NULL       |
+| NULL | 105 | Sanket  | Manchar |   NULL | NULL   | NULL   | NULL | NULL       |
+| NULL | 106 | Hansraj | pune    |   NULL | NULL   | NULL   | NULL | NULL       |
+| NULL | 107 | Atul    | pune    |   NULL | NULL   | NULL   | NULL | NULL       |
+| NULL | 108 | Gaurav  | pune    |   NULL | NULL   | NULL   |   23 | NULL       |
++------+-----+---------+---------+--------+--------+--------+------+------------+
+7 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> modify column address varchar(20) check (address in ("Pune", "Manchar"));
+Query OK, 7 rows affected (0.20 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> create table dept
+    -> (dno int primary key,
+    -> name varchar(20) not null,
+    -> loc varchar(20) default "pune");
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> desc dept;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| dno   | int         | NO   | PRI | NULL    |       |
+| name  | varchar(20) | NO   |     | NULL    |       |
+| loc   | varchar(20) | YES  |     | pune    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc table dept;
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------+
+| id | select_type | table | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------+
+|  1 | SIMPLE      | dept  | NULL       | ALL  | NULL          | NULL | NULL    | NULL |    1 |   100.00 | NULL  |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------+
+1 row in set, 1 warning (0.03 sec)
+
+mysql> select * from employee;
++------+-----+---------+---------+--------+--------+--------+------+------------+
+| phno | eid | name    | address | income | j_date | gender | age  | mailid     |
++------+-----+---------+---------+--------+--------+--------+------+------------+
+| NULL | 101 | pranav  | NULL    |  23000 | NULL   | NULL   | NULL | NULL       |
+| NULL | 102 | Aditya  | NULL    |   NULL | NULL   | NULL   | NULL | a@gail.com |
+| NULL | 103 | Aari    | NULL    |   NULL | NULL   | NULL   | NULL | NULL       |
+| NULL | 105 | Sanket  | Manchar |   NULL | NULL   | NULL   | NULL | NULL       |
+| NULL | 106 | Hansraj | pune    |   NULL | NULL   | NULL   | NULL | NULL       |
+| NULL | 107 | Atul    | pune    |   NULL | NULL   | NULL   | NULL | NULL       |
+| NULL | 108 | Gaurav  | pune    |   NULL | NULL   | NULL   |   23 | NULL       |
++------+-----+---------+---------+--------+--------+--------+------+------------+
+7 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> drop column mailid,
+    -> drop column phno;
+Query OK, 0 rows affected (0.20 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++-----+---------+---------+--------+--------+--------+------+
+| eid | name    | address | income | j_date | gender | age  |
++-----+---------+---------+--------+--------+--------+------+
+| 101 | pranav  | NULL    |  23000 | NULL   | NULL   | NULL |
+| 102 | Aditya  | NULL    |   NULL | NULL   | NULL   | NULL |
+| 103 | Aari    | NULL    |   NULL | NULL   | NULL   | NULL |
+| 105 | Sanket  | Manchar |   NULL | NULL   | NULL   | NULL |
+| 106 | Hansraj | pune    |   NULL | NULL   | NULL   | NULL |
+| 107 | Atul    | pune    |   NULL | NULL   | NULL   | NULL |
+| 108 | Gaurav  | pune    |   NULL | NULL   | NULL   |   23 |
++-----+---------+---------+--------+--------+--------+------+
+7 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> add column did int;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++-----+---------+---------+--------+--------+--------+------+------+
+| eid | name    | address | income | j_date | gender | age  | did  |
++-----+---------+---------+--------+--------+--------+------+------+
+| 101 | pranav  | NULL    |  23000 | NULL   | NULL   | NULL | NULL |
+| 102 | Aditya  | NULL    |   NULL | NULL   | NULL   | NULL | NULL |
+| 103 | Aari    | NULL    |   NULL | NULL   | NULL   | NULL | NULL |
+| 105 | Sanket  | Manchar |   NULL | NULL   | NULL   | NULL | NULL |
+| 106 | Hansraj | pune    |   NULL | NULL   | NULL   | NULL | NULL |
+| 107 | Atul    | pune    |   NULL | NULL   | NULL   | NULL | NULL |
+| 108 | Gaurav  | pune    |   NULL | NULL   | NULL   |   23 | NULL |
++-----+---------+---------+--------+--------+--------+------+------+
+7 rows in set (0.00 sec)
+
+mysql> desc table dept;
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------+
+| id | select_type | table | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------+
+|  1 | SIMPLE      | dept  | NULL       | ALL  | NULL          | NULL | NULL    | NULL |    1 |   100.00 | NULL  |
++----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql> desc dept;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| dno   | int         | NO   | PRI | NULL    |       |
+| name  | varchar(20) | NO   |     | NULL    |       |
+| loc   | varchar(20) | YES  |     | pune    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> add foreign key(did)
+    -> references dept(dno);
+Query OK, 7 rows affected (0.13 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | NO   | PRI | NULL    |       |
+| name    | varchar(20) | NO   |     | NULL    |       |
+| address | varchar(20) | YES  |     | NULL    |       |
+| income  | int         | YES  |     | NULL    |       |
+| j_date  | date        | YES  |     | NULL    |       |
+| gender  | char(1)     | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| did     | int         | YES  | MUL | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> insert into employee (eid, name, did) values (110, "Tushar", 1);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`mayjune25`.`employee`, CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`did`) REFERENCES `dept` (`dno`))
+mysql> select * from dept;
+Empty set (0.00 sec)
+
+mysql> insert into dept(dno, name, loc) values (1, "HR", "Pune");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into employee (eid, name, did) values (110, "Tushar", 1);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> desc employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | NO   | PRI | NULL    |       |
+| name    | varchar(20) | NO   |     | NULL    |       |
+| address | varchar(20) | YES  |     | NULL    |       |
+| income  | int         | YES  |     | NULL    |       |
+| j_date  | date        | YES  |     | NULL    |       |
+| gender  | char(1)     | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| did     | int         | YES  | MUL | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> drop primary key;
+Query OK, 8 rows affected (0.19 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> alter table employee
+    -> add primary key(eid);
+Query OK, 0 rows affected (0.16 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show create table employee;
++----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
++----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| employee | CREATE TABLE `employee` (
+  `eid` int NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `address` varchar(20) DEFAULT NULL,
+  `income` int DEFAULT NULL,
+  `j_date` date DEFAULT NULL,
+  `gender` char(1) DEFAULT NULL,
+  `age` int DEFAULT NULL,
+  `did` int DEFAULT NULL,
+  PRIMARY KEY (`eid`),
+  KEY `did` (`did`),
+  CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`did`) REFERENCES `dept` (`dno`),
+  CONSTRAINT `employee_chk_1` CHECK ((`age` >= 18)),
+  CONSTRAINT `employee_chk_2` CHECK ((`income` >= 20000)),
+  CONSTRAINT `employee_chk_3` CHECK (((`gender` = _utf8mb4'M') or (`gender` = _utf8mb4'f') or (`gender` = _utf8mb4'o'))),
+  CONSTRAINT `employee_chk_4` CHECK ((`address` in (_utf8mb4'Pune',_utf8mb4'Manchar')))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> alter table employee
+    -> drop constraint employee_ibfk_1
+    -> ;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | NO   | PRI | NULL    |       |
+| name    | varchar(20) | NO   |     | NULL    |       |
+| address | varchar(20) | YES  |     | NULL    |       |
+| income  | int         | YES  |     | NULL    |       |
+| j_date  | date        | YES  |     | NULL    |       |
+| gender  | char(1)     | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| did     | int         | YES  | MUL | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> show create table employee;
++----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
++----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| employee | CREATE TABLE `employee` (
+  `eid` int NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `address` varchar(20) DEFAULT NULL,
+  `income` int DEFAULT NULL,
+  `j_date` date DEFAULT NULL,
+  `gender` char(1) DEFAULT NULL,
+  `age` int DEFAULT NULL,
+  `did` int DEFAULT NULL,
+  PRIMARY KEY (`eid`),
+  KEY `did` (`did`),
+  CONSTRAINT `employee_chk_1` CHECK ((`age` >= 18)),
+  CONSTRAINT `employee_chk_2` CHECK ((`income` >= 20000)),
+  CONSTRAINT `employee_chk_3` CHECK (((`gender` = _utf8mb4'M') or (`gender` = _utf8mb4'f') or (`gender` = _utf8mb4'o'))),
+  CONSTRAINT `employee_chk_4` CHECK ((`address` in (_utf8mb4'Pune',_utf8mb4'Manchar')))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> alter table employee
+    -> drop constraint employee_chk_4;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++-----+---------+---------+--------+--------+--------+------+------+
+| eid | name    | address | income | j_date | gender | age  | did  |
++-----+---------+---------+--------+--------+--------+------+------+
+| 101 | pranav  | NULL    |  23000 | NULL   | NULL   | NULL | NULL |
+| 102 | Aditya  | NULL    |   NULL | NULL   | NULL   | NULL | NULL |
+| 103 | Aari    | NULL    |   NULL | NULL   | NULL   | NULL | NULL |
+| 105 | Sanket  | Manchar |   NULL | NULL   | NULL   | NULL | NULL |
+| 106 | Hansraj | pune    |   NULL | NULL   | NULL   | NULL | NULL |
+| 107 | Atul    | pune    |   NULL | NULL   | NULL   | NULL | NULL |
+| 108 | Gaurav  | pune    |   NULL | NULL   | NULL   |   23 | NULL |
+| 110 | Tushar  | NULL    |   NULL | NULL   | NULL   | NULL |    1 |
++-----+---------+---------+--------+--------+--------+------+------+
+8 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> modify column eid int auto_increment;
+Query OK, 8 rows affected (0.19 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| eid     | int         | NO   | PRI | NULL    | auto_increment |
+| name    | varchar(20) | NO   |     | NULL    |                |
+| address | varchar(20) | YES  |     | NULL    |                |
+| income  | int         | YES  |     | NULL    |                |
+| j_date  | date        | YES  |     | NULL    |                |
+| gender  | char(1)     | YES  |     | NULL    |                |
+| age     | int         | YES  |     | NULL    |                |
+| did     | int         | YES  | MUL | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+8 rows in set (0.00 sec)
+
+mysql> insert into employee (name, income, age) values ("Atul", 34000, 23);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from employee;
++-----+---------+---------+--------+--------+--------+------+------+
+| eid | name    | address | income | j_date | gender | age  | did  |
++-----+---------+---------+--------+--------+--------+------+------+
+| 101 | pranav  | NULL    |  23000 | NULL   | NULL   | NULL | NULL |
+| 102 | Aditya  | NULL    |   NULL | NULL   | NULL   | NULL | NULL |
+| 103 | Aari    | NULL    |   NULL | NULL   | NULL   | NULL | NULL |
+| 105 | Sanket  | Manchar |   NULL | NULL   | NULL   | NULL | NULL |
+| 106 | Hansraj | pune    |   NULL | NULL   | NULL   | NULL | NULL |
+| 107 | Atul    | pune    |   NULL | NULL   | NULL   | NULL | NULL |
+| 108 | Gaurav  | pune    |   NULL | NULL   | NULL   |   23 | NULL |
+| 110 | Tushar  | NULL    |   NULL | NULL   | NULL   | NULL |    1 |
+| 111 | Atul    | NULL    |  34000 | NULL   | NULL   |   23 | NULL |
++-----+---------+---------+--------+--------+--------+------+------+
+9 rows in set (0.00 sec)
+
+mysql> insert into employee (eid,name, income, age) values (130,"Sneha", 34000, 23);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from employee;
++-----+---------+---------+--------+--------+--------+------+------+
+| eid | name    | address | income | j_date | gender | age  | did  |
++-----+---------+---------+--------+--------+--------+------+------+
+| 101 | pranav  | NULL    |  23000 | NULL   | NULL   | NULL | NULL |
+| 102 | Aditya  | NULL    |   NULL | NULL   | NULL   | NULL | NULL |
+| 103 | Aari    | NULL    |   NULL | NULL   | NULL   | NULL | NULL |
+| 105 | Sanket  | Manchar |   NULL | NULL   | NULL   | NULL | NULL |
+| 106 | Hansraj | pune    |   NULL | NULL   | NULL   | NULL | NULL |
+| 107 | Atul    | pune    |   NULL | NULL   | NULL   | NULL | NULL |
+| 108 | Gaurav  | pune    |   NULL | NULL   | NULL   |   23 | NULL |
+| 110 | Tushar  | NULL    |   NULL | NULL   | NULL   | NULL |    1 |
+| 111 | Atul    | NULL    |  34000 | NULL   | NULL   |   23 | NULL |
+| 130 | Sneha   | NULL    |  34000 | NULL   | NULL   |   23 | NULL |
++-----+---------+---------+--------+--------+--------+------+------+

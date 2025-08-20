@@ -1,0 +1,1159 @@
+Enter password: *******
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 13
+Server version: 8.0.40 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use mayjune25
+Database changed
+mysql> show databases:
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ':' at line 1
+mysql> show tables;
++---------------------+
+| Tables_in_mayjune25 |
++---------------------+
+| books               |
+| dept                |
+| employee            |
+| student             |
++---------------------+
+4 rows in set (0.09 sec)
+
+mysql> create table department
+    -> (d_id int,d_name varchar(50),
+    -> manager_id int,d_location varchar(50),
+    -> primary key (d_id,manager_id));
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> desc department;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| d_id       | int         | NO   | PRI | NULL    |       |
+| d_name     | varchar(50) | YES  |     | NULL    |       |
+| manager_id | int         | NO   | PRI | NULL    |       |
+| d_location | varchar(50) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.04 sec)
+
+mysql> create table eemployee
+    -> (e_id int,e_name varchar(50),salary decimal(7,2)
+    -> ,d_id int,manager_id int,
+    -> foreign key (d_id,manager_id)
+    -> references department(d_id,manager_id));
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> desc eemployee;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| e_id       | int          | YES  |     | NULL    |       |
+| e_name     | varchar(50)  | YES  |     | NULL    |       |
+| salary     | decimal(7,2) | YES  |     | NULL    |       |
+| d_id       | int          | YES  | MUL | NULL    |       |
+| manager_id | int          | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> show create table eemployee;
++-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table     | Create Table                                                                                                                                                                                                                                                                                                                                                                                                          |
++-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| eemployee | CREATE TABLE `eemployee` (
+  `e_id` int DEFAULT NULL,
+  `e_name` varchar(50) DEFAULT NULL,
+  `salary` decimal(7,2) DEFAULT NULL,
+  `d_id` int DEFAULT NULL,
+  `manager_id` int DEFAULT NULL,
+  KEY `d_id` (`d_id`,`manager_id`),
+  CONSTRAINT `eemployee_ibfk_1` FOREIGN KEY (`d_id`, `manager_id`) REFERENCES `department` (`d_id`, `manager_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> desc department;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| d_id       | int         | NO   | PRI | NULL    |       |
+| d_name     | varchar(50) | YES  |     | NULL    |       |
+| manager_id | int         | NO   | PRI | NULL    |       |
+| d_location | varchar(50) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into department values (1, "HR" 101,"Pune");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '101,"Pune")' at line 1
+mysql> insert into department values (1, "HR" ,101,"Pune");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from department;
++------+--------+------------+------------+
+| d_id | d_name | manager_id | d_location |
++------+--------+------------+------------+
+|    1 | HR     |        101 | Pune       |
++------+--------+------------+------------+
+1 row in set (0.01 sec)
+
+mysql> insert into department values (1, "Marketting" ,102,"Pune");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from department;
++------+------------+------------+------------+
+| d_id | d_name     | manager_id | d_location |
++------+------------+------------+------------+
+|    1 | HR         |        101 | Pune       |
+|    1 | Marketting |        102 | Pune       |
++------+------------+------------+------------+
+2 rows in set (0.00 sec)
+
+mysql> show tables;
++---------------------+
+| Tables_in_mayjune25 |
++---------------------+
+| books               |
+| department          |
+| dept                |
+| eemployee           |
+| employee            |
+| student             |
++---------------------+
+6 rows in set (0.00 sec)
+
+mysql> drop table student;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> show tables;
++---------------------+
+| Tables_in_mayjune25 |
++---------------------+
+| books               |
+| department          |
+| dept                |
+| eemployee           |
+| employee            |
++---------------------+
+5 rows in set (0.00 sec)
+
+mysql> create table member
+    -> (mid int, name varcahr(20),
+    -> mtype varchar(20) check (mtype in ("","");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varcahr(20),
+mtype varchar(20) check (mtype in ("","")' at line 2
+mysql> create table member
+    -> (mid int, name varchar(20),
+    -> mtype enum ("H","q","A"));
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> desc member;
++-------+-------------------+------+-----+---------+-------+
+| Field | Type              | Null | Key | Default | Extra |
++-------+-------------------+------+-----+---------+-------+
+| mid   | int               | YES  |     | NULL    |       |
+| name  | varchar(20)       | YES  |     | NULL    |       |
+| mtype | enum('H','q','A') | YES  |     | NULL    |       |
++-------+-------------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employee;
++-----+---------+---------+--------+--------+--------+------+------+
+| eid | name    | address | income | j_date | gender | age  | did  |
++-----+---------+---------+--------+--------+--------+------+------+
+| 101 | pranav  | NULL    |  23000 | NULL   | NULL   | NULL | NULL |
+| 102 | Aditya  | NULL    |   NULL | NULL   | NULL   | NULL | NULL |
+| 103 | Aari    | NULL    |   NULL | NULL   | NULL   | NULL | NULL |
+| 105 | Sanket  | Manchar |   NULL | NULL   | NULL   | NULL | NULL |
+| 106 | Hansraj | pune    |   NULL | NULL   | NULL   | NULL | NULL |
+| 107 | Atul    | pune    |   NULL | NULL   | NULL   | NULL | NULL |
+| 108 | Gaurav  | pune    |   NULL | NULL   | NULL   |   23 | NULL |
+| 110 | Tushar  | NULL    |   NULL | NULL   | NULL   | NULL |    1 |
+| 111 | Atul    | NULL    |  34000 | NULL   | NULL   |   23 | NULL |
+| 130 | Sneha   | NULL    |  34000 | NULL   | NULL   |   23 | NULL |
++-----+---------+---------+--------+--------+--------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> insert into employee values
+    -> (140,"Darshan", "Manchar",24000,"2022-3-21","M",23, 1);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into employee values (age, income, name)
+    -> values (22,22000 "Jagruti");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'values (22,22000 "Jagruti")' at line 2
+mysql> insert into employee values (age, income, name)
+    -> values (22,22000, "Jagruti");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'values (22,22000, "Jagruti")' at line 2
+mysql> insert into employee(age, income, name)
+    -> values (22,22000, "Jagruti");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into employee
+    -> values (150, ,,22000,,,'M',1);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',,22000,,,'M',1)' at line 2
+mysql> insert into employee values (age, income, name)
+    -> insert into employee values;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'insert into employee values' at line 2
+mysql> insert into employee(age, income, name)
+    -> values
+    -> (150, 22000, "ABC"),
+    -> (22,45000,"AA);
+    "> ;
+    "> jjjo
+    ">
+    "> bhbhg/jkn;;
+    ">
+    ">
+    "> ;
+    "> ";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 12
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | pranav  | NULL    |  23000 | NULL       | NULL   | NULL | NULL |
+| 102 | Aditya  | NULL    |   NULL | NULL       | NULL   | NULL | NULL |
+| 103 | Aari    | NULL    |   NULL | NULL       | NULL   | NULL | NULL |
+| 105 | Sanket  | Manchar |   NULL | NULL       | NULL   | NULL | NULL |
+| 106 | Hansraj | pune    |   NULL | NULL       | NULL   | NULL | NULL |
+| 107 | Atul    | pune    |   NULL | NULL       | NULL   | NULL | NULL |
+| 108 | Gaurav  | pune    |   NULL | NULL       | NULL   |   23 | NULL |
+| 110 | Tushar  | NULL    |   NULL | NULL       | NULL   | NULL |    1 |
+| 111 | Atul    | NULL    |  34000 | NULL       | NULL   |   23 | NULL |
+| 130 | Sneha   | NULL    |  34000 | NULL       | NULL   |   23 | NULL |
+| 140 | Darshan | Manchar |  24000 | 2022-03-21 | M      |   23 |    1 |
+| 141 | Jagruti | NULL    |  22000 | NULL       | NULL   |   22 | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+12 rows in set (0.00 sec)
+
+mysql> update employee set address="Mumbai";
+Query OK, 12 rows affected (0.01 sec)
+Rows matched: 12  Changed: 12  Warnings: 0
+
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | pranav  | Mumbai  |  23000 | NULL       | NULL   | NULL | NULL |
+| 102 | Aditya  | Mumbai  |   NULL | NULL       | NULL   | NULL | NULL |
+| 103 | Aari    | Mumbai  |   NULL | NULL       | NULL   | NULL | NULL |
+| 105 | Sanket  | Mumbai  |   NULL | NULL       | NULL   | NULL | NULL |
+| 106 | Hansraj | Mumbai  |   NULL | NULL       | NULL   | NULL | NULL |
+| 107 | Atul    | Mumbai  |   NULL | NULL       | NULL   | NULL | NULL |
+| 108 | Gaurav  | Mumbai  |   NULL | NULL       | NULL   |   23 | NULL |
+| 110 | Tushar  | Mumbai  |   NULL | NULL       | NULL   | NULL |    1 |
+| 111 | Atul    | Mumbai  |  34000 | NULL       | NULL   |   23 | NULL |
+| 130 | Sneha   | Mumbai  |  34000 | NULL       | NULL   |   23 | NULL |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    1 |
+| 141 | Jagruti | Mumbai  |  22000 | NULL       | NULL   |   22 | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+12 rows in set (0.00 sec)
+
+mysql> update employee set address="Manchar" where eid=105;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | pranav  | Mumbai  |  23000 | NULL       | NULL   | NULL | NULL |
+| 102 | Aditya  | Mumbai  |   NULL | NULL       | NULL   | NULL | NULL |
+| 103 | Aari    | Mumbai  |   NULL | NULL       | NULL   | NULL | NULL |
+| 105 | Sanket  | Manchar |   NULL | NULL       | NULL   | NULL | NULL |
+| 106 | Hansraj | Mumbai  |   NULL | NULL       | NULL   | NULL | NULL |
+| 107 | Atul    | Mumbai  |   NULL | NULL       | NULL   | NULL | NULL |
+| 108 | Gaurav  | Mumbai  |   NULL | NULL       | NULL   |   23 | NULL |
+| 110 | Tushar  | Mumbai  |   NULL | NULL       | NULL   | NULL |    1 |
+| 111 | Atul    | Mumbai  |  34000 | NULL       | NULL   |   23 | NULL |
+| 130 | Sneha   | Mumbai  |  34000 | NULL       | NULL   |   23 | NULL |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    1 |
+| 141 | Jagruti | Mumbai  |  22000 | NULL       | NULL   |   22 | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+12 rows in set (0.00 sec)
+
+mysql> insert into dept values (2, "Admin", "Mumbai"),
+    -> (3, "CRM", "Pune");
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from dept;
++-----+-------+--------+
+| dno | name  | loc    |
++-----+-------+--------+
+|   1 | HR    | Pune   |
+|   2 | Admin | Mumbai |
+|   3 | CRM   | Pune   |
++-----+-------+--------+
+3 rows in set (0.00 sec)
+
+mysql> update employee set did =2 where age >=23;
+Query OK, 4 rows affected (0.01 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | pranav  | Mumbai  |  23000 | NULL       | NULL   | NULL | NULL |
+| 102 | Aditya  | Mumbai  |   NULL | NULL       | NULL   | NULL | NULL |
+| 103 | Aari    | Mumbai  |   NULL | NULL       | NULL   | NULL | NULL |
+| 105 | Sanket  | Manchar |   NULL | NULL       | NULL   | NULL | NULL |
+| 106 | Hansraj | Mumbai  |   NULL | NULL       | NULL   | NULL | NULL |
+| 107 | Atul    | Mumbai  |   NULL | NULL       | NULL   | NULL | NULL |
+| 108 | Gaurav  | Mumbai  |   NULL | NULL       | NULL   |   23 |    2 |
+| 110 | Tushar  | Mumbai  |   NULL | NULL       | NULL   | NULL |    1 |
+| 111 | Atul    | Mumbai  |  34000 | NULL       | NULL   |   23 |    2 |
+| 130 | Sneha   | Mumbai  |  34000 | NULL       | NULL   |   23 |    2 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 141 | Jagruti | Mumbai  |  22000 | NULL       | NULL   |   22 | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+12 rows in set (0.00 sec)
+
+mysql> update employee set gender ="F" where name in ("aari","jagruti", "sneha");
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | pranav  | Mumbai  |  23000 | NULL       | NULL   | NULL | NULL |
+| 102 | Aditya  | Mumbai  |   NULL | NULL       | NULL   | NULL | NULL |
+| 103 | Aari    | Mumbai  |   NULL | NULL       | F      | NULL | NULL |
+| 105 | Sanket  | Manchar |   NULL | NULL       | NULL   | NULL | NULL |
+| 106 | Hansraj | Mumbai  |   NULL | NULL       | NULL   | NULL | NULL |
+| 107 | Atul    | Mumbai  |   NULL | NULL       | NULL   | NULL | NULL |
+| 108 | Gaurav  | Mumbai  |   NULL | NULL       | NULL   |   23 |    2 |
+| 110 | Tushar  | Mumbai  |   NULL | NULL       | NULL   | NULL |    1 |
+| 111 | Atul    | Mumbai  |  34000 | NULL       | NULL   |   23 |    2 |
+| 130 | Sneha   | Mumbai  |  34000 | NULL       | F      |   23 |    2 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 141 | Jagruti | Mumbai  |  22000 | NULL       | F      |   22 | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+12 rows in set (0.00 sec)
+
+mysql> update employee set gender ="M" where gender is null;
+Query OK, 8 rows affected (0.01 sec)
+Rows matched: 8  Changed: 8  Warnings: 0
+
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | pranav  | Mumbai  |  23000 | NULL       | M      | NULL | NULL |
+| 102 | Aditya  | Mumbai  |   NULL | NULL       | M      | NULL | NULL |
+| 103 | Aari    | Mumbai  |   NULL | NULL       | F      | NULL | NULL |
+| 105 | Sanket  | Manchar |   NULL | NULL       | M      | NULL | NULL |
+| 106 | Hansraj | Mumbai  |   NULL | NULL       | M      | NULL | NULL |
+| 107 | Atul    | Mumbai  |   NULL | NULL       | M      | NULL | NULL |
+| 108 | Gaurav  | Mumbai  |   NULL | NULL       | M      |   23 |    2 |
+| 110 | Tushar  | Mumbai  |   NULL | NULL       | M      | NULL |    1 |
+| 111 | Atul    | Mumbai  |  34000 | NULL       | M      |   23 |    2 |
+| 130 | Sneha   | Mumbai  |  34000 | NULL       | F      |   23 |    2 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 141 | Jagruti | Mumbai  |  22000 | NULL       | F      |   22 | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+12 rows in set (0.00 sec)
+
+mysql> update employee set address = "Pune" where eid>=110 and eid<130;
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | pranav  | Mumbai  |  23000 | NULL       | M      | NULL | NULL |
+| 102 | Aditya  | Mumbai  |   NULL | NULL       | M      | NULL | NULL |
+| 103 | Aari    | Mumbai  |   NULL | NULL       | F      | NULL | NULL |
+| 105 | Sanket  | Manchar |   NULL | NULL       | M      | NULL | NULL |
+| 106 | Hansraj | Mumbai  |   NULL | NULL       | M      | NULL | NULL |
+| 107 | Atul    | Mumbai  |   NULL | NULL       | M      | NULL | NULL |
+| 108 | Gaurav  | Mumbai  |   NULL | NULL       | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |   NULL | NULL       | M      | NULL |    1 |
+| 111 | Atul    | Pune    |  34000 | NULL       | M      |   23 |    2 |
+| 130 | Sneha   | Mumbai  |  34000 | NULL       | F      |   23 |    2 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 141 | Jagruti | Mumbai  |  22000 | NULL       | F      |   22 | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+12 rows in set (0.00 sec)
+
+mysql> update employee set j_date ="2021-5-20" where eid in (105,130,101);
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | pranav  | Mumbai  |  23000 | 2021-05-20 | M      | NULL | NULL |
+| 102 | Aditya  | Mumbai  |   NULL | NULL       | M      | NULL | NULL |
+| 103 | Aari    | Mumbai  |   NULL | NULL       | F      | NULL | NULL |
+| 105 | Sanket  | Manchar |   NULL | 2021-05-20 | M      | NULL | NULL |
+| 106 | Hansraj | Mumbai  |   NULL | NULL       | M      | NULL | NULL |
+| 107 | Atul    | Mumbai  |   NULL | NULL       | M      | NULL | NULL |
+| 108 | Gaurav  | Mumbai  |   NULL | NULL       | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |   NULL | NULL       | M      | NULL |    1 |
+| 111 | Atul    | Pune    |  34000 | NULL       | M      |   23 |    2 |
+| 130 | Sneha   | Mumbai  |  34000 | 2021-05-20 | F      |   23 |    2 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 141 | Jagruti | Mumbai  |  22000 | NULL       | F      |   22 | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+12 rows in set (0.00 sec)
+
+mysql> update employee set age=24 , did =3 where eid in (102, 105, 107);
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | pranav  | Mumbai  |  23000 | 2021-05-20 | M      | NULL | NULL |
+| 102 | Aditya  | Mumbai  |   NULL | NULL       | M      |   24 |    3 |
+| 103 | Aari    | Mumbai  |   NULL | NULL       | F      | NULL | NULL |
+| 105 | Sanket  | Manchar |   NULL | 2021-05-20 | M      |   24 |    3 |
+| 106 | Hansraj | Mumbai  |   NULL | NULL       | M      | NULL | NULL |
+| 107 | Atul    | Mumbai  |   NULL | NULL       | M      |   24 |    3 |
+| 108 | Gaurav  | Mumbai  |   NULL | NULL       | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |   NULL | NULL       | M      | NULL |    1 |
+| 111 | Atul    | Pune    |  34000 | NULL       | M      |   23 |    2 |
+| 130 | Sneha   | Mumbai  |  34000 | 2021-05-20 | F      |   23 |    2 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 141 | Jagruti | Mumbai  |  22000 | NULL       | F      |   22 | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+12 rows in set (0.00 sec)
+
+mysql> update employee set address = "Jalgoan" where eid in (106,108, 101);
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | pranav  | Jalgoan |  23000 | 2021-05-20 | M      | NULL | NULL |
+| 102 | Aditya  | Mumbai  |   NULL | NULL       | M      |   24 |    3 |
+| 103 | Aari    | Mumbai  |   NULL | NULL       | F      | NULL | NULL |
+| 105 | Sanket  | Manchar |   NULL | 2021-05-20 | M      |   24 |    3 |
+| 106 | Hansraj | Jalgoan |   NULL | NULL       | M      | NULL | NULL |
+| 107 | Atul    | Mumbai  |   NULL | NULL       | M      |   24 |    3 |
+| 108 | Gaurav  | Jalgoan |   NULL | NULL       | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |   NULL | NULL       | M      | NULL |    1 |
+| 111 | Atul    | Pune    |  34000 | NULL       | M      |   23 |    2 |
+| 130 | Sneha   | Mumbai  |  34000 | 2021-05-20 | F      |   23 |    2 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 141 | Jagruti | Mumbai  |  22000 | NULL       | F      |   22 | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+12 rows in set (0.00 sec)
+
+mysql> update employee set j_date ="2023-12-4" where eid in (108,106,108);
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | pranav  | Jalgoan |  23000 | 2021-05-20 | M      | NULL | NULL |
+| 102 | Aditya  | Mumbai  |   NULL | NULL       | M      |   24 |    3 |
+| 103 | Aari    | Mumbai  |   NULL | NULL       | F      | NULL | NULL |
+| 105 | Sanket  | Manchar |   NULL | 2021-05-20 | M      |   24 |    3 |
+| 106 | Hansraj | Jalgoan |   NULL | 2023-12-04 | M      | NULL | NULL |
+| 107 | Atul    | Mumbai  |   NULL | NULL       | M      |   24 |    3 |
+| 108 | Gaurav  | Jalgoan |   NULL | 2023-12-04 | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |   NULL | NULL       | M      | NULL |    1 |
+| 111 | Atul    | Pune    |  34000 | NULL       | M      |   23 |    2 |
+| 130 | Sneha   | Mumbai  |  34000 | 2021-05-20 | F      |   23 |    2 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 141 | Jagruti | Mumbai  |  22000 | NULL       | F      |   22 | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+12 rows in set (0.00 sec)
+
+mysql> update employee set income = 25000 where name in ("Sanket", "Hansraj","Aari");
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | pranav  | Jalgoan |  23000 | 2021-05-20 | M      | NULL | NULL |
+| 102 | Aditya  | Mumbai  |   NULL | NULL       | M      |   24 |    3 |
+| 103 | Aari    | Mumbai  |  25000 | NULL       | F      | NULL | NULL |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 |    3 |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      | NULL | NULL |
+| 107 | Atul    | Mumbai  |   NULL | NULL       | M      |   24 |    3 |
+| 108 | Gaurav  | Jalgoan |   NULL | 2023-12-04 | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |   NULL | NULL       | M      | NULL |    1 |
+| 111 | Atul    | Pune    |  34000 | NULL       | M      |   23 |    2 |
+| 130 | Sneha   | Mumbai  |  34000 | 2021-05-20 | F      |   23 |    2 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 141 | Jagruti | Mumbai  |  22000 | NULL       | F      |   22 | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+12 rows in set (0.00 sec)
+
+mysql> create table emp as (select * from employee);
+Query OK, 12 rows affected (0.03 sec)
+Records: 12  Duplicates: 0  Warnings: 0
+
+mysql> show tables;
++---------------------+
+| Tables_in_mayjune25 |
++---------------------+
+| books               |
+| department          |
+| dept                |
+| eemployee           |
+| emp                 |
+| employee            |
+| member              |
++---------------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from emp;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | pranav  | Jalgoan |  23000 | 2021-05-20 | M      | NULL | NULL |
+| 102 | Aditya  | Mumbai  |   NULL | NULL       | M      |   24 |    3 |
+| 103 | Aari    | Mumbai  |  25000 | NULL       | F      | NULL | NULL |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 |    3 |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      | NULL | NULL |
+| 107 | Atul    | Mumbai  |   NULL | NULL       | M      |   24 |    3 |
+| 108 | Gaurav  | Jalgoan |   NULL | 2023-12-04 | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |   NULL | NULL       | M      | NULL |    1 |
+| 111 | Atul    | Pune    |  34000 | NULL       | M      |   23 |    2 |
+| 130 | Sneha   | Mumbai  |  34000 | 2021-05-20 | F      |   23 |    2 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 141 | Jagruti | Mumbai  |  22000 | NULL       | F      |   22 | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+12 rows in set (0.00 sec)
+
+mysql> delete from emp;
+Query OK, 12 rows affected (0.01 sec)
+
+mysql> select * from emp;
+Empty set (0.00 sec)
+
+mysql> desc emp;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | NO   |     | 0       |       |
+| name    | varchar(20) | NO   |     | NULL    |       |
+| address | varchar(20) | YES  |     | NULL    |       |
+| income  | int         | YES  |     | NULL    |       |
+| j_date  | date        | YES  |     | NULL    |       |
+| gender  | char(1)     | YES  |     | NULL    |       |
+| age     | int         | YES  |     | NULL    |       |
+| did     | int         | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> drop table emp;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> select * from emp;
+ERROR 1146 (42S02): Table 'mayjune25.emp' doesn't exist
+mysql> delete from employee where name ="Atul";
+Query OK, 2 rows affected (0.01 sec)
+
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | pranav  | Jalgoan |  23000 | 2021-05-20 | M      | NULL | NULL |
+| 102 | Aditya  | Mumbai  |   NULL | NULL       | M      |   24 |    3 |
+| 103 | Aari    | Mumbai  |  25000 | NULL       | F      | NULL | NULL |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 |    3 |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      | NULL | NULL |
+| 108 | Gaurav  | Jalgoan |   NULL | 2023-12-04 | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |   NULL | NULL       | M      | NULL |    1 |
+| 130 | Sneha   | Mumbai  |  34000 | 2021-05-20 | F      |   23 |    2 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 141 | Jagruti | Mumbai  |  22000 | NULL       | F      |   22 | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> show tables;
++---------------------+
+| Tables_in_mayjune25 |
++---------------------+
+| books               |
+| department          |
+| dept                |
+| eemployee           |
+| employee            |
+| member              |
++---------------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from books;
++-----+-------+
+| bid | bname |
++-----+-------+
+|   1 | abc   |
++-----+-------+
+1 row in set (0.00 sec)
+
+mysql> truncate books;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> select * from books;
+Empty set (0.00 sec)
+
+mysql> desc books;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| bid   | int         | NO   | PRI | NULL    |       |
+| bname | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> show tables;
++---------------------+
+| Tables_in_mayjune25 |
++---------------------+
+| books               |
+| department          |
+| dept                |
+| eemployee           |
+| employee            |
+| member              |
++---------------------+
+6 rows in set (0.00 sec)
+
+mysql> alter table member
+    -> modify column mid int auto_incrementl
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'auto_incrementl' at line 2
+mysql> alter table member
+    -> modify column mid int auto_increment;
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+mysql> desc member;
++-------+-------------------+------+-----+---------+-------+
+| Field | Type              | Null | Key | Default | Extra |
++-------+-------------------+------+-----+---------+-------+
+| mid   | int               | YES  |     | NULL    |       |
+| name  | varchar(20)       | YES  |     | NULL    |       |
+| mtype | enum('H','q','A') | YES  |     | NULL    |       |
++-------+-------------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table member
+    -> ad primary key(mid);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ad primary key(mid)' at line 2
+mysql> alter table member
+    -> add primary key(mid);
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table member
+    -> modify column mid int auto_increment;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into member values (101, "Sahil","H");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | pranav  | Jalgoan |  23000 | 2021-05-20 | M      | NULL | NULL |
+| 102 | Aditya  | Mumbai  |   NULL | NULL       | M      |   24 |    3 |
+| 103 | Aari    | Mumbai  |  25000 | NULL       | F      | NULL | NULL |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 |    3 |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      | NULL | NULL |
+| 108 | Gaurav  | Jalgoan |   NULL | 2023-12-04 | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |   NULL | NULL       | M      | NULL |    1 |
+| 130 | Sneha   | Mumbai  |  34000 | 2021-05-20 | F      |   23 |    2 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 141 | Jagruti | Mumbai  |  22000 | NULL       | F      |   22 | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> delete from employee where eid=141;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee (name, address, did) values ("Jagruti", "Jalna", 3);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | pranav  | Jalgoan |  23000 | 2021-05-20 | M      | NULL | NULL |
+| 102 | Aditya  | Mumbai  |   NULL | NULL       | M      |   24 |    3 |
+| 103 | Aari    | Mumbai  |  25000 | NULL       | F      | NULL | NULL |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 |    3 |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      | NULL | NULL |
+| 108 | Gaurav  | Jalgoan |   NULL | 2023-12-04 | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |   NULL | NULL       | M      | NULL |    1 |
+| 130 | Sneha   | Mumbai  |  34000 | 2021-05-20 | F      |   23 |    2 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 142 | Jagruti | Jalna   |   NULL | NULL       | NULL   | NULL |    3 |
++-----+---------+---------+--------+------------+--------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> select * from member;
++-----+-------+-------+
+| mid | name  | mtype |
++-----+-------+-------+
+| 101 | Sahil | H     |
++-----+-------+-------+
+1 row in set (0.00 sec)
+
+mysql> truncate member;
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> select * from member;
+Empty set (0.00 sec)
+
+mysql> insert into member (name) values ("Sneha");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from member;
++-----+-------+-------+
+| mid | name  | mtype |
++-----+-------+-------+
+|   1 | Sneha | NULL  |
++-----+-------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from dept;
++-----+-------+--------+
+| dno | name  | loc    |
++-----+-------+--------+
+|   1 | HR    | Pune   |
+|   2 | Admin | Mumbai |
+|   3 | CRM   | Pune   |
++-----+-------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from dept;
++-----+-------+--------+
+| dno | name  | loc    |
++-----+-------+--------+
+|   1 | HR    | Pune   |
+|   2 | Admin | Mumbai |
+|   3 | CRM   | Pune   |
++-----+-------+--------+
+3 rows in set (0.00 sec)
+
+mysql> delete from dept where dno =3;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> delete from dept where dno =1;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | pranav  | Jalgoan |  23000 | 2021-05-20 | M      | NULL | NULL |
+| 102 | Aditya  | Mumbai  |   NULL | NULL       | M      |   24 |    3 |
+| 103 | Aari    | Mumbai  |  25000 | NULL       | F      | NULL | NULL |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 |    3 |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      | NULL | NULL |
+| 108 | Gaurav  | Jalgoan |   NULL | 2023-12-04 | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |   NULL | NULL       | M      | NULL |    1 |
+| 130 | Sneha   | Mumbai  |  34000 | 2021-05-20 | F      |   23 |    2 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 142 | Jagruti | Jalna   |   NULL | NULL       | NULL   | NULL |    3 |
++-----+---------+---------+--------+------------+--------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> insert into dept values (1, "HR", "Pune");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into dept values (3, "CRM", "Pune");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from dept;
++-----+-------+--------+
+| dno | name  | loc    |
++-----+-------+--------+
+|   1 | HR    | Pune   |
+|   2 | Admin | Mumbai |
+|   3 | CRM   | Pune   |
++-----+-------+--------+
+3 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> add foreign key(did)
+    -> references dept(dno);
+Query OK, 10 rows affected (0.09 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> select * from dept;
++-----+-------+--------+
+| dno | name  | loc    |
++-----+-------+--------+
+|   1 | HR    | Pune   |
+|   2 | Admin | Mumbai |
+|   3 | CRM   | Pune   |
++-----+-------+--------+
+3 rows in set (0.00 sec)
+
+mysql> delete from dept where dno = 3;
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`mayjune25`.`employee`, CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`did`) REFERENCES `dept` (`dno`))
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | pranav  | Jalgoan |  23000 | 2021-05-20 | M      | NULL | NULL |
+| 102 | Aditya  | Mumbai  |   NULL | NULL       | M      |   24 |    3 |
+| 103 | Aari    | Mumbai  |  25000 | NULL       | F      | NULL | NULL |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 |    3 |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      | NULL | NULL |
+| 108 | Gaurav  | Jalgoan |   NULL | 2023-12-04 | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |   NULL | NULL       | M      | NULL |    1 |
+| 130 | Sneha   | Mumbai  |  34000 | 2021-05-20 | F      |   23 |    2 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 142 | Jagruti | Jalna   |   NULL | NULL       | NULL   | NULL |    3 |
++-----+---------+---------+--------+------------+--------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> insert into dept values (4, "IT", "Pune");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from dept;
++-----+-------+--------+
+| dno | name  | loc    |
++-----+-------+--------+
+|   1 | HR    | Pune   |
+|   2 | Admin | Mumbai |
+|   3 | CRM   | Pune   |
+|   4 | IT    | Pune   |
++-----+-------+--------+
+4 rows in set (0.00 sec)
+
+mysql> delete from dept where dno = 4;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> delete from dept where dno = 3;
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`mayjune25`.`employee`, CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`did`) REFERENCES `dept` (`dno`))
+mysql> alter table employee
+    -> drop constaint employee_ibfk_1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'employee_ibfk_1' at line 2
+mysql> alter table employee
+    -> drop constraint employee_ibfk_1;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table employee
+    -> add foreign key(did)
+    -> references dept(dno)
+    -> on delete set null;
+Query OK, 10 rows affected (0.08 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> select * from dept;
++-----+-------+--------+
+| dno | name  | loc    |
++-----+-------+--------+
+|   1 | HR    | Pune   |
+|   2 | Admin | Mumbai |
+|   3 | CRM   | Pune   |
++-----+-------+--------+
+3 rows in set (0.00 sec)
+
+mysql> delete from dept where dno = 3;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | pranav  | Jalgoan |  23000 | 2021-05-20 | M      | NULL | NULL |
+| 102 | Aditya  | Mumbai  |   NULL | NULL       | M      |   24 | NULL |
+| 103 | Aari    | Mumbai  |  25000 | NULL       | F      | NULL | NULL |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 | NULL |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      | NULL | NULL |
+| 108 | Gaurav  | Jalgoan |   NULL | 2023-12-04 | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |   NULL | NULL       | M      | NULL |    1 |
+| 130 | Sneha   | Mumbai  |  34000 | 2021-05-20 | F      |   23 |    2 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 142 | Jagruti | Jalna   |   NULL | NULL       | NULL   | NULL | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> select name, did, gender, income from employee;
++---------+------+--------+--------+
+| name    | did  | gender | income |
++---------+------+--------+--------+
+| pranav  | NULL | M      |  23000 |
+| Aditya  | NULL | M      |   NULL |
+| Aari    | NULL | F      |  25000 |
+| Sanket  | NULL | M      |  25000 |
+| Hansraj | NULL | M      |  25000 |
+| Gaurav  |    2 | M      |   NULL |
+| Tushar  |    1 | M      |   NULL |
+| Sneha   |    2 | F      |  34000 |
+| Darshan |    2 | M      |  24000 |
+| Jagruti | NULL | NULL   |   NULL |
++---------+------+--------+--------+
+10 rows in set (0.00 sec)
+
+mysql> select * from employee where gender='m';
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | pranav  | Jalgoan |  23000 | 2021-05-20 | M      | NULL | NULL |
+| 102 | Aditya  | Mumbai  |   NULL | NULL       | M      |   24 | NULL |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 | NULL |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      | NULL | NULL |
+| 108 | Gaurav  | Jalgoan |   NULL | 2023-12-04 | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |   NULL | NULL       | M      | NULL |    1 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
++-----+---------+---------+--------+------------+--------+------+------+
+7 rows in set (0.00 sec)
+
+mysql> select name, income from employee where income >30000;
++-------+--------+
+| name  | income |
++-------+--------+
+| Sneha |  34000 |
++-------+--------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | pranav  | Jalgoan |  23000 | 2021-05-20 | M      | NULL | NULL |
+| 102 | Aditya  | Mumbai  |   NULL | NULL       | M      |   24 | NULL |
+| 103 | Aari    | Mumbai  |  25000 | NULL       | F      | NULL | NULL |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 | NULL |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      | NULL | NULL |
+| 108 | Gaurav  | Jalgoan |   NULL | 2023-12-04 | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |   NULL | NULL       | M      | NULL |    1 |
+| 130 | Sneha   | Mumbai  |  34000 | 2021-05-20 | F      |   23 |    2 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 142 | Jagruti | Jalna   |   NULL | NULL       | NULL   | NULL | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> select name, address, gender from employee where
+    -> address="mumbai" and  did=2;
++---------+---------+--------+
+| name    | address | gender |
++---------+---------+--------+
+| Sneha   | Mumbai  | F      |
+| Darshan | Mumbai  | M      |
++---------+---------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employee where address!='mumbai';
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | pranav  | Jalgoan |  23000 | 2021-05-20 | M      | NULL | NULL |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 | NULL |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      | NULL | NULL |
+| 108 | Gaurav  | Jalgoan |   NULL | 2023-12-04 | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |   NULL | NULL       | M      | NULL |    1 |
+| 142 | Jagruti | Jalna   |   NULL | NULL       | NULL   | NULL | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+6 rows in set (0.00 sec)
+
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | pranav  | Jalgoan |  23000 | 2021-05-20 | M      | NULL | NULL |
+| 102 | Aditya  | Mumbai  |   NULL | NULL       | M      |   24 | NULL |
+| 103 | Aari    | Mumbai  |  25000 | NULL       | F      | NULL | NULL |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 | NULL |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      | NULL | NULL |
+| 108 | Gaurav  | Jalgoan |   NULL | 2023-12-04 | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |   NULL | NULL       | M      | NULL |    1 |
+| 130 | Sneha   | Mumbai  |  34000 | 2021-05-20 | F      |   23 |    2 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 142 | Jagruti | Jalna   |   NULL | NULL       | NULL   | NULL | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> update employee set income = 26000 where eid= 102;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set income = 35000 where eid= 142;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set income = 22000 where eid= 108;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set income = 25000 where eid= 110;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | pranav  | Jalgoan |  23000 | 2021-05-20 | M      | NULL | NULL |
+| 102 | Aditya  | Mumbai  |  26000 | NULL       | M      |   24 | NULL |
+| 103 | Aari    | Mumbai  |  25000 | NULL       | F      | NULL | NULL |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 | NULL |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      | NULL | NULL |
+| 108 | Gaurav  | Jalgoan |  22000 | 2023-12-04 | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |  25000 | NULL       | M      | NULL |    1 |
+| 130 | Sneha   | Mumbai  |  34000 | 2021-05-20 | F      |   23 |    2 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 142 | Jagruti | Jalna   |  35000 | NULL       | NULL   | NULL | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> select * from employee where address!="mumbai" or address!="jalgaon"
+    -> ;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | pranav  | Jalgoan |  23000 | 2021-05-20 | M      | NULL | NULL |
+| 102 | Aditya  | Mumbai  |  26000 | NULL       | M      |   24 | NULL |
+| 103 | Aari    | Mumbai  |  25000 | NULL       | F      | NULL | NULL |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 | NULL |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      | NULL | NULL |
+| 108 | Gaurav  | Jalgoan |  22000 | 2023-12-04 | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |  25000 | NULL       | M      | NULL |    1 |
+| 130 | Sneha   | Mumbai  |  34000 | 2021-05-20 | F      |   23 |    2 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 142 | Jagruti | Jalna   |  35000 | NULL       | NULL   | NULL | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> select * from employee where address!="mumbai" and address!="jalgaon"
+    -> ;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | pranav  | Jalgoan |  23000 | 2021-05-20 | M      | NULL | NULL |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 | NULL |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      | NULL | NULL |
+| 108 | Gaurav  | Jalgoan |  22000 | 2023-12-04 | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |  25000 | NULL       | M      | NULL |    1 |
+| 142 | Jagruti | Jalna   |  35000 | NULL       | NULL   | NULL | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+6 rows in set (0.00 sec)
+
+mysql> select * from employee where address not in ("mumbai" ,"jalgaon");
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | pranav  | Jalgoan |  23000 | 2021-05-20 | M      | NULL | NULL |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 | NULL |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      | NULL | NULL |
+| 108 | Gaurav  | Jalgoan |  22000 | 2023-12-04 | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |  25000 | NULL       | M      | NULL |    1 |
+| 142 | Jagruti | Jalna   |  35000 | NULL       | NULL   | NULL | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+6 rows in set (0.00 sec)
+
+mysql> select * from employee where address not in ("mumbai" ,"jalgoan");
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 | NULL |
+| 110 | Tushar  | Pune    |  25000 | NULL       | M      | NULL |    1 |
+| 142 | Jagruti | Jalna   |  35000 | NULL       | NULL   | NULL | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | pranav  | Jalgoan |  23000 | 2021-05-20 | M      | NULL | NULL |
+| 102 | Aditya  | Mumbai  |  26000 | NULL       | M      |   24 | NULL |
+| 103 | Aari    | Mumbai  |  25000 | NULL       | F      | NULL | NULL |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 | NULL |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      | NULL | NULL |
+| 108 | Gaurav  | Jalgoan |  22000 | 2023-12-04 | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |  25000 | NULL       | M      | NULL |    1 |
+| 130 | Sneha   | Mumbai  |  34000 | 2021-05-20 | F      |   23 |    2 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 142 | Jagruti | Jalna   |  35000 | NULL       | NULL   | NULL | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> select name, income, did from employee
+    -> where income >=20000 and income <=25000;
++---------+--------+------+
+| name    | income | did  |
++---------+--------+------+
+| pranav  |  23000 | NULL |
+| Aari    |  25000 | NULL |
+| Sanket  |  25000 | NULL |
+| Hansraj |  25000 | NULL |
+| Gaurav  |  22000 |    2 |
+| Tushar  |  25000 |    1 |
+| Darshan |  24000 |    2 |
++---------+--------+------+
+7 rows in set (0.00 sec)
+
+mysql> select name, income, did from employee
+    -> where income between 20000 and 25000;
++---------+--------+------+
+| name    | income | did  |
++---------+--------+------+
+| pranav  |  23000 | NULL |
+| Aari    |  25000 | NULL |
+| Sanket  |  25000 | NULL |
+| Hansraj |  25000 | NULL |
+| Gaurav  |  22000 |    2 |
+| Tushar  |  25000 |    1 |
+| Darshan |  24000 |    2 |
++---------+--------+------+
+7 rows in set (0.00 sec)
+
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | pranav  | Jalgoan |  23000 | 2021-05-20 | M      | NULL | NULL |
+| 102 | Aditya  | Mumbai  |  26000 | NULL       | M      |   24 | NULL |
+| 103 | Aari    | Mumbai  |  25000 | NULL       | F      | NULL | NULL |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 | NULL |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      | NULL | NULL |
+| 108 | Gaurav  | Jalgoan |  22000 | 2023-12-04 | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |  25000 | NULL       | M      | NULL |    1 |
+| 130 | Sneha   | Mumbai  |  34000 | 2021-05-20 | F      |   23 |    2 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 142 | Jagruti | Jalna   |  35000 | NULL       | NULL   | NULL | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> select eid, name, j_date, gender
+    -> from employee where j_date >="2023-1-1" and j_date <="2023-12-31";
++-----+---------+------------+--------+
+| eid | name    | j_date     | gender |
++-----+---------+------------+--------+
+| 106 | Hansraj | 2023-12-04 | M      |
+| 108 | Gaurav  | 2023-12-04 | M      |
++-----+---------+------------+--------+
+2 rows in set (0.01 sec)
+
+mysql> select eid, name, j_date, gender
+    -> from employee where j_date between "2023-1-1" and "2023-12-31";
++-----+---------+------------+--------+
+| eid | name    | j_date     | gender |
++-----+---------+------------+--------+
+| 106 | Hansraj | 2023-12-04 | M      |
+| 108 | Gaurav  | 2023-12-04 | M      |
++-----+---------+------------+--------+
+2 rows in set (0.00 sec)
+
+mysql>
