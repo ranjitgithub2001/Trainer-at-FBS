@@ -1,0 +1,508 @@
+Enter password: *******
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 17
+Server version: 8.0.40 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use mayjune25;
+Database changed
+mysql> show tables;
++---------------------+
+| Tables_in_mayjune25 |
++---------------------+
+| books               |
+| department          |
+| dept                |
+| eemployee           |
+| employee            |
+| member              |
++---------------------+
+6 rows in set (0.01 sec)
+
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | prznzv  | Jalgoan |  23000 | 2021-05-20 | M      |   25 |    3 |
+| 102 | Aditya  | Mumbai  |  26000 | NULL       | M      |   24 |    3 |
+| 103 | Aarti   | Mumbai  |  25000 | NULL       | F      |   25 |    3 |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 |    3 |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      |   25 | NULL |
+| 108 | Gaurav  | Jalgoan |  22000 | 2023-12-04 | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |  25000 | NULL       | M      | NULL |    1 |
+| 130 | Sneha   | Mumbai  |  34000 | 2021-05-20 | F      |   23 |    2 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 142 | Jagruti | Jalna   |  35000 | NULL       | NULL   |   25 | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> select min(income) from employee;
++-------------+
+| min(income) |
++-------------+
+|       22000 |
++-------------+
+1 row in set (0.01 sec)
+
+mysql> select min(income) , max(income) from employee;
++-------------+-------------+
+| min(income) | max(income) |
++-------------+-------------+
+|       22000 |       35000 |
++-------------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select min(income) , max(income) , avg(income)from employee;
++-------------+-------------+-------------+
+| min(income) | max(income) | avg(income) |
++-------------+-------------+-------------+
+|       22000 |       35000 |  26400.0000 |
++-------------+-------------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select min(income) , max(income) , avg(income),sum(income) from employee;
++-------------+-------------+-------------+-------------+
+| min(income) | max(income) | avg(income) | sum(income) |
++-------------+-------------+-------------+-------------+
+|       22000 |       35000 |  26400.0000 |      264000 |
++-------------+-------------+-------------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select min(income) from employee;
++-------------+
+| min(income) |
++-------------+
+|       22000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select name, min(income) from employee;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'mayjune25.employee.name'; this is incompatible with sql_mode=only_full_group_by
+mysql> select count(eid)  from employee;
++------------+
+| count(eid) |
++------------+
+|         10 |
++------------+
+1 row in set (0.03 sec)
+
+mysql> select count(age)  from employee;
++------------+
+| count(age) |
++------------+
+|          9 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | prznzv  | Jalgoan |  23000 | 2021-05-20 | M      |   25 |    3 |
+| 102 | Aditya  | Mumbai  |  26000 | NULL       | M      |   24 |    3 |
+| 103 | Aarti   | Mumbai  |  25000 | NULL       | F      |   25 |    3 |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 |    3 |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      |   25 | NULL |
+| 108 | Gaurav  | Jalgoan |  22000 | 2023-12-04 | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |  25000 | NULL       | M      | NULL |    1 |
+| 130 | Sneha   | Mumbai  |  34000 | 2021-05-20 | F      |   23 |    2 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 142 | Jagruti | Jalna   |  35000 | NULL       | NULL   |   25 | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> select count(*)  from employee;
++----------+
+| count(*) |
++----------+
+|       10 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee where avg(income)< income;
+ERROR 1111 (HY000): Invalid use of group function
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | prznzv  | Jalgoan |  23000 | 2021-05-20 | M      |   25 |    3 |
+| 102 | Aditya  | Mumbai  |  26000 | NULL       | M      |   24 |    3 |
+| 103 | Aarti   | Mumbai  |  25000 | NULL       | F      |   25 |    3 |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 |    3 |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      |   25 | NULL |
+| 108 | Gaurav  | Jalgoan |  22000 | 2023-12-04 | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |  25000 | NULL       | M      | NULL |    1 |
+| 130 | Sneha   | Mumbai  |  34000 | 2021-05-20 | F      |   23 |    2 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 142 | Jagruti | Jalna   |  35000 | NULL       | NULL   |   25 | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | prznzv  | Jalgoan |  23000 | 2021-05-20 | M      |   25 |    3 |
+| 102 | Aditya  | Mumbai  |  26000 | NULL       | M      |   24 |    3 |
+| 103 | Aarti   | Mumbai  |  25000 | NULL       | F      |   25 |    3 |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 |    3 |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      |   25 | NULL |
+| 108 | Gaurav  | Jalgoan |  22000 | 2023-12-04 | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |  25000 | NULL       | M      | NULL |    1 |
+| 130 | Sneha   | Mumbai  |  34000 | 2021-05-20 | F      |   23 |    2 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 142 | Jagruti | Jalna   |  35000 | NULL       | NULL   |   25 | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> select count(did) from employee group by did;
++------------+
+| count(did) |
++------------+
+|          0 |
+|          1 |
+|          3 |
+|          4 |
++------------+
+4 rows in set (0.03 sec)
+
+mysql> select did, count(did) from employee group by did;
++------+------------+
+| did  | count(did) |
++------+------------+
+| NULL |          0 |
+|    1 |          1 |
+|    2 |          3 |
+|    3 |          4 |
++------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select did, income count(did) from employee group by did;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'count(did) from employee group by did' at line 1
+mysql> select did, count(*) from employee group by did;
++------+----------+
+| did  | count(*) |
++------+----------+
+| NULL |        2 |
+|    1 |        1 |
+|    2 |        3 |
+|    3 |        4 |
++------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select did, count(did) from employee group by did;
++------+------------+
+| did  | count(did) |
++------+------------+
+| NULL |          0 |
+|    1 |          1 |
+|    2 |          3 |
+|    3 |          4 |
++------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select did, sum(income), count(did) from employee group by did;
++------+-------------+------------+
+| did  | sum(income) | count(did) |
++------+-------------+------------+
+| NULL |       60000 |          0 |
+|    1 |       25000 |          1 |
+|    2 |       80000 |          3 |
+|    3 |       99000 |          4 |
++------+-------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | prznzv  | Jalgoan |  23000 | 2021-05-20 | M      |   25 |    3 |
+| 102 | Aditya  | Mumbai  |  26000 | NULL       | M      |   24 |    3 |
+| 103 | Aarti   | Mumbai  |  25000 | NULL       | F      |   25 |    3 |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 |    3 |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      |   25 | NULL |
+| 108 | Gaurav  | Jalgoan |  22000 | 2023-12-04 | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |  25000 | NULL       | M      | NULL |    1 |
+| 130 | Sneha   | Mumbai  |  34000 | 2021-05-20 | F      |   23 |    2 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 142 | Jagruti | Jalna   |  35000 | NULL       | NULL   |   25 | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> update employee set geder='f' where eid=142;
+ERROR 1054 (42S22): Unknown column 'geder' in 'field list'
+mysql> update employee set gender='f' where eid=142;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | prznzv  | Jalgoan |  23000 | 2021-05-20 | M      |   25 |    3 |
+| 102 | Aditya  | Mumbai  |  26000 | NULL       | M      |   24 |    3 |
+| 103 | Aarti   | Mumbai  |  25000 | NULL       | F      |   25 |    3 |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 |    3 |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      |   25 | NULL |
+| 108 | Gaurav  | Jalgoan |  22000 | 2023-12-04 | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |  25000 | NULL       | M      | NULL |    1 |
+| 130 | Sneha   | Mumbai  |  34000 | 2021-05-20 | F      |   23 |    2 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 142 | Jagruti | Jalna   |  35000 | NULL       | f      |   25 | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> select min(age) from employee group by gender;
++----------+
+| min(age) |
++----------+
+|       23 |
+|       23 |
++----------+
+2 rows in set (0.01 sec)
+
+mysql> select gender, min(age) from employee group by gender;
++--------+----------+
+| gender | min(age) |
++--------+----------+
+| M      |       23 |
+| F      |       23 |
++--------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select gender, min(j_date) from employee group by gender;
++--------+-------------+
+| gender | min(j_date) |
++--------+-------------+
+| M      | 2021-05-20  |
+| F      | 2021-05-20  |
++--------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> select gender, min(address) from employee group by gender;
++--------+--------------+
+| gender | min(address) |
++--------+--------------+
+| M      | Jalgoan      |
+| F      | Jalna        |
++--------+--------------+
+2 rows in set (0.03 sec)
+
+mysql> select gender, min(age) from employee group by gender;
++--------+----------+
+| gender | min(age) |
++--------+----------+
+| M      |       23 |
+| F      |       23 |
++--------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select gender, min(age) , avg(*) from employee group by gender;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*) from employee group by gender' at line 1
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | prznzv  | Jalgoan |  23000 | 2021-05-20 | M      |   25 |    3 |
+| 102 | Aditya  | Mumbai  |  26000 | NULL       | M      |   24 |    3 |
+| 103 | Aarti   | Mumbai  |  25000 | NULL       | F      |   25 |    3 |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 |    3 |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      |   25 | NULL |
+| 108 | Gaurav  | Jalgoan |  22000 | 2023-12-04 | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |  25000 | NULL       | M      | NULL |    1 |
+| 130 | Sneha   | Mumbai  |  34000 | 2021-05-20 | F      |   23 |    2 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 142 | Jagruti | Jalna   |  35000 | NULL       | f      |   25 | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> select count(*) from employee group by did, gender;
++----------+
+| count(*) |
++----------+
+|        3 |
+|        1 |
+|        1 |
+|        2 |
+|        1 |
+|        1 |
+|        1 |
++----------+
+7 rows in set (0.00 sec)
+
+mysql> select did, gender,count(*) from employee group by did, gender;
++------+--------+----------+
+| did  | gender | count(*) |
++------+--------+----------+
+|    3 | M      |        3 |
+|    3 | F      |        1 |
+| NULL | M      |        1 |
+|    2 | M      |        2 |
+|    1 | M      |        1 |
+|    2 | F      |        1 |
+| NULL | f      |        1 |
++------+--------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select did, gender,count(eid) from employee group by did, gender;
++------+--------+------------+
+| did  | gender | count(eid) |
++------+--------+------------+
+|    3 | M      |          3 |
+|    3 | F      |          1 |
+| NULL | M      |          1 |
+|    2 | M      |          2 |
+|    1 | M      |          1 |
+|    2 | F      |          1 |
+| NULL | f      |          1 |
++------+--------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select did, gender,count(did) from employee group by did, gender;
++------+--------+------------+
+| did  | gender | count(did) |
++------+--------+------------+
+|    3 | M      |          3 |
+|    3 | F      |          1 |
+| NULL | M      |          0 |
+|    2 | M      |          2 |
+|    1 | M      |          1 |
+|    2 | F      |          1 |
+| NULL | f      |          0 |
++------+--------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select did, gender,count(*) from employee group by did, gender;
++------+--------+----------+
+| did  | gender | count(*) |
++------+--------+----------+
+|    3 | M      |        3 |
+|    3 | F      |        1 |
+| NULL | M      |        1 |
+|    2 | M      |        2 |
+|    1 | M      |        1 |
+|    2 | F      |        1 |
+| NULL | f      |        1 |
++------+--------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select did, gender,count(*) from employee group by did, gender
+    -> order by count(*);
++------+--------+----------+
+| did  | gender | count(*) |
++------+--------+----------+
+|    3 | F      |        1 |
+| NULL | M      |        1 |
+|    1 | M      |        1 |
+|    2 | F      |        1 |
+| NULL | f      |        1 |
+|    2 | M      |        2 |
+|    3 | M      |        3 |
++------+--------+----------+
+7 rows in set (0.00 sec)
+
+mysql> select did, gender,count(*) from employee group by did, gender
+    -> order by did;
++------+--------+----------+
+| did  | gender | count(*) |
++------+--------+----------+
+| NULL | f      |        1 |
+| NULL | M      |        1 |
+|    1 | M      |        1 |
+|    2 | F      |        1 |
+|    2 | M      |        2 |
+|    3 | F      |        1 |
+|    3 | M      |        3 |
++------+--------+----------+
+7 rows in set (0.03 sec)
+
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | prznzv  | Jalgoan |  23000 | 2021-05-20 | M      |   25 |    3 |
+| 102 | Aditya  | Mumbai  |  26000 | NULL       | M      |   24 |    3 |
+| 103 | Aarti   | Mumbai  |  25000 | NULL       | F      |   25 |    3 |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 |    3 |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      |   25 | NULL |
+| 108 | Gaurav  | Jalgoan |  22000 | 2023-12-04 | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |  25000 | NULL       | M      | NULL |    1 |
+| 130 | Sneha   | Mumbai  |  34000 | 2021-05-20 | F      |   23 |    2 |
+| 140 | Darshan | Mumbai  |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 142 | Jagruti | Jalna   |  35000 | NULL       | f      |   25 | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> select address, min(age) , avg(inclome) from employee
+    -> group by address;
+ERROR 1054 (42S22): Unknown column 'inclome' in 'field list'
+mysql> select address, min(age) , avg(income) from employee
+    -> group by address;
++---------+----------+-------------+
+| address | min(age) | avg(income) |
++---------+----------+-------------+
+| Jalgoan |       23 |  23333.3333 |
+| Mumbai  |       23 |  27250.0000 |
+| Manchar |       24 |  25000.0000 |
+| Pune    |     NULL |  25000.0000 |
+| Jalna   |       25 |  35000.0000 |
++---------+----------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> select address, min(age) , avg(inclome) from employee
+    -> group by address where avg(income) >25000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where avg(income) >25000' at line 2
+mysql> select address, min(age) , avg(inclome) from employee
+    -> group by address having avg(income) >25000;
+ERROR 1054 (42S22): Unknown column 'inclome' in 'field list'
+mysql> select address, min(age) , avg(income) from employee
+    -> group by address having avg(income) >25000;
++---------+----------+-------------+
+| address | min(age) | avg(income) |
++---------+----------+-------------+
+| Mumbai  |       23 |  27250.0000 |
+| Jalna   |       25 |  35000.0000 |
++---------+----------+-------------+
+2 rows in set (0.03 sec)
+
+mysql> select address, min(age) , avg(inclome) from employee
+    -> where avg(;) >
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 2
+    -> where avg(;) >;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') >
+where avg(' at line 1
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') >' at line 1
+mysql> select address, min(age) , avg(income) from employee
+    -> where avg(income) >25000 group by address;
+ERROR 1select address, min(age) , avg(inclome) from employee ;
+ERROR 1054 (42S22): Unknown column 'inclome' in 'field list'
+mysql> select did, count(*) from employee group by did;
++------+----------+
+| did  | count(*) |
++------+----------+
+| NULL |        2 |
+|    1 |        1 |
+|    2 |        3 |
+|    3 |        4 |
++------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select did, count(*) from employee group by did
+    -> having did is not null;
++------+----------+
+| did  | count(*) |
++------+----------+
+|    1 |        1 |
+|    2 |        3 |
+|    3 |        4 |
++------+----------+
+3 rows in set (0.03 sec)
+
+mysql>
