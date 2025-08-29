@@ -1,0 +1,527 @@
+Enter password: *******
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 20
+Server version: 8.0.40 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> shw databases;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'shw databases' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| 11th_sept_b        |
+| 26th_sept_batch    |
+| april_combo_batch  |
+| ass1               |
+| ass2               |
+| aug_combo          |
+| aug_combo_batch    |
+| aug_python         |
+| demo               |
+| information_schema |
+| july_combo_batch   |
+| june_combo_batch   |
+| m1                 |
+| mayjune25          |
+| mysql              |
+| nov_dec            |
+| orchidclg          |
+| performance_schema |
+| pkcoe_clg          |
+| sakila             |
+| sample             |
+| snjb               |
+| sys                |
+| world              |
+| zensar_training    |
++--------------------+
+25 rows in set (0.10 sec)
+
+mysql> use ass2
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_ass2 |
++----------------+
+| book           |
+| books          |
+| issue          |
+| member         |
++----------------+
+4 rows in set (0.06 sec)
+
+mysql> select * from books;
++-----+---------------+----------------+------+----------+
+| bno | name          | aname          | cost | category |
++-----+---------------+----------------+------+----------+
+| 101 | Let us c      | Dennis Ritchie |  450 | system   |
+| 102 | Orale         | Loni           |  550 | Database |
+| 103 | Mastering SQL | Loni           |  250 | Database |
+| 104 | PLSQL         | Scott Urman    |  750 | Database |
+| 105 | Oracle DB     | Scott Urman    | 1000 | Database |
++-----+---------------+----------------+------+----------+
+5 rows in set (0.07 sec)
+
+mysql> select * from issue;
++--------+------+------+------------+------------+
+| iss_id | bno  | mid  | iss_date   | ret_date   |
++--------+------+------+------------+------------+
+|   1001 |  101 |    1 | 2022-06-02 | 2024-12-25 |
+|   1002 |  102 |    2 | 2022-06-02 | NULL       |
+|   1003 |  104 |    1 | 2022-12-02 | NULL       |
+|   1004 |  101 |    1 | 2023-01-02 | NULL       |
+|   1005 |  104 |    1 | 2023-05-20 | 2024-12-25 |
+|   1006 |  101 |    3 | 2024-09-25 | NULL       |
++--------+------+------+------------+------------+
+6 rows in set (0.03 sec)
+
+mysql> select * from member;
++-----+--------------+---------+------------+-----------+-------+
+| mid | name         | address | acc_date   | m_type    | fees  |
++-----+--------------+---------+------------+-----------+-------+
+|   1 | Richa sharma | pune    | 2020-10-05 | lifetime  | 25000 |
+|   2 | Garima sen   | Pune    | 2023-01-15 | Annual    |  1000 |
+|   3 | Supriya      | Nagar   | 2022-10-15 | Quarterly |   500 |
+|   4 | Sonal        | Mumbai  | 2020-01-12 | Annual    |  2000 |
++-----+--------------+---------+------------+-----------+-------+
+4 rows in set (0.06 sec)
+
+mysql> use mayjune25;
+Database changed
+mysql> select * from employee
+    -> ;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | did  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | Aditya  | Jalgoan |  23000 | 2021-05-20 | M      |   25 |    3 |
+| 102 | Aditya  | pune    |  26000 | NULL       | M      |   24 |    3 |
+| 103 | Aarti   | pune    |  25000 | NULL       | F      |   25 |    3 |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 |    3 |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      |   25 | NULL |
+| 108 | Gaurav  | Jalgoan |  22000 | 2023-12-04 | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |  25000 | NULL       | M      | NULL |    1 |
+| 130 | Sneha   | pune    |  34000 | 2021-05-20 | F      |   23 |    2 |
+| 140 | Darshan | pune    |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 142 | Jagruti | Jalna   |  35000 | NULL       | f      |   25 | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> select * from dept;
++-----+-------+--------+
+| dno | name  | loc    |
++-----+-------+--------+
+|   1 | HR    | Pune   |
+|   2 | Admin | Mumbai |
+|   3 | IT    | Pune   |
++-----+-------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employee,dept;
++-----+---------+---------+--------+------------+--------+------+------+-----+-------+--------+
+| eid | name    | address | income | j_date     | gender | age  | did  | dno | name  | loc    |
++-----+---------+---------+--------+------------+--------+------+------+-----+-------+--------+
+| 101 | Aditya  | Jalgoan |  23000 | 2021-05-20 | M      |   25 |    3 |   3 | IT    | Pune   |
+| 101 | Aditya  | Jalgoan |  23000 | 2021-05-20 | M      |   25 |    3 |   2 | Admin | Mumbai |
+| 101 | Aditya  | Jalgoan |  23000 | 2021-05-20 | M      |   25 |    3 |   1 | HR    | Pune   |
+| 102 | Aditya  | pune    |  26000 | NULL       | M      |   24 |    3 |   3 | IT    | Pune   |
+| 102 | Aditya  | pune    |  26000 | NULL       | M      |   24 |    3 |   2 | Admin | Mumbai |
+| 102 | Aditya  | pune    |  26000 | NULL       | M      |   24 |    3 |   1 | HR    | Pune   |
+| 103 | Aarti   | pune    |  25000 | NULL       | F      |   25 |    3 |   3 | IT    | Pune   |
+| 103 | Aarti   | pune    |  25000 | NULL       | F      |   25 |    3 |   2 | Admin | Mumbai |
+| 103 | Aarti   | pune    |  25000 | NULL       | F      |   25 |    3 |   1 | HR    | Pune   |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 |    3 |   3 | IT    | Pune   |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 |    3 |   2 | Admin | Mumbai |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 |    3 |   1 | HR    | Pune   |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      |   25 | NULL |   3 | IT    | Pune   |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      |   25 | NULL |   2 | Admin | Mumbai |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      |   25 | NULL |   1 | HR    | Pune   |
+| 108 | Gaurav  | Jalgoan |  22000 | 2023-12-04 | M      |   23 |    2 |   3 | IT    | Pune   |
+| 108 | Gaurav  | Jalgoan |  22000 | 2023-12-04 | M      |   23 |    2 |   2 | Admin | Mumbai |
+| 108 | Gaurav  | Jalgoan |  22000 | 2023-12-04 | M      |   23 |    2 |   1 | HR    | Pune   |
+| 110 | Tushar  | Pune    |  25000 | NULL       | M      | NULL |    1 |   3 | IT    | Pune   |
+| 110 | Tushar  | Pune    |  25000 | NULL       | M      | NULL |    1 |   2 | Admin | Mumbai |
+| 110 | Tushar  | Pune    |  25000 | NULL       | M      | NULL |    1 |   1 | HR    | Pune   |
+| 130 | Sneha   | pune    |  34000 | 2021-05-20 | F      |   23 |    2 |   3 | IT    | Pune   |
+| 130 | Sneha   | pune    |  34000 | 2021-05-20 | F      |   23 |    2 |   2 | Admin | Mumbai |
+| 130 | Sneha   | pune    |  34000 | 2021-05-20 | F      |   23 |    2 |   1 | HR    | Pune   |
+| 140 | Darshan | pune    |  24000 | 2022-03-21 | M      |   23 |    2 |   3 | IT    | Pune   |
+| 140 | Darshan | pune    |  24000 | 2022-03-21 | M      |   23 |    2 |   2 | Admin | Mumbai |
+| 140 | Darshan | pune    |  24000 | 2022-03-21 | M      |   23 |    2 |   1 | HR    | Pune   |
+| 142 | Jagruti | Jalna   |  35000 | NULL       | f      |   25 | NULL |   3 | IT    | Pune   |
+| 142 | Jagruti | Jalna   |  35000 | NULL       | f      |   25 | NULL |   2 | Admin | Mumbai |
+| 142 | Jagruti | Jalna   |  35000 | NULL       | f      |   25 | NULL |   1 | HR    | Pune   |
++-----+---------+---------+--------+------------+--------+------+------+-----+-------+--------+
+30 rows in set (0.00 sec)
+
+mysql> select eid, name, did, dno,name from employee , dept;
+ERROR 1052 (23000): Column 'name' in field list is ambiguous
+mysql> select eid, e.name, did, dno,d.name from employee as e, dept as d;
++-----+---------+------+-----+-------+
+| eid | name    | did  | dno | name  |
++-----+---------+------+-----+-------+
+| 101 | Aditya  |    3 |   3 | IT    |
+| 101 | Aditya  |    3 |   2 | Admin |
+| 101 | Aditya  |    3 |   1 | HR    |
+| 102 | Aditya  |    3 |   3 | IT    |
+| 102 | Aditya  |    3 |   2 | Admin |
+| 102 | Aditya  |    3 |   1 | HR    |
+| 103 | Aarti   |    3 |   3 | IT    |
+| 103 | Aarti   |    3 |   2 | Admin |
+| 103 | Aarti   |    3 |   1 | HR    |
+| 105 | Sanket  |    3 |   3 | IT    |
+| 105 | Sanket  |    3 |   2 | Admin |
+| 105 | Sanket  |    3 |   1 | HR    |
+| 106 | Hansraj | NULL |   3 | IT    |
+| 106 | Hansraj | NULL |   2 | Admin |
+| 106 | Hansraj | NULL |   1 | HR    |
+| 108 | Gaurav  |    2 |   3 | IT    |
+| 108 | Gaurav  |    2 |   2 | Admin |
+| 108 | Gaurav  |    2 |   1 | HR    |
+| 110 | Tushar  |    1 |   3 | IT    |
+| 110 | Tushar  |    1 |   2 | Admin |
+| 110 | Tushar  |    1 |   1 | HR    |
+| 130 | Sneha   |    2 |   3 | IT    |
+| 130 | Sneha   |    2 |   2 | Admin |
+| 130 | Sneha   |    2 |   1 | HR    |
+| 140 | Darshan |    2 |   3 | IT    |
+| 140 | Darshan |    2 |   2 | Admin |
+| 140 | Darshan |    2 |   1 | HR    |
+| 142 | Jagruti | NULL |   3 | IT    |
+| 142 | Jagruti | NULL |   2 | Admin |
+| 142 | Jagruti | NULL |   1 | HR    |
++-----+---------+------+-----+-------+
+30 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> change column did dno int;
+Query OK, 0 rows affected (0.13 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee
+    -> inner join dept
+    -> on dno =dno;
+ERROR 1052 (23000): Column 'dno' in on clause is ambiguous
+mysql> select * from employee e
+    -> inner join dept d
+    -> on e.dno = d.dno;
++-----+---------+---------+--------+------------+--------+------+------+-----+-------+--------+
+| eid | name    | address | income | j_date     | gender | age  | dno  | dno | name  | loc    |
++-----+---------+---------+--------+------------+--------+------+------+-----+-------+--------+
+| 110 | Tushar  | Pune    |  25000 | NULL       | M      | NULL |    1 |   1 | HR    | Pune   |
+| 108 | Gaurav  | Jalgoan |  22000 | 2023-12-04 | M      |   23 |    2 |   2 | Admin | Mumbai |
+| 130 | Sneha   | pune    |  34000 | 2021-05-20 | F      |   23 |    2 |   2 | Admin | Mumbai |
+| 140 | Darshan | pune    |  24000 | 2022-03-21 | M      |   23 |    2 |   2 | Admin | Mumbai |
+| 101 | Aditya  | Jalgoan |  23000 | 2021-05-20 | M      |   25 |    3 |   3 | IT    | Pune   |
+| 102 | Aditya  | pune    |  26000 | NULL       | M      |   24 |    3 |   3 | IT    | Pune   |
+| 103 | Aarti   | pune    |  25000 | NULL       | F      |   25 |    3 |   3 | IT    | Pune   |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 |    3 |   3 | IT    | Pune   |
++-----+---------+---------+--------+------------+--------+------+------+-----+-------+--------+
+8 rows in set (0.00 sec)
+
+mysql> insert into dept values (4, "SCM", "Nasik");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from employee,dept;
++-----+---------+---------+--------+------------+--------+------+------+-----+-------+--------+
+| eid | name    | address | income | j_date     | gender | age  | dno  | dno | name  | loc    |
++-----+---------+---------+--------+------------+--------+------+------+-----+-------+--------+
+| 101 | Aditya  | Jalgoan |  23000 | 2021-05-20 | M      |   25 |    3 |   4 | SCM   | Nasik  |
+| 101 | Aditya  | Jalgoan |  23000 | 2021-05-20 | M      |   25 |    3 |   3 | IT    | Pune   |
+| 101 | Aditya  | Jalgoan |  23000 | 2021-05-20 | M      |   25 |    3 |   2 | Admin | Mumbai |
+| 101 | Aditya  | Jalgoan |  23000 | 2021-05-20 | M      |   25 |    3 |   1 | HR    | Pune   |
+| 102 | Aditya  | pune    |  26000 | NULL       | M      |   24 |    3 |   4 | SCM   | Nasik  |
+| 102 | Aditya  | pune    |  26000 | NULL       | M      |   24 |    3 |   3 | IT    | Pune   |
+| 102 | Aditya  | pune    |  26000 | NULL       | M      |   24 |    3 |   2 | Admin | Mumbai |
+| 102 | Aditya  | pune    |  26000 | NULL       | M      |   24 |    3 |   1 | HR    | Pune   |
+| 103 | Aarti   | pune    |  25000 | NULL       | F      |   25 |    3 |   4 | SCM   | Nasik  |
+| 103 | Aarti   | pune    |  25000 | NULL       | F      |   25 |    3 |   3 | IT    | Pune   |
+| 103 | Aarti   | pune    |  25000 | NULL       | F      |   25 |    3 |   2 | Admin | Mumbai |
+| 103 | Aarti   | pune    |  25000 | NULL       | F      |   25 |    3 |   1 | HR    | Pune   |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 |    3 |   4 | SCM   | Nasik  |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 |    3 |   3 | IT    | Pune   |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 |    3 |   2 | Admin | Mumbai |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 |    3 |   1 | HR    | Pune   |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      |   25 | NULL |   4 | SCM   | Nasik  |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      |   25 | NULL |   3 | IT    | Pune   |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      |   25 | NULL |   2 | Admin | Mumbai |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      |   25 | NULL |   1 | HR    | Pune   |
+| 108 | Gaurav  | Jalgoan |  22000 | 2023-12-04 | M      |   23 |    2 |   4 | SCM   | Nasik  |
+| 108 | Gaurav  | Jalgoan |  22000 | 2023-12-04 | M      |   23 |    2 |   3 | IT    | Pune   |
+| 108 | Gaurav  | Jalgoan |  22000 | 2023-12-04 | M      |   23 |    2 |   2 | Admin | Mumbai |
+| 108 | Gaurav  | Jalgoan |  22000 | 2023-12-04 | M      |   23 |    2 |   1 | HR    | Pune   |
+| 110 | Tushar  | Pune    |  25000 | NULL       | M      | NULL |    1 |   4 | SCM   | Nasik  |
+| 110 | Tushar  | Pune    |  25000 | NULL       | M      | NULL |    1 |   3 | IT    | Pune   |
+| 110 | Tushar  | Pune    |  25000 | NULL       | M      | NULL |    1 |   2 | Admin | Mumbai |
+| 110 | Tushar  | Pune    |  25000 | NULL       | M      | NULL |    1 |   1 | HR    | Pune   |
+| 130 | Sneha   | pune    |  34000 | 2021-05-20 | F      |   23 |    2 |   4 | SCM   | Nasik  |
+| 130 | Sneha   | pune    |  34000 | 2021-05-20 | F      |   23 |    2 |   3 | IT    | Pune   |
+| 130 | Sneha   | pune    |  34000 | 2021-05-20 | F      |   23 |    2 |   2 | Admin | Mumbai |
+| 130 | Sneha   | pune    |  34000 | 2021-05-20 | F      |   23 |    2 |   1 | HR    | Pune   |
+| 140 | Darshan | pune    |  24000 | 2022-03-21 | M      |   23 |    2 |   4 | SCM   | Nasik  |
+| 140 | Darshan | pune    |  24000 | 2022-03-21 | M      |   23 |    2 |   3 | IT    | Pune   |
+| 140 | Darshan | pune    |  24000 | 2022-03-21 | M      |   23 |    2 |   2 | Admin | Mumbai |
+| 140 | Darshan | pune    |  24000 | 2022-03-21 | M      |   23 |    2 |   1 | HR    | Pune   |
+| 142 | Jagruti | Jalna   |  35000 | NULL       | f      |   25 | NULL |   4 | SCM   | Nasik  |
+| 142 | Jagruti | Jalna   |  35000 | NULL       | f      |   25 | NULL |   3 | IT    | Pune   |
+| 142 | Jagruti | Jalna   |  35000 | NULL       | f      |   25 | NULL |   2 | Admin | Mumbai |
+| 142 | Jagruti | Jalna   |  35000 | NULL       | f      |   25 | NULL |   1 | HR    | Pune   |
++-----+---------+---------+--------+------------+--------+------+------+-----+-------+--------+
+40 rows in set (0.00 sec)
+
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | dno  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | Aditya  | Jalgoan |  23000 | 2021-05-20 | M      |   25 |    3 |
+| 102 | Aditya  | pune    |  26000 | NULL       | M      |   24 |    3 |
+| 103 | Aarti   | pune    |  25000 | NULL       | F      |   25 |    3 |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 |    3 |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      |   25 | NULL |
+| 108 | Gaurav  | Jalgoan |  22000 | 2023-12-04 | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |  25000 | NULL       | M      | NULL |    1 |
+| 130 | Sneha   | pune    |  34000 | 2021-05-20 | F      |   23 |    2 |
+| 140 | Darshan | pune    |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 142 | Jagruti | Jalna   |  35000 | NULL       | f      |   25 | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> select * from dept;
++-----+-------+--------+
+| dno | name  | loc    |
++-----+-------+--------+
+|   1 | HR    | Pune   |
+|   2 | Admin | Mumbai |
+|   3 | IT    | Pune   |
+|   4 | SCM   | Nasik  |
++-----+-------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee e
+    -> inner join dept d
+    -> on e.dno = d.dno;
++-----+---------+---------+--------+------------+--------+------+------+-----+-------+--------+
+| eid | name    | address | income | j_date     | gender | age  | dno  | dno | name  | loc    |
++-----+---------+---------+--------+------------+--------+------+------+-----+-------+--------+
+| 110 | Tushar  | Pune    |  25000 | NULL       | M      | NULL |    1 |   1 | HR    | Pune   |
+| 108 | Gaurav  | Jalgoan |  22000 | 2023-12-04 | M      |   23 |    2 |   2 | Admin | Mumbai |
+| 130 | Sneha   | pune    |  34000 | 2021-05-20 | F      |   23 |    2 |   2 | Admin | Mumbai |
+| 140 | Darshan | pune    |  24000 | 2022-03-21 | M      |   23 |    2 |   2 | Admin | Mumbai |
+| 101 | Aditya  | Jalgoan |  23000 | 2021-05-20 | M      |   25 |    3 |   3 | IT    | Pune   |
+| 102 | Aditya  | pune    |  26000 | NULL       | M      |   24 |    3 |   3 | IT    | Pune   |
+| 103 | Aarti   | pune    |  25000 | NULL       | F      |   25 |    3 |   3 | IT    | Pune   |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 |    3 |   3 | IT    | Pune   |
++-----+---------+---------+--------+------------+--------+------+------+-----+-------+--------+
+8 rows in set (0.00 sec)
+
+mysql> select e.name,d.dname from employee e
+    -> inner join dept d on e.dno = d.dno;
+ERROR 1054 (42S22): Unknown column 'd.dname' in 'field list'
+mysql> select e.name,d.name from employee e
+    -> inner join dept d on e.dno = d.dno;
++---------+-------+
+| name    | name  |
++---------+-------+
+| Tushar  | HR    |
+| Gaurav  | Admin |
+| Sneha   | Admin |
+| Darshan | Admin |
+| Aditya  | IT    |
+| Aditya  | IT    |
+| Aarti   | IT    |
+| Sanket  | IT    |
++---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> select e.name "Emp name",d.dname "dept name" from employee e
+    -> inner join dept d on e.dno = d.dno;
+ERROR 1054 (42S22): Unknown column 'd.dname' in 'field list'
+mysql> select e.name "Emp name",d.name "dept name" from employee e
+    -> inner join dept d on e.dno = d.dno;
++----------+-----------+
+| Emp name | dept name |
++----------+-----------+
+| Tushar   | HR        |
+| Gaurav   | Admin     |
+| Sneha    | Admin     |
+| Darshan  | Admin     |
+| Aditya   | IT        |
+| Aditya   | IT        |
+| Aarti    | IT        |
+| Sanket   | IT        |
++----------+-----------+
+8 rows in set (0.00 sec)
+
+mysql> select * from dept d
+    -> inner join employee e
+    -> on d.dno = e.dno;
++-----+-------+--------+-----+---------+---------+--------+------------+--------+------+------+
+| dno | name  | loc    | eid | name    | address | income | j_date     | gender | age  | dno  |
++-----+-------+--------+-----+---------+---------+--------+------------+--------+------+------+
+|   1 | HR    | Pune   | 110 | Tushar  | Pune    |  25000 | NULL       | M      | NULL |    1 |
+|   2 | Admin | Mumbai | 108 | Gaurav  | Jalgoan |  22000 | 2023-12-04 | M      |   23 |    2 |
+|   2 | Admin | Mumbai | 130 | Sneha   | pune    |  34000 | 2021-05-20 | F      |   23 |    2 |
+|   2 | Admin | Mumbai | 140 | Darshan | pune    |  24000 | 2022-03-21 | M      |   23 |    2 |
+|   3 | IT    | Pune   | 101 | Aditya  | Jalgoan |  23000 | 2021-05-20 | M      |   25 |    3 |
+|   3 | IT    | Pune   | 102 | Aditya  | pune    |  26000 | NULL       | M      |   24 |    3 |
+|   3 | IT    | Pune   | 103 | Aarti   | pune    |  25000 | NULL       | F      |   25 |    3 |
+|   3 | IT    | Pune   | 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 |    3 |
++-----+-------+--------+-----+---------+---------+--------+------------+--------+------+------+
+8 rows in set (0.00 sec)
+
+mysql> select * from dept d
+    -> inner join employee e
+    -> on e.dno = d.dno;
++-----+-------+--------+-----+---------+---------+--------+------------+--------+------+------+
+| dno | name  | loc    | eid | name    | address | income | j_date     | gender | age  | dno  |
++-----+-------+--------+-----+---------+---------+--------+------------+--------+------+------+
+|   1 | HR    | Pune   | 110 | Tushar  | Pune    |  25000 | NULL       | M      | NULL |    1 |
+|   2 | Admin | Mumbai | 108 | Gaurav  | Jalgoan |  22000 | 2023-12-04 | M      |   23 |    2 |
+|   2 | Admin | Mumbai | 130 | Sneha   | pune    |  34000 | 2021-05-20 | F      |   23 |    2 |
+|   2 | Admin | Mumbai | 140 | Darshan | pune    |  24000 | 2022-03-21 | M      |   23 |    2 |
+|   3 | IT    | Pune   | 101 | Aditya  | Jalgoan |  23000 | 2021-05-20 | M      |   25 |    3 |
+|   3 | IT    | Pune   | 102 | Aditya  | pune    |  26000 | NULL       | M      |   24 |    3 |
+|   3 | IT    | Pune   | 103 | Aarti   | pune    |  25000 | NULL       | F      |   25 |    3 |
+|   3 | IT    | Pune   | 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 |    3 |
++-----+-------+--------+-----+---------+---------+--------+------------+--------+------+------+
+8 rows in set (0.00 sec)
+
+mysql> select * from employee;
++-----+---------+---------+--------+------------+--------+------+------+
+| eid | name    | address | income | j_date     | gender | age  | dno  |
++-----+---------+---------+--------+------------+--------+------+------+
+| 101 | Aditya  | Jalgoan |  23000 | 2021-05-20 | M      |   25 |    3 |
+| 102 | Aditya  | pune    |  26000 | NULL       | M      |   24 |    3 |
+| 103 | Aarti   | pune    |  25000 | NULL       | F      |   25 |    3 |
+| 105 | Sanket  | Manchar |  25000 | 2021-05-20 | M      |   24 |    3 |
+| 106 | Hansraj | Jalgoan |  25000 | 2023-12-04 | M      |   25 | NULL |
+| 108 | Gaurav  | Jalgoan |  22000 | 2023-12-04 | M      |   23 |    2 |
+| 110 | Tushar  | Pune    |  25000 | NULL       | M      | NULL |    1 |
+| 130 | Sneha   | pune    |  34000 | 2021-05-20 | F      |   23 |    2 |
+| 140 | Darshan | pune    |  24000 | 2022-03-21 | M      |   23 |    2 |
+| 142 | Jagruti | Jalna   |  35000 | NULL       | f      |   25 | NULL |
++-----+---------+---------+--------+------------+--------+------+------+
+10 rows in set (0.00 sec)
+
+mysql> select * from dept;
++-----+-------+--------+
+| dno | name  | loc    |
++-----+-------+--------+
+|   1 | HR    | Pune   |
+|   2 | Admin | Mumbai |
+|   3 | IT    | Pune   |
+|   4 | SCM   | Nasik  |
++-----+-------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select d.name, e.name, income from employee e
+    -> iner join dept d
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'iner join dept d' at line 2
+mysql> select d.name, e.name, income from employee e
+    -> inner join dept d
+    -> on e.dno = d.dno
+    -> where j_date > "2022-6-30";
++-------+--------+--------+
+| name  | name   | income |
++-------+--------+--------+
+| Admin | Gaurav |  22000 |
++-------+--------+--------+
+1 row in set (0.03 sec)
+
+mysql> select eid, e.name, address, d.name
+    -> from employee e inner join dept d
+    -> inner join e.dno = d.dno
+    -> where loc="pune;
+    "> ";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '= d.dno
+where loc="pune;
+"' at line 3
+mysql> select eid, e.name, address, d.name
+    -> from employee e inner join dept d
+    -> on e.dno = d.dno
+    -> where loc="pune" order by income desc;
++-----+--------+---------+------+
+| eid | name   | address | name |
++-----+--------+---------+------+
+| 102 | Aditya | pune    | IT   |
+| 110 | Tushar | Pune    | HR   |
+| 103 | Aarti  | pune    | IT   |
+| 105 | Sanket | Manchar | IT   |
+| 101 | Aditya | Jalgoan | IT   |
++-----+--------+---------+------+
+5 rows in set (0.00 sec)
+
+mysql> select d.name , count(*) , avg(income)
+    -> from employee e inner join dept d
+    -> on e.dno = d.dno
+    -> group by d.dno;
++-------+----------+-------------+
+| name  | count(*) | avg(income) |
++-------+----------+-------------+
+| HR    |        1 |  25000.0000 |
+| Admin |        3 |  26666.6667 |
+| IT    |        4 |  24750.0000 |
++-------+----------+-------------+
+3 rows in set (0.03 sec)
+
+mysql> use ass2;
+Database changed
+mysql> select * from books;
++-----+---------------+----------------+------+----------+
+| bno | name          | aname          | cost | category |
++-----+---------------+----------------+------+----------+
+| 101 | Let us c      | Dennis Ritchie |  450 | system   |
+| 102 | Orale         | Loni           |  550 | Database |
+| 103 | Mastering SQL | Loni           |  250 | Database |
+| 104 | PLSQL         | Scott Urman    |  750 | Database |
+| 105 | Oracle DB     | Scott Urman    | 1000 | Database |
++-----+---------------+----------------+------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from issue;
++--------+------+------+------------+------------+
+| iss_id | bno  | mid  | iss_date   | ret_date   |
++--------+------+------+------------+------------+
+|   1001 |  101 |    1 | 2022-06-02 | 2024-12-25 |
+|   1002 |  102 |    2 | 2022-06-02 | NULL       |
+|   1003 |  104 |    1 | 2022-12-02 | NULL       |
+|   1004 |  101 |    1 | 2023-01-02 | NULL       |
+|   1005 |  104 |    1 | 2023-05-20 | 2024-12-25 |
+|   1006 |  101 |    3 | 2024-09-25 | NULL       |
++--------+------+------+------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from menbers;
+ERROR 1146 (42S02): Table 'ass2.menbers' doesn't exist
+mysql> select * from member;
++-----+--------------+---------+------------+-----------+-------+
+| mid | name         | address | acc_date   | m_type    | fees  |
++-----+--------------+---------+------------+-----------+-------+
+|   1 | Richa sharma | pune    | 2020-10-05 | lifetime  | 25000 |
+|   2 | Garima sen   | Pune    | 2023-01-15 | Annual    |  1000 |
+|   3 | Supriya      | Nagar   | 2022-10-15 | Quarterly |   500 |
+|   4 | Sonal        | Mumbai  | 2020-01-12 | Annual    |  2000 |
++-----+--------------+---------+------------+-----------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select bno,iss_date,ret_date
+    -> from issue i inner join member m
+    -> on i.mid = m.mid
+    -> where m.name ="Garima Sen";
++------+------------+----------+
+| bno  | iss_date   | ret_date |
++------+------------+----------+
+|  102 | 2022-06-02 | NULL     |
++------+------------+----------+
+1 row in set (0.03 sec)
+
+mysql>
+
