@@ -1,0 +1,965 @@
+
+select name, city, salary 
+from employee where dept_id in
+(select dept_id from department
+where dept_loc="Pune")
+
+Last login: Mon Apr 20 18:20:31 on console
+ranjitkale@Ranjits-MacBook-Air ~ % mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 18
+Server version: 8.4.6 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use feb_mar_hybrid2026;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
+| 107 | Tushar  | 34000.00 | 2026-04-01   | tushar@amazon.com    | M      |   22 | Sangali       |       2 |
+| 109 | Samarth | 32000.00 | 2026-05-01   | samarth@amazon.com   | M      |   24 | Pune          |       2 |
+| 110 | Aman    | 32000.00 | 2026-05-01   | aman@amazon.com      | M      |   24 | Mumbai        |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
+| 107 | Tushar  | 34000.00 | 2026-04-01   | tushar@amazon.com    | M      |   22 | Sangali       |       2 |
+| 109 | Samarth | 32000.00 | 2026-05-01   | samarth@amazon.com   | M      |   24 | Pune          |       2 |
+| 110 | Aman    | 32000.00 | 2026-05-01   | aman@amazon.com      | M      |   24 | Mumbai        |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> table department;
++---------+-----------+----------+
+| dept_id | dept_name | dept_loc |
++---------+-----------+----------+
+|       1 | IT        | Pune     |
+|       2 | Admin     | Nagpur   |
+|       3 | HR        | Pune     |
++---------+-----------+----------+
+3 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+mysql> select length("MySQL");
++-----------------+
+| length("MySQL") |
++-----------------+
+|               5 |
++-----------------+
+1 row in set (0.01 sec)
+
+mysql> select length("Learning MySQL");
++--------------------------+
+| length("Learning MySQL") |
++--------------------------+
+|                       14 |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+mysql> select upper("Learning MySQL");
++-------------------------+
+| upper("Learning MySQL") |
++-------------------------+
+| LEARNING MYSQL          |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> select ucase("Learning MySQL");
++-------------------------+
+| ucase("Learning MySQL") |
++-------------------------+
+| LEARNING MYSQL          |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+mysql> select lower("Learning MySQL");
++-------------------------+
+| lower("Learning MySQL") |
++-------------------------+
+| learning mysql          |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> select lcase("Learning MySQL");
++-------------------------+
+| lcase("Learning MySQL") |
++-------------------------+
+| learning mysql          |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+mysql> select trim("   firstbit");
++---------------------+
+| trim("   firstbit") |
++---------------------+
+| firstbit            |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select trim("   firstbit") as res;
++----------+
+| res      |
++----------+
+| firstbit |
++----------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+mysql> select ltrim("   firstbit") as res;
++----------+
+| res      |
++----------+
+| firstbit |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select rtrim("   firstbit    ") as res;
++-------------+
+| res         |
++-------------+
+|    firstbit |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+mysql> select trim("   firstbit    ") as res;
++----------+
+| res      |
++----------+
+| firstbit |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select replace("Learning SQL","SQL","MySQL");
++---------------------------------------+
+| replace("Learning SQL","SQL","MySQL") |
++---------------------------------------+
+| Learning MySQL                        |
++---------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+mysql> select locate("SQL","Learning SQL");
++------------------------------+
+| locate("SQL","Learning SQL") |
++------------------------------+
+|                           10 |
++------------------------------+
+1 row in set (0.01 sec)
+
+mysql> select locate("S","Learning SQL");
++----------------------------+
+| locate("S","Learning SQL") |
++----------------------------+
+|                         10 |
++----------------------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+mysql> select locate("a","Learning SQL");
++----------------------------+
+| locate("a","Learning SQL") |
++----------------------------+
+|                          3 |
++----------------------------+
+1 row in set (0.00 sec)
+
+mysql> select locate(" ","Learning SQL");
++----------------------------+
+| locate(" ","Learning SQL") |
++----------------------------+
+|                          9 |
++----------------------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+mysql> select substring("Learning MySQL",1,5);
++---------------------------------+
+| substring("Learning MySQL",1,5) |
++---------------------------------+
+| Learn                           |
++---------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select substring("Learning MySQL",3,8);
++---------------------------------+
+| substring("Learning MySQL",3,8) |
++---------------------------------+
+| arning M                        |
++---------------------------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+mysql> select name, length(name) as "Length of Name" from employee;
++---------+----------------+
+| name    | Length of Name |
++---------+----------------+
+| Varad   |              5 |
+| Sayali  |              6 |
+| Mansi   |              5 |
+| Nisha   |              5 |
+| Shreyas |              7 |
+| Tushar  |              6 |
+| Samarth |              7 |
+| Aman    |              4 |
++---------+----------------+
+8 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+mysql> select upper(name) as "Employee Name" from employee;
++---------------+
+| Employee Name |
++---------------+
+| VARAD         |
+| SAYALI        |
+| MANSI         |
+| NISHA         |
+| SHREYAS       |
+| TUSHAR        |
+| SAMARTH       |
+| AMAN          |
++---------------+
+8 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+mysql> select concat("Hello","World");
++-------------------------+
+| concat("Hello","World") |
++-------------------------+
+| HelloWorld              |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> select concat("Hello"," ","World");
++-----------------------------+
+| concat("Hello"," ","World") |
++-----------------------------+
+| Hello World                 |
++-----------------------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+mysql> select concat_ws(" ","Hello","World");
++--------------------------------+
+| concat_ws(" ","Hello","World") |
++--------------------------------+
+| Hello World                    |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select concat_ws("/","21","04","2026");
++---------------------------------+
+| concat_ws("/","21","04","2026") |
++---------------------------------+
+| 21/04/2026                      |
++---------------------------------+
+1 row in set (0.01 sec)
+
+mysql> 
+
+
+
+
+
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
+| 107 | Tushar  | 34000.00 | 2026-04-01   | tushar@amazon.com    | M      |   22 | Sangali       |       2 |
+| 109 | Samarth | 32000.00 | 2026-05-01   | samarth@amazon.com   | M      |   24 | Pune          |       2 |
+| 110 | Aman    | 32000.00 | 2026-05-01   | aman@amazon.com      | M      |   24 | Mumbai        |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> 
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
+| 107 | Tushar  | 34000.00 | 2026-04-01   | tushar@amazon.com    | M      |   22 | Sangali       |       2 |
+| 109 | Samarth | 32000.00 | 2026-05-01   | samarth@amazon.com   | M      |   24 | Pune          |       2 |
+| 110 | Aman    | 32000.00 | 2026-05-01   | aman@amazon.com      | M      |   24 | Mumbai        |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> select round(234.56);
++---------------+
+| round(234.56) |
++---------------+
+|           235 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+mysql> select round(234.46);
++---------------+
+| round(234.46) |
++---------------+
+|           234 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select round(234.76);
++---------------+
+| round(234.76) |
++---------------+
+|           235 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+mysql> select floor(234.67);
++---------------+
+| floor(234.67) |
++---------------+
+|           234 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select ceil(234.47);
++--------------+
+| ceil(234.47) |
++--------------+
+|          235 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+mysql> select mod(8,2);
++----------+
+| mod(8,2) |
++----------+
+|        0 |
++----------+
+1 row in set (0.01 sec)
+
+mysql> select mod(9,2);
++----------+
+| mod(9,2) |
++----------+
+|        1 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+mysql> select power(2,4);
++------------+
+| power(2,4) |
++------------+
+|         16 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select sqrt(64);
++----------+
+| sqrt(64) |
++----------+
+|        8 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+mysql> select avg(salary) from employee;
++--------------+
+| avg(salary)  |
++--------------+
+| 26750.000000 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select round(avg(salary)) from employee;
++--------------------+
+| round(avg(salary)) |
++--------------------+
+|              26750 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+mysql> select abs(-10);
++----------+
+| abs(-10) |
++----------+
+|       10 |
++----------+
+1 row in set (0.01 sec)
+
+mysql> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2026-04-21 09:40:28 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+mysql> select abs(-10);
++----------+
+| abs(-10) |
++----------+
+|       10 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2026-04-21 09:40:34 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> select curdate();
++------------+
+| curdate()  |
++------------+
+| 2026-04-21 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select curtime();
++-----------+
+| curtime() |
++-----------+
+| 09:41:07  |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+mysql> select curdate();
++------------+
+| curdate()  |
++------------+
+| 2026-04-21 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select curdate();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> select year(curdate());
++-----------------+
+| year(curdate()) |
++-----------------+
+|            2026 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> select month(curdate());
++------------------+
+| month(curdate()) |
++------------------+
+|                4 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> select date_diff(curdate(),"2026-4-1");
+ERROR 1305 (42000): FUNCTION feb_mar_hybrid2026.date_diff does not exist
+mysql> select datediff(curdate(),"2026-4-1");
++--------------------------------+
+| datediff(curdate(),"2026-4-1") |
++--------------------------------+
+|                             20 |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> select datediff(curdate(),"2025-4-1");
++--------------------------------+
+| datediff(curdate(),"2025-4-1") |
++--------------------------------+
+|                            385 |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_add(curdate(), interval 10 day);
++--------------------------------------+
+| date_add(curdate(), interval 10 day) |
++--------------------------------------+
+| 2026-05-01                           |
++--------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+mysql> select date_add(curdate(), interval 100 day);
++---------------------------------------+
+| date_add(curdate(), interval 100 day) |
++---------------------------------------+
+| 2026-07-30                            |
++---------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_add(curdate(), interval 100 day);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> select date_add(curdate(), interval 1 month);
++---------------------------------------+
+| date_add(curdate(), interval 1 month) |
++---------------------------------------+
+| 2026-05-21                            |
++---------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> select date_add(curdate(), interval 100 month);
++-----------------------------------------+
+| date_add(curdate(), interval 100 month) |
++-----------------------------------------+
+| 2034-08-21                              |
++-----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> select date_add(curdate(), interval 1 year);
++--------------------------------------+
+| date_add(curdate(), interval 1 year) |
++--------------------------------------+
+| 2027-04-21                           |
++--------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> select date_add(curdate(), interval 100 year);
++----------------------------------------+
+| date_add(curdate(), interval 100 year) |
++----------------------------------------+
+| 2126-04-21                             |
++----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_add(curdate(), interval 100 year);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> select date_add(curdate(), interval 6000 year);
++-----------------------------------------+
+| date_add(curdate(), interval 6000 year) |
++-----------------------------------------+
+| 8026-04-21                              |
++-----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_sub(curdate(), interval 10 day);
++--------------------------------------+
+| date_sub(curdate(), interval 10 day) |
++--------------------------------------+
+| 2026-04-11                           |
++--------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select date_sub(curdate(), interval 100 year);
++----------------------------------------+
+| date_sub(curdate(), interval 100 year) |
++----------------------------------------+
+| 1926-04-21                             |
++----------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> 
