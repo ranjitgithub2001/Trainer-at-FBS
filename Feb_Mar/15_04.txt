@@ -1,0 +1,634 @@
+select * from employee
+where salary between 20000 and 30000
+and age<23;
+
+select name, salary, email from 
+employee
+where city in ("Mumbai","Nanded")
+and salary<=30000;
+
+select name from employee
+where email like "%@google.com";
+
+Last login: Tue Apr 14 08:06:35 on ttys000
+ranjitkale@Ranjits-MacBook-Air ~ % mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2486
+Server version: 8.4.6 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use feb_mar_hybrid2026;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
+| 107 | Tushar  | 34000.00 | 2026-04-01   | tushar@amazon.com    | M      |   22 | Sangali       |       2 |
+| 109 | Samarth | 32000.00 | 2026-05-01   | samarth@amazon.com   | M      |   24 | Pune          |       2 |
+| 110 | Aman    | 32000.00 | 2026-05-01   | aman@amazon.com      | M      |   24 | Mumbai        |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
+| 107 | Tushar  | 34000.00 | 2026-04-01   | tushar@amazon.com    | M      |   22 | Sangali       |       2 |
+| 109 | Samarth | 32000.00 | 2026-05-01   | samarth@amazon.com   | M      |   24 | Pune          |       2 |
+| 110 | Aman    | 32000.00 | 2026-05-01   | aman@amazon.com      | M      |   24 | Mumbai        |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+8 rows in set (0.01 sec)
+
+mysql> select * from employee
+    -> where salary between 20000 and 30000
+    -> and age<=23;
++-----+---------+----------+--------------+----------------------+--------+------+-----------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city      | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+-----------+---------+
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur   |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+-----------+---------+
+2 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+mysql> select * from employee
+    -> where salary between 20000 and 30000
+    -> and age<23;
+Empty set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
+| 107 | Tushar  | 34000.00 | 2026-04-01   | tushar@amazon.com    | M      |   22 | Sangali       |       2 |
+| 109 | Samarth | 32000.00 | 2026-05-01   | samarth@amazon.com   | M      |   24 | Pune          |       2 |
+| 110 | Aman    | 32000.00 | 2026-05-01   | aman@amazon.com      | M      |   24 | Mumbai        |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> select name from employee
+    -> where name="s";
+Empty set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> select name from employee
+    -> where name like "s%";
++---------+
+| name    |
++---------+
+| Sayali  |
+| Shreyas |
+| Samarth |
++---------+
+3 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> select name from employee
+    -> where name like "%a";
++-------+
+| name  |
++-------+
+| Nisha |
++-------+
+1 row in set (0.00 sec)
+
+mysql> select name from employee
+    -> where name like "%s%";
++---------+
+| name    |
++---------+
+| Sayali  |
+| Mansi   |
+| Nisha   |
+| Shreyas |
+| Tushar  |
+| Samarth |
++---------+
+6 rows in set (0.00 sec)
+
+mysql> 
+mysql> select name from employee where name like "%s%";
++---------+
+| name    |
++---------+
+| Sayali  |
+| Mansi   |
+| Nisha   |
+| Shreyas |
+| Tushar  |
+| Samarth |
++---------+
+6 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+mysql> select name from employee
+    -> where name like "_a%";
++---------+
+| name    |
++---------+
+| Varad   |
+| Sayali  |
+| Mansi   |
+| Samarth |
++---------+
+4 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+mysql> select name from employee
+    -> where name like "__a%";
++------+
+| name |
++------+
+| Aman |
++------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
+| 107 | Tushar  | 34000.00 | 2026-04-01   | tushar@amazon.com    | M      |   22 | Sangali       |       2 |
+| 109 | Samarth | 32000.00 | 2026-05-01   | samarth@amazon.com   | M      |   24 | Pune          |       2 |
+| 110 | Aman    | 32000.00 | 2026-05-01   | aman@amazon.com      | M      |   24 | Mumbai        |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
+| 107 | Tushar  | 34000.00 | 2026-04-01   | tushar@amazon.com    | M      |   22 | Sangali       |       2 |
+| 109 | Samarth | 32000.00 | 2026-05-01   | samarth@amazon.com   | M      |   24 | Pune          |       2 |
+| 110 | Aman    | 32000.00 | 2026-05-01   | aman@amazon.com      | M      |   24 | Mumbai        |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> select name from employee
+    -> where name like "%@google.com";
+Empty set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> select name from employee
+    -> where email like "%@google.com";
++--------+
+| name   |
++--------+
+| Varad  |
+| Sayali |
++--------+
+2 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
+| 107 | Tushar  | 34000.00 | 2026-04-01   | tushar@amazon.com    | M      |   22 | Sangali       |       2 |
+| 109 | Samarth | 32000.00 | 2026-05-01   | samarth@amazon.com   | M      |   24 | Pune          |       2 |
+| 110 | Aman    | 32000.00 | 2026-05-01   | aman@amazon.com      | M      |   24 | Mumbai        |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+8 rows in set (0.05 sec)
+
+mysql> 
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
+| 107 | Tushar  | 34000.00 | 2026-04-01   | tushar@amazon.com    | M      |   22 | Sangali       |       2 |
+| 109 | Samarth | 32000.00 | 2026-05-01   | samarth@amazon.com   | M      |   24 | Pune          |       2 |
+| 110 | Aman    | 32000.00 | 2026-05-01   | aman@amazon.com      | M      |   24 | Mumbai        |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> select * from employee
+    -> order by salary desc;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 107 | Tushar  | 34000.00 | 2026-04-01   | tushar@amazon.com    | M      |   22 | Sangali       |       2 |
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 109 | Samarth | 32000.00 | 2026-05-01   | samarth@amazon.com   | M      |   24 | Pune          |       2 |
+| 110 | Aman    | 32000.00 | 2026-05-01   | aman@amazon.com      | M      |   24 | Mumbai        |       3 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> select * from employee order by salary asc;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
+| 109 | Samarth | 32000.00 | 2026-05-01   | samarth@amazon.com   | M      |   24 | Pune          |       2 |
+| 110 | Aman    | 32000.00 | 2026-05-01   | aman@amazon.com      | M      |   24 | Mumbai        |       3 |
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 107 | Tushar  | 34000.00 | 2026-04-01   | tushar@amazon.com    | M      |   22 | Sangali       |       2 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> 
+
+
+mysql> select * from employee order by salary;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
+| 109 | Samarth | 32000.00 | 2026-05-01   | samarth@amazon.com   | M      |   24 | Pune          |       2 |
+| 110 | Aman    | 32000.00 | 2026-05-01   | aman@amazon.com      | M      |   24 | Mumbai        |       3 |
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 107 | Tushar  | 34000.00 | 2026-04-01   | tushar@amazon.com    | M      |   22 | Sangali       |       2 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> select name,salary,age from employee
+    -> order by salary,age;
++---------+----------+------+
+| name    | salary   | age  |
++---------+----------+------+
+| Sayali  | 18000.00 |   22 |
+| Mansi   | 18000.00 |   22 |
+| Nisha   | 21000.00 |   23 |
+| Shreyas | 26000.00 |   23 |
+| Samarth | 32000.00 |   24 |
+| Aman    | 32000.00 |   24 |
+| Varad   | 33000.00 |   22 |
+| Tushar  | 34000.00 |   22 |
++---------+----------+------+
+8 rows in set (0.00 sec)
+
+mysql> select name,salary,age from employee order by age,salary;
++---------+----------+------+
+| name    | salary   | age  |
++---------+----------+------+
+| Sayali  | 18000.00 |   22 |
+| Mansi   | 18000.00 |   22 |
+| Varad   | 33000.00 |   22 |
+| Tushar  | 34000.00 |   22 |
+| Nisha   | 21000.00 |   23 |
+| Shreyas | 26000.00 |   23 |
+| Samarth | 32000.00 |   24 |
+| Aman    | 32000.00 |   24 |
++---------+----------+------+
+8 rows in set (0.00 sec)
+
+mysql> 
+
+
+mysql> select name,salary,age from employee order by age,salary desc;
++---------+----------+------+
+| name    | salary   | age  |
++---------+----------+------+
+| Tushar  | 34000.00 |   22 |
+| Varad   | 33000.00 |   22 |
+| Sayali  | 18000.00 |   22 |
+| Mansi   | 18000.00 |   22 |
+| Shreyas | 26000.00 |   23 |
+| Nisha   | 21000.00 |   23 |
+| Samarth | 32000.00 |   24 |
+| Aman    | 32000.00 |   24 |
++---------+----------+------+
+8 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

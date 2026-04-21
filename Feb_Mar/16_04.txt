@@ -1,0 +1,765 @@
+
+
+
+select name, salary, age 
+from employee 
+order by salary desc
+limit 2 offset 3;
+
+
+select dept_id, avg(salary)
+from employee 
+group by dept_id
+having avg(salary)>30000;
+
+select city as "City", count(id) as "Count of Employee"
+from employee 
+group by city;
+
+alias 
+
+select id as "Emp_ID",
+name as "Emp_Name",
+salary as "Salary"
+from employee;
+
+Last login: Wed Apr 15 11:24:49 on ttys000
+ranjitkale@Ranjits-MacBook-Air ~ % mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2523
+Server version: 8.4.6 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use feb_mar_hybrid2026;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
+| 107 | Tushar  | 34000.00 | 2026-04-01   | tushar@amazon.com    | M      |   22 | Sangali       |       2 |
+| 109 | Samarth | 32000.00 | 2026-05-01   | samarth@amazon.com   | M      |   24 | Pune          |       2 |
+| 110 | Aman    | 32000.00 | 2026-05-01   | aman@amazon.com      | M      |   24 | Mumbai        |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+8 rows in set (0.01 sec)
+
+mysql> select name,salary,age from employee
+    -> order by salary desc;
++---------+----------+------+
+| name    | salary   | age  |
++---------+----------+------+
+| Tushar  | 34000.00 |   22 |
+| Varad   | 33000.00 |   22 |
+| Samarth | 32000.00 |   24 |
+| Aman    | 32000.00 |   24 |
+| Shreyas | 26000.00 |   23 |
+| Nisha   | 21000.00 |   23 |
+| Sayali  | 18000.00 |   22 |
+| Mansi   | 18000.00 |   22 |
++---------+----------+------+
+8 rows in set (0.00 sec)
+
+mysql> 
+
+
+mysql> select name,salary,age from employee order by salary desc;
++---------+----------+------+
+| name    | salary   | age  |
++---------+----------+------+
+| Tushar  | 34000.00 |   22 |
+| Varad   | 33000.00 |   22 |
+| Samarth | 32000.00 |   24 |
+| Aman    | 32000.00 |   24 |
+| Shreyas | 26000.00 |   23 |
+| Nisha   | 21000.00 |   23 |
+| Sayali  | 18000.00 |   22 |
+| Mansi   | 18000.00 |   22 |
++---------+----------+------+
+8 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> select name,salary,age from employee order by salary desc
+    -> limit 3;
++--------+----------+------+
+| name   | salary   | age  |
++--------+----------+------+
+| Tushar | 34000.00 |   22 |
+| Varad  | 33000.00 |   22 |
+| Aman   | 32000.00 |   24 |
++--------+----------+------+
+3 rows in set (0.00 sec)
+
+mysql> select name,salary,age from employee order by salary desc limit 5;
++---------+----------+------+
+| name    | salary   | age  |
++---------+----------+------+
+| Tushar  | 34000.00 |   22 |
+| Varad   | 33000.00 |   22 |
+| Samarth | 32000.00 |   24 |
+| Aman    | 32000.00 |   24 |
+| Shreyas | 26000.00 |   23 |
++---------+----------+------+
+5 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+mysql> select name,salary,age from employee order by salary desc limit 1;
++--------+----------+------+
+| name   | salary   | age  |
++--------+----------+------+
+| Tushar | 34000.00 |   22 |
++--------+----------+------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> select name,salary,age from employee order by salary desc;
++---------+----------+------+
+| name    | salary   | age  |
++---------+----------+------+
+| Tushar  | 34000.00 |   22 |
+| Varad   | 33000.00 |   22 |
+| Samarth | 32000.00 |   24 |
+| Aman    | 32000.00 |   24 |
+| Shreyas | 26000.00 |   23 |
+| Nisha   | 21000.00 |   23 |
+| Sayali  | 18000.00 |   22 |
+| Mansi   | 18000.00 |   22 |
++---------+----------+------+
+8 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> select name,salary,age from employee order by salary desc 
+    -> limit 3 offset 3;
++---------+----------+------+
+| name    | salary   | age  |
++---------+----------+------+
+| Aman    | 32000.00 |   24 |
+| Shreyas | 26000.00 |   23 |
+| Nisha   | 21000.00 |   23 |
++---------+----------+------+
+3 rows in set (0.00 sec)
+
+mysql> select name, salary, age 
+    -> from employee 
+    -> order by salary desc
+    -> (3,2);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(3,2)' at line 4
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> select name, salary, age 
+    -> from employee 
+    -> order by salary desc
+    -> limit (3,2);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(3,2)' at line 4
+mysql> select name, salary, age 
+    -> from employee 
+    -> order by salary desc
+    -> limit 3,2;
++---------+----------+------+
+| name    | salary   | age  |
++---------+----------+------+
+| Aman    | 32000.00 |   24 |
+| Shreyas | 26000.00 |   23 |
++---------+----------+------+
+2 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
+| 107 | Tushar  | 34000.00 | 2026-04-01   | tushar@amazon.com    | M      |   22 | Sangali       |       2 |
+| 109 | Samarth | 32000.00 | 2026-05-01   | samarth@amazon.com   | M      |   24 | Pune          |       2 |
+| 110 | Aman    | 32000.00 | 2026-05-01   | aman@amazon.com      | M      |   24 | Mumbai        |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> select sum(salary) from employee
+    -> ;
++-------------+
+| sum(salary) |
++-------------+
+|   214000.00 |
++-------------+
+1 row in set (0.01 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+mysql> select max(salary) from employee;
++-------------+
+| max(salary) |
++-------------+
+|    34000.00 |
++-------------+
+1 row in set (0.01 sec)
+
+mysql> select min(salary) from employee;
++-------------+
+| min(salary) |
++-------------+
+|    18000.00 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select max(age) from employee;
++----------+
+| max(age) |
++----------+
+|       24 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+mysql> select avg(salary) from employee;
++--------------+
+| avg(salary)  |
++--------------+
+| 26750.000000 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(age) from employee;
++----------+
+| avg(age) |
++----------+
+|  22.7500 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(id) from employee;
++-----------+
+| count(id) |
++-----------+
+|         8 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+mysql> select count(email) from employee;
++--------------+
+| count(email) |
++--------------+
+|            7 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
+| 107 | Tushar  | 34000.00 | 2026-04-01   | tushar@amazon.com    | M      |   22 | Sangali       |       2 |
+| 109 | Samarth | 32000.00 | 2026-05-01   | samarth@amazon.com   | M      |   24 | Pune          |       2 |
+| 110 | Aman    | 32000.00 | 2026-05-01   | aman@amazon.com      | M      |   24 | Mumbai        |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> 
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
+| 107 | Tushar  | 34000.00 | 2026-04-01   | tushar@amazon.com    | M      |   22 | Sangali       |       2 |
+| 109 | Samarth | 32000.00 | 2026-05-01   | samarth@amazon.com   | M      |   24 | Pune          |       2 |
+| 110 | Aman    | 32000.00 | 2026-05-01   | aman@amazon.com      | M      |   24 | Mumbai        |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> select count(id) from employee
+    -> where dept_id=1;
++-----------+
+| count(id) |
++-----------+
+|         4 |
++-----------+
+1 row in set (0.01 sec)
+
+mysql> select count(id) from employee where dept_id=1;
++-----------+
+| count(id) |
++-----------+
+|         4 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select count(id) from employee where dept_id=2;
++-----------+
+| count(id) |
++-----------+
+|         2 |
++-----------+
+1 row in set (0.01 sec)
+
+mysql> 
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
+| 107 | Tushar  | 34000.00 | 2026-04-01   | tushar@amazon.com    | M      |   22 | Sangali       |       2 |
+| 109 | Samarth | 32000.00 | 2026-05-01   | samarth@amazon.com   | M      |   24 | Pune          |       2 |
+| 110 | Aman    | 32000.00 | 2026-05-01   | aman@amazon.com      | M      |   24 | Mumbai        |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> select dept_id, count(id)
+    -> from employee 
+    -> group by dept_id;
++---------+-----------+
+| dept_id | count(id) |
++---------+-----------+
+|       1 |         4 |
+|       2 |         2 |
+|       3 |         2 |
++---------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+mysql> select dept_id, count(id), max(salary)
+    -> from employee 
+    -> group by dept_id;
++---------+-----------+-------------+
+| dept_id | count(id) | max(salary) |
++---------+-----------+-------------+
+|       1 |         4 |    33000.00 |
+|       2 |         2 |    34000.00 |
+|       3 |         2 |    32000.00 |
++---------+-----------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select city, count(id)
+    -> from employee 
+    -> group by city;
++---------------+-----------+
+| city          | count(id) |
++---------------+-----------+
+| Pune          |         2 |
+| SambhajiNagar |         1 |
+| Nanded        |         1 |
+| Dharashiv     |         1 |
+| Indapur       |         1 |
+| Sangali       |         1 |
+| Mumbai        |         1 |
++---------------+-----------+
+7 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+mysql> select dept_id, id
+    -> from employee 
+    -> group by dept_id;
+ERROR 1055 (42000): Expression #2 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'feb_mar_hybrid2026.employee.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select city, count(id)
+    -> from employee 
+    -> group by city;
++---------------+-----------+
+| city          | count(id) |
++---------------+-----------+
+| Pune          |         2 |
+| SambhajiNagar |         1 |
+| Nanded        |         1 |
+| Dharashiv     |         1 |
+| Indapur       |         1 |
+| Sangali       |         1 |
+| Mumbai        |         1 |
++---------------+-----------+
+7 rows in set (0.00 sec)
+
+mysql> 
+mysql> 
+
+
+
+
+
+
+
+
+
+
+mysql> select city, count(id) as "Count of Employee"
+    -> from employee 
+    -> group by city;
++---------------+-------------------+
+| city          | Count of Employee |
++---------------+-------------------+
+| Pune          |                 2 |
+| SambhajiNagar |                 1 |
+| Nanded        |                 1 |
+| Dharashiv     |                 1 |
+| Indapur       |                 1 |
+| Sangali       |                 1 |
+| Mumbai        |                 1 |
++---------------+-------------------+
+7 rows in set (0.00 sec)
+
+mysql> table
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
+| 107 | Tushar  | 34000.00 | 2026-04-01   | tushar@amazon.com    | M      |   22 | Sangali       |       2 |
+| 109 | Samarth | 32000.00 | 2026-05-01   | samarth@amazon.com   | M      |   24 | Pune          |       2 |
+| 110 | Aman    | 32000.00 | 2026-05-01   | aman@amazon.com      | M      |   24 | Mumbai        |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> select id as "Emp_ID",
+    -> name as "Emp_Name",
+    -> salary as "Salary"
+    -> from employee;
++--------+----------+----------+
+| Emp_ID | Emp_Name | Salary   |
++--------+----------+----------+
+|    101 | Varad    | 33000.00 |
+|    102 | Sayali   | 18000.00 |
+|    103 | Mansi    | 18000.00 |
+|    105 | Nisha    | 21000.00 |
+|    106 | Shreyas  | 26000.00 |
+|    107 | Tushar   | 34000.00 |
+|    109 | Samarth  | 32000.00 |
+|    110 | Aman     | 32000.00 |
++--------+----------+----------+
+8 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> select city as "City", count(id) as "Count of Employee"
+    -> from employee 
+    -> group by city;
++---------------+-------------------+
+| City          | Count of Employee |
++---------------+-------------------+
+| Pune          |                 2 |
+| SambhajiNagar |                 1 |
+| Nanded        |                 1 |
+| Dharashiv     |                 1 |
+| Indapur       |                 1 |
+| Sangali       |                 1 |
+| Mumbai        |                 1 |
++---------------+-------------------+
+7 rows in set (0.00 sec)
+
+mysql> select dept_id, avg(salary)
+    -> from employee 
+    -> group by dept_id
+    -> where avg(salary)>20000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where avg(salary)>20000' at line 4
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+mysql> select dept_id, avg(salary)
+    -> from employee 
+    -> group by dept_id
+    -> having avg(salary)>20000;
++---------+--------------+
+| dept_id | avg(salary)  |
++---------+--------------+
+|       1 | 22500.000000 |
+|       2 | 33000.000000 |
+|       3 | 29000.000000 |
++---------+--------------+
+3 rows in set (0.04 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> select dept_id, avg(salary)
+    -> from employee 
+    -> group by dept_id
+    -> having avg(salary)>30000;
++---------+--------------+
+| dept_id | avg(salary)  |
++---------+--------------+
+|       2 | 33000.000000 |
++---------+--------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

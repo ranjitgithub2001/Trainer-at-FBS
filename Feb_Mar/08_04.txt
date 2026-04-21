@@ -1,0 +1,166 @@
+create database database_name;
+
+
+create table table_name(columnList with datatype);
+
+create table employee(id int, 
+name varchar(100),salary decimal(8,2),
+joining_date date, email varchar(50), 
+age int);
+
+Last login: Tue Apr  7 18:34:16 on ttys002
+ranjitkale@Ranjits-MacBook-Air ~ % mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2075
+Server version: 8.4.6 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+mysql> create database feb_mar_hybrid2026;
+Query OK, 1 row affected (0.07 sec)
+
+mysql> show databases;
++------------------------+
+| Database               |
++------------------------+
+| fbs_attendance         |
+| feb_mar_hybrid2026     |
+| information_schema     |
+| jan_hybrid2026         |
+| may2025batch           |
+| mock_evaluation_system |
+| mysql                  |
+| oct_dec_hybrid         |
+| performance_schema     |
+| personal_practice      |
+| Saturday_workshop      |
+| sys                    |
++------------------------+
+12 rows in set (0.03 sec)
+
+mysql> 
+
+
+
+mysql> create table employee;
+ERROR 1046 (3D000): No database selected
+mysql> use feb_mar_hybrid2026;
+Database changed
+mysql> create table employee;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> create table employee(id int, name varchar(100),salary decimal(8,2),
+    -> joining_date date, email varchar(50), age int);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> show tables;
++------------------------------+
+| Tables_in_feb_mar_hybrid2026 |
++------------------------------+
+| employee                     |
++------------------------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+mysql> desc employee;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| id           | int          | YES  |     | NULL    |       |
+| name         | varchar(100) | YES  |     | NULL    |       |
+| salary       | decimal(8,2) | YES  |     | NULL    |       |
+| joining_date | date         | YES  |     | NULL    |       |
+| email        | varchar(50)  | YES  |     | NULL    |       |
+| age          | int          | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+6 rows in set (0.05 sec)
+
+mysql> alter table employee
+    -> add column city varchar(30);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> 
+
+
+
+
+
+
+
+mysql> desc employee;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| id           | int          | YES  |     | NULL    |       |
+| name         | varchar(100) | YES  |     | NULL    |       |
+| salary       | decimal(8,2) | YES  |     | NULL    |       |
+| joining_date | date         | YES  |     | NULL    |       |
+| email        | varchar(50)  | YES  |     | NULL    |       |
+| age          | int          | YES  |     | NULL    |       |
+| city         | varchar(30)  | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> add column gender char(2) after email;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> 
+
+
+
+
+
+
+mysql> desc employee;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| id           | int          | YES  |     | NULL    |       |
+| name         | varchar(100) | YES  |     | NULL    |       |
+| salary       | decimal(8,2) | YES  |     | NULL    |       |
+| joining_date | date         | YES  |     | NULL    |       |
+| email        | varchar(50)  | YES  |     | NULL    |       |
+| gender       | char(2)      | YES  |     | NULL    |       |
+| age          | int          | YES  |     | NULL    |       |
+| city         | varchar(30)  | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+

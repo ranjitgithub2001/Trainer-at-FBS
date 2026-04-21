@@ -1,0 +1,410 @@
+
+
+
+
+select count(id) from employee 
+where dept_id= (select dept_id 
+from department 
+where dept_name="IT");
+
+
+select dept_name 
+from department 
+where dept_id=(
+select dept_id from employee 
+where name="varad");
+
+
+select name from employee
+where dept_id in (select dept_id 
+from department
+where dept_loc="Pune");
+
+
+
+select dept_name from department
+where dept_id in (select dept_id 
+from employee
+where salary=(select max(salary) 
+from employee));
+
+
+Last login: Fri Apr 17 14:03:51 on ttys000
+ranjitkale@Ranjits-MacBook-Air ~ % mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2691
+Server version: 8.4.6 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use feb_mar_hybrid2026;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
+| 107 | Tushar  | 34000.00 | 2026-04-01   | tushar@amazon.com    | M      |   22 | Sangali       |       2 |
+| 109 | Samarth | 32000.00 | 2026-05-01   | samarth@amazon.com   | M      |   24 | Pune          |       2 |
+| 110 | Aman    | 32000.00 | 2026-05-01   | aman@amazon.com      | M      |   24 | Mumbai        |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
+| 107 | Tushar  | 34000.00 | 2026-04-01   | tushar@amazon.com    | M      |   22 | Sangali       |       2 |
+| 109 | Samarth | 32000.00 | 2026-05-01   | samarth@amazon.com   | M      |   24 | Pune          |       2 |
+| 110 | Aman    | 32000.00 | 2026-05-01   | aman@amazon.com      | M      |   24 | Mumbai        |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> table department;
++---------+-----------+----------+
+| dept_id | dept_name | dept_loc |
++---------+-----------+----------+
+|       1 | IT        | Pune     |
+|       2 | Admin     | Nagpur   |
+|       3 | HR        | Pune     |
++---------+-----------+----------+
+3 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+mysql> select name from employee 
+    -> where dept_name="Admin";
+ERROR 1054 (42S22): Unknown column 'dept_name' in 'where clause'
+mysql> select dept_id from department 
+    -> where dept_name="Admin";
++---------+
+| dept_id |
++---------+
+|       2 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select name from employee 
+    -> where dept_id=2;
++---------+
+| name    |
++---------+
+| Tushar  |
+| Samarth |
++---------+
+2 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+mysql> select name from employee 
+    -> where dept_id= (select dept_id 
+    -> from department 
+    -> where dept_name="Admin);
+    "> ;
+    "> ^C
+mysql> select name from employee 
+    -> where dept_id= (select dept_id 
+    -> from department 
+    -> where dept_name="Admin);
+    "> ^C
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> select name from employee 
+    -> where dept_id= (select dept_id 
+    -> from department 
+    -> where dept_name="Admin");
++---------+
+| name    |
++---------+
+| Tushar  |
+| Samarth |
++---------+
+2 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> select count(id) from employee 
+    -> where dept_id= (select dept_id 
+    -> from department 
+    -> where dept_name="IT");
++-----------+
+| count(id) |
++-----------+
+|         4 |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select name from employee
+    -> where dept_id=(select dept_id 
+    -> from department
+    -> where dept_loc="Pune");
+ERROR 1242 (21000): Subquery returns more than 1 row
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
+| 107 | Tushar  | 34000.00 | 2026-04-01   | tushar@amazon.com    | M      |   22 | Sangali       |       2 |
+| 109 | Samarth | 32000.00 | 2026-05-01   | samarth@amazon.com   | M      |   24 | Pune          |       2 |
+| 110 | Aman    | 32000.00 | 2026-05-01   | aman@amazon.com      | M      |   24 | Mumbai        |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> 
+
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
+| 107 | Tushar  | 34000.00 | 2026-04-01   | tushar@amazon.com    | M      |   22 | Sangali       |       2 |
+| 109 | Samarth | 32000.00 | 2026-05-01   | samarth@amazon.com   | M      |   24 | Pune          |       2 |
+| 110 | Aman    | 32000.00 | 2026-05-01   | aman@amazon.com      | M      |   24 | Mumbai        |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> table department;
++---------+-----------+----------+
+| dept_id | dept_name | dept_loc |
++---------+-----------+----------+
+|       1 | IT        | Pune     |
+|       2 | Admin     | Nagpur   |
+|       3 | HR        | Pune     |
++---------+-----------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select name from employee
+    -> where dept_id=(select dept_id 
+    -> from department
+    -> where dept_loc="Pune");
+ERROR 1242 (21000): Subquery returns more than 1 row
+mysql> 
+
+
+
+mysql> select name from employee
+    -> where dept_id=(select dept_id 
+    -> from department
+    -> where dept_loc="Pune");
+ERROR 1242 (21000): Subquery returns more than 1 row
+mysql> select name from employee
+    -> where dept_id in (select dept_id 
+    -> from department
+    -> where dept_loc="Pune");
++---------+
+| name    |
++---------+
+| Varad   |
+| Sayali  |
+| Mansi   |
+| Nisha   |
+| Shreyas |
+| Aman    |
++---------+
+6 rows in set (0.00 sec)
+
+mysql> 
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
+| 107 | Tushar  | 34000.00 | 2026-04-01   | tushar@amazon.com    | M      |   22 | Sangali       |       2 |
+| 109 | Samarth | 32000.00 | 2026-05-01   | samarth@amazon.com   | M      |   24 | Pune          |       2 |
+| 110 | Aman    | 32000.00 | 2026-05-01   | aman@amazon.com      | M      |   24 | Mumbai        |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> table department;
++---------+-----------+----------+
+| dept_id | dept_name | dept_loc |
++---------+-----------+----------+
+|       1 | IT        | Pune     |
+|       2 | Admin     | Nagpur   |
+|       3 | HR        | Pune     |
++---------+-----------+----------+
+3 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+mysql> select dept_name from department
+    -> where dept_id in (select dept_id 
+    -> from employee
+    -> where salary=(select max(salary) 
+    -> from employee));
++-----------+
+| dept_name |
++-----------+
+| Admin     |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

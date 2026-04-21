@@ -1,0 +1,608 @@
+update tableName 
+set columnName=value,
+column2=values
+where condition;
+
+delete from tableName
+where conditions;
+
+delete from employee 
+where id=104;
+
+
+Last login: Sat Apr 11 15:03:12 on ttys000
+ranjitkale@Ranjits-MacBook-Air ~ % mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2193
+Server version: 8.4.6 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++------------------------+
+| Database               |
++------------------------+
+| fbs_attendance         |
+| feb_mar_hybrid2026     |
+| information_schema     |
+| jan_hybrid2026         |
+| may2025batch           |
+| mock_evaluation_system |
+| mysql                  |
+| oct_dec_hybrid         |
+| performance_schema     |
+| personal_practice      |
+| Saturday_workshop      |
+| sys                    |
++------------------------+
+12 rows in set (0.03 sec)
+
+mysql> use feb_mar_hybrid2026;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 25000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 15000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 15000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 104 | Shivam  | 15000.00 | 2024-06-17   | NULL                 | M      |   21 | Dharashiv     |       1 |
+| 105 | Nisha   | 15000.00 | 2023-07-18   | NULL                 | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 15000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |    NULL |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 25000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 15000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 15000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 104 | Shivam  | 15000.00 | 2024-06-17   | NULL                 | M      |   21 | Dharashiv     |       1 |
+| 105 | Nisha   | 15000.00 | 2023-07-18   | NULL                 | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 15000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |    NULL |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> table department;
++---------+-----------+----------+
+| dept_id | dept_name | dept_loc |
++---------+-----------+----------+
+|       1 | IT        | Pune     |
++---------+-----------+----------+
+1 row in set (0.00 sec)
+
+mysql> insert into department values (2,"Admin","Nagpur"),(3,"HR","Pune");
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> 
+
+
+
+
+
+
+
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 25000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 15000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 15000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 104 | Shivam  | 15000.00 | 2024-06-17   | NULL                 | M      |   21 | Dharashiv     |       1 |
+| 105 | Nisha   | 15000.00 | 2023-07-18   | NULL                 | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 15000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |    NULL |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> table department;
++---------+-----------+----------+
+| dept_id | dept_name | dept_loc |
++---------+-----------+----------+
+|       1 | IT        | Pune     |
+|       2 | Admin     | Nagpur   |
+|       3 | HR        | Pune     |
++---------+-----------+----------+
+3 rows in set (0.00 sec)
+
+mysql> update employee set dept_id=3 where id=106;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> 
+
+
+
+
+
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 25000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 15000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 15000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 104 | Shivam  | 15000.00 | 2024-06-17   | NULL                 | M      |   21 | Dharashiv     |       1 |
+| 105 | Nisha   | 15000.00 | 2023-07-18   | NULL                 | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 15000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+6 rows in set (0.01 sec)
+
+mysql> update employee set email="nisha@amazon.com" where id=105;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 25000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 15000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 15000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 104 | Shivam  | 15000.00 | 2024-06-17   | NULL                 | M      |   21 | Dharashiv     |       1 |
+| 105 | Nisha   | 15000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 15000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+6 rows in set (0.01 sec)
+
+mysql> update employee set salary=salary+5000 where gender="M";
+Query OK, 3 rows affected (0.00 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 30000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 15000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 15000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 104 | Shivam  | 20000.00 | 2024-06-17   | NULL                 | M      |   21 | Dharashiv     |       1 |
+| 105 | Nisha   | 15000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 20000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+6 rows in set (0.01 sec)
+
+mysql> update employee set salary=salary+3000 where age>22;
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 30000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 15000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 15000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 104 | Shivam  | 20000.00 | 2024-06-17   | NULL                 | M      |   21 | Dharashiv     |       1 |
+| 105 | Nisha   | 18000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 23000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> update employee set salary=salary+3000;
+Query OK, 6 rows affected (0.00 sec)
+Rows matched: 6  Changed: 6  Warnings: 0
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 104 | Shivam  | 23000.00 | 2024-06-17   | NULL                 | M      |   21 | Dharashiv     |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+6 rows in set (0.01 sec)
+
+mysql> 
+
+
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 104 | Shivam  | 23000.00 | 2024-06-17   | NULL                 | M      |   21 | Dharashiv     |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+6 rows in set (0.04 sec)
+
+mysql> delete from employee where id=104;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+5 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+mysql> alter 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> alter table employee 
+    -> modify id int auto_increment;
+Query OK, 5 rows affected (0.06 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+5 rows in set (0.00 sec)
+
+mysql> 
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+5 rows in set (0.00 sec)
+
+mysql> insert into employee(name,salary,joining_date,email,gendre,age,city,dept_id)
+    -> values("");
+ERROR 1054 (42S22): Unknown column 'gendre' in 'field list'
+mysql> insert into employee(name,salary,joining_date,email,gender,age,city,dept_id)
+    -> values("Tushar",34000,"2026-04-01","tushar@amazon.com","M",22,"Sangali",2);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
+| 107 | Tushar  | 34000.00 | 2026-04-01   | tushar@amazon.com    | M      |   22 | Sangali       |       2 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> 
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
+| 107 | Tushar  | 34000.00 | 2026-04-01   | tushar@amazon.com    | M      |   22 | Sangali       |       2 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> insert into employee values(
+    -> 109,"Samarth",32000,"2026-05-01","samarth@amazon.com","M",24,"Pune",2);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
+| 107 | Tushar  | 34000.00 | 2026-04-01   | tushar@amazon.com    | M      |   22 | Sangali       |       2 |
+| 109 | Samarth | 32000.00 | 2026-05-01   | samarth@amazon.com   | M      |   24 | Pune          |       2 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+7 rows in set (0.00 sec)
+
+mysql> insert into employee(name,salary,joining_date,email,gender,age,city,dept_id)
+    -> "Aman",32000,"2026-05-01","aman@amazon.com","M",24,"Mumbai",3);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"Aman",32000,"2026-05-01","aman@amazon.com","M",24,"Mumbai",3)' at line 2
+mysql> insert into employee(name,salary,joining_date,email,gender,age,city,dept_id) values
+    -> ("Aman",32000,"2026-05-01","aman@amazon.com","M",24,"Mumbai",3);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+mysql> table employee;
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| id  | name    | salary   | joining_date | email                | gender | age  | city          | dept_id |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+| 101 | Varad   | 33000.00 | 2025-03-12   | varad@google.com     | M      |   22 | Pune          |       1 |
+| 102 | Sayali  | 18000.00 | 2025-05-17   | sayali@google.com    | F      |   22 | SambhajiNagar |       1 |
+| 103 | Mansi   | 18000.00 | 2026-04-17   | NULL                 | F      |   22 | Nanded        |       1 |
+| 105 | Nisha   | 21000.00 | 2023-07-18   | nisha@amazon.com     | F      |   23 | Dharashiv     |       1 |
+| 106 | Shreyas | 26000.00 | 2026-07-23   | shreyas@flipkart.com | M      |   23 | Indapur       |       3 |
+| 107 | Tushar  | 34000.00 | 2026-04-01   | tushar@amazon.com    | M      |   22 | Sangali       |       2 |
+| 109 | Samarth | 32000.00 | 2026-05-01   | samarth@amazon.com   | M      |   24 | Pune          |       2 |
+| 110 | Aman    | 32000.00 | 2026-05-01   | aman@amazon.com      | M      |   24 | Mumbai        |       3 |
++-----+---------+----------+--------------+----------------------+--------+------+---------------+---------+
+8 rows in set (0.00 sec)
+
+mysql> trucate table employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'trucate table employee' at line 1
+mysql> truncate table employee;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+mysql> table employee;
+Empty set (0.01 sec)
+
+mysql> insert into employee(name,salary,joining_date,email,gender,age,city,dept_id) values ("Aman",32000,"2026-05-01","aman@amazon.com","M",24,"Mumbai",3);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> table employee;
++----+------+----------+--------------+-----------------+--------+------+--------+---------+
+| id | name | salary   | joining_date | email           | gender | age  | city   | dept_id |
++----+------+----------+--------------+-----------------+--------+------+--------+---------+
+|  1 | Aman | 32000.00 | 2026-05-01   | aman@amazon.com | M      |   24 | Mumbai |       3 |
++----+------+----------+--------------+-----------------+--------+------+--------+---------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

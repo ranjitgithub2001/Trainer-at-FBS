@@ -1,0 +1,51 @@
+Customer
+-cust_id, cust_name, phone_no, email
+address, adhaarNo, age, gender, citizenship,
+dob, occupation
+
+Room
+-room_no, type, rentPerDay, isAvialable, 
+floor_no, category, sharing
+
+Booking
+-booking_id, cust_id, room_no,booking_date
+check-in_date, check-out_date, no_of_pax, status,
+booking_mode, adv_payment, remark
+
+Staff
+-staff_id, name, role, phone_no, gender, age,
+
+food_menu
+-food_id, dish_name, cuisine_type, type,
+price, prep_time, portion, spice_level, 
+rating, avialable_time
+
+food_order
+-food_order_id, food_id, booking_id, order_date,
+order_time, order_type, quantity, staff_id
+delivery_time
+
+
+laundry
+-laundry_id, booking_id, staff_id, no_of_cloth
+, date, time, return_date, return_time
+
+
+Vehicle
+-vehicle_id, brand , model, type, vehicle_no,
+isAvialable
+
+
+Site
+-site_id, site_name, distance, open_time, address,
+site_type, estimated_time, 
+
+
+site_visit
+-site_visit_id, site_id, booking_id, vehicle_id,
+staff_id, departure_date, departure_time,
+arrival_date, arrival_time, guide_id  
+
+  
+
+
